@@ -1,4 +1,5 @@
 <!DOCTYPE HTML> 
+<?php session_start();?>
 <html>
 <head>
 <style>
@@ -81,7 +82,6 @@ function test_input($data) {
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href ="for_my_password.php">Forgotten your Password?</a>
 </center>
 <?php
-session_start(); 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 if ($_POST["vercode"] != $_SESSION["vercode"] OR $_SESSION["vercode"]=='')  { 
 echo "Authentication Error!"; 
@@ -103,6 +103,7 @@ while($row=mysql_fetch_array($results))
 {
   $user=1;
   if(strcmp($row["password"],$password)==0){
+$_SESSION['loggedin']="Yes";
  header('Location: welcome.php');
 exit;
 }

@@ -1,4 +1,5 @@
 <html>
+<? php session_start();?>
 <head>
    <title>
       Share ur Fare
@@ -121,7 +122,7 @@ function test($data) {
 <?php
 if(empty($usernameErr) && empty($passErr) && empty($confErr) && empty($nameErr) && empty($EmailErr) && empty($PhoneErr))
   { 
-    echo 'hi';
+    echo 'Hi! '.$_POST["name"];
     $con = @mysqli_connect('localhost','root','pcp10','iitk');
     if(mysqli_connect_errno()){
       echo"Failed to connect to MYSQL: ".mysqli_connect_error;

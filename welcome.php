@@ -1,10 +1,17 @@
 <!DOCTYPE html> 
 <html> 
 <head>
- <title>
+	<title>
  	SHARE Ur FARE
  </title>
-  <style type="text/css"> 
+	<?php session_start();
+	if(!$_SESSION['loggedin'])
+	{
+		header("Location:login.php");
+		exit;
+	}
+	?>
+   <style type="text/css"> 
   h1{color:teal;} 
   .id1{ color:goldenrod; font-size: 22px; } 
   .id1:hover{ color:gold; }
@@ -13,6 +20,7 @@
   .id3:hover{ color:yellowgreen; } 
   .id4{ color:mediumslateblue; font-size: 22px; } 
   .id4:hover{ color:gold; } 
+  .id5:{ color:gold font-size: 12px; }
 </style> 
 </head> 
 <body style="background-color:lavender;"> 
@@ -29,8 +37,8 @@
 		<a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3" style="word-spacing: 0.2em;">About us</font></b></i></a> 
 		<a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Help</font></b></i></a> 
 		<a href="result.php" target=_top STYLE="text-decoration: none"><i><b><font class="id3"style="word-spacing: 0.2em;">Groups</font></b></i></a>
-		<a href="login.php" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Signout</font></b></i></a></p> <hr> <hr> 
-		<form action="data.php" name="travel"> 
+		<a href="signout.php" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Signout</font></b></i></a></p> <hr> <hr> 
+		<form action="result.php" method ="POST"> 
 			<font class= "id4">Source: </font>
 			<input type="text" name="source"><br><br> 
 			<font class= "id4">Destination: </font>
@@ -42,8 +50,24 @@
 			<font class= "id4"><abbr title="Time + Time variation=maximum time extended">Time variation: </abbr>
 			</font>
 			<input type="time" name="variation"><br><br> 
+			<font class= "id4">Gender Specific: </font>
+			<input type="radio" name="gender"
+			<?php if (isset($gender) && $gender=="female");?>
+			value="female">Female
+			<input type="radio" name="gender"
+			<?php if (isset($gender) && $gender=="male");?>
+			value="male">Male
+			<input type="radio" name="gender"
+			<?php if (isset($gender) && $gender=="any");?>
+			value="any">Any
+			<br><br>
 			<font class= "id4">Vehicle type: </font>
-			<input type="text" name="vehicle"><br><br> 
+			<input list="vehicle" name="vehicle">
+			<datalist id="vehicle">
+  			<option value="Auto">
+  			<option value="Vikram">
+  			<option value="Any">
+  			</datalist><br><br> 
 			<font class= "id4"><abbr title="for whom u r booking">No. of people: </abbr></font>
 			<input type="number" name="number"><br><br> <input type="submit" name="submit" value="Submit data"> 
 		</form> 

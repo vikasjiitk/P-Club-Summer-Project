@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html><body><?php 
+<html>
+<body><?php 
     session_start();
     $_SESSION = array();
-    header("Location:login.php");
-?>
+    $message = "Logged out successfully!";
+echo "<script type='text/javascript'>alert('$message');</script>";
+     echo '<META HTTP-EQUIV="Refresh" Content="0; URL=login.php">';
+ ?>
 </body></html>

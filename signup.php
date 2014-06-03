@@ -98,22 +98,22 @@ function test($data) {
    <h2><i>SIGN UP</i></h2>
 
    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-   Name: <input type="text" name="name">
+   <input type="text" name="name"placeholder="Name">
    <span class=error><?php echo $nameErr;?></span>
    <br><br>
-   Email: <input type="text" name="Email">
+   <input type="text" name="Email"placeholder="Email">
    <span class=error><?php echo $EmailErr;?></span>
    <br><br>
-   Phone no.: <input type="text" name="Phone">
+    <input type="text" name="Phone"placeholder="Phone no.">
    <span class=error><?php echo $PhoneErr;?></span>
    <br><br>
-   Choose a username: <input type="text" name="username">
+   <input type="text" name="username"placeholder="Choose a username">
    <span class=error><?php echo $usernameErr;?></span>
    <br><br>
-   Password: <input type="password" name="pass">
+   <input type="password" name="pass"placeholder="Password">
    <span class=error><?php echo $passErr;?></span>
    <br><br>
-   Confirm Password: <input type="password" name="conf">
+   <input type="password" name="conf" placeholder="Confirm Password">
    <span class=error><?php echo $confErr;?></span>
    <br><br>
    <input type="submit" name="submit" value="Submit">
@@ -137,11 +137,10 @@ if(empty($usernameErr) && empty($passErr) && empty($confErr) && empty($nameErr) 
      VALUES(NULL,'$username','$pass','$name','$Email','$Phone')";
      if(!mysqli_query($con,$sql))
      {die('Error: '.mysqli_error($con));}
-
-     echo '<br>' . "<h3>Welcome to share your fare</h3>" . '<br>';
-
-     echo "<a href=login.php>Go to Login Page</a>";
-
+$message = "Account created successfully!";
+echo "<script type='text/javascript'>alert('$message');</script>";
+     echo '<META HTTP-EQUIV="Refresh" Content="0; URL=login.php">';    
+    exit;  
       @mysqli_close($con);
       $nameErr=$EmailErr=$usernameErr=$passErr=$confErr="*";
       $PhoneErr='*';

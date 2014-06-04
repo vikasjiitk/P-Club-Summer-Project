@@ -1,4 +1,3 @@
-
 <!DOCTYPE html> 
 <html> 
 <head>
@@ -14,6 +13,8 @@ exit;
 ?>
   <style type="text/css"> 
   h1{color:teal;} 
+  .align {text-align: center; color: blue;}
+	.cen {text-align: center;}
   .id1{ color:goldenrod; font-size: 22px; } 
   .id1:hover{ color:gold; }
   .id2:hover{ color:indigo; } 
@@ -38,7 +39,7 @@ exit;
 		<a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3" style="word-spacing: 0.2em;">About us</font></b></i></a> 
 		<a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Help</font></b></i></a> 
 		<a href="signout.php" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Signout</font></b></i></a></p> <hr> <hr> 
-		<form action="group_search.php" method="post"> 
+		<span class=cen><form action="group_search.php" method="post">
 			<font class= "id4">Source: </font>
 			<input type="text" name="source"><br><br> 
 			<font class= "id4">Destination: </font>
@@ -58,6 +59,6 @@ exit;
 			<input type="text" name="vehicle"><br><br> 
 			<font class= "id4"><abbr title="for whom u r booking">No. of people: </abbr></font>
 			<input type="number" name="number"><br><br> <input type="submit" name="submit" value="Find Group"> 
-		</form> 
+		</form></span>
 	</body> 
 	</html>

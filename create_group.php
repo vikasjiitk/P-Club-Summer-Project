@@ -2,11 +2,24 @@
 <head>
 	<title>Create Group</title>
 	<style type="text/css">
+	h1{color:teal;} 
 	.align {text-align: center; color: blue;}
 	.cen {text-align: center;}
+	.id1{ color:goldenrod; font-size: 22px; } 
+  .id1:hover{ color:gold; }
+  .id2:hover{ color:indigo; } 
+  .id3{ color:olivedrab; font-size: 22px; } 
+  .id3:hover{ color:yellowgreen; } 
+  .id4{ color:mediumslateblue; font-size: 22px; } 
+  .id4:hover{ color:gold; }  
 	</style>
 </head>
 <body style="background-color:lavender";>
+<h1 style="text-align:Center;"><i><b><font class="id2"><ins>SHARE ur FARE</ins></font></b></i></h1> 
+	<hr> 
+	<font class="id1">Disclaimer:</font>
+	<hr>
+	<hr> 
 	<p style="word-spacing: 3em;">
 		<a href="welcome.php" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Home</font></b></i></a>
 		<a href="create_group.php" target=_top STYLE="text-decoration: none"><i><b><font class="id3">CreateGroup</font></b></i></a> 

@@ -1,7 +1,24 @@
-<!DOCTYPE HTML> 
+<!DOCTYPE HTML>
 <?php session_start();?>
 <html>
 <head>
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="assets/ico/favicon.ico">
+
+    <title>Signin</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="signin.css" rel="stylesheet">
+
+    
+    
 <style>
 body {background-image:url("b1.jpg");}
 background-repeat:repeat-x;
@@ -10,7 +27,9 @@ background-repeat:repeat-x;
 <style>
 h1
 {
-text-shadow:  10px 7px 5px #87CEEB;
+font-family: Magneto;
+font-size: 50px;
+
 }
 </style>
 <style>
@@ -20,8 +39,8 @@ text-shadow:  10px 7px 5px #87CEEB;
 SHARE ur FARE_login
 </title>
 </head>
-<body> 
-<p align="right"><script type="text/javascript"> 
+<body>
+<p align="right"><script type="text/javascript">
 function display_c(){
 var refresh=1000; // Refresh rate in milli seconds
 mytime=setTimeout('display_ct()',refresh)
@@ -32,28 +51,24 @@ var strcount
 var x = new Date()
 document.getElementById('ct').innerHTML = x;
 tt=display_c();
- }
+}
 </script>
 </head>
 <body onload=display_ct();>
 <span id='ct' ></span></p>
 <?php
-$useridErr = $passwordErr= "";
+
 $userid = $password = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-   if (empty($_POST["username"])) {
-     $useridErr = "Username is required";
-   } else {
-     $userid = test_input($_POST["username"]);
-   }
+   if (!empty($_POST["username"])) 
+     {$userid = test_input($_POST["username"]);
+   $_SESSION['userlogin']=$userid;}
    
-   if (empty($_POST["password"])) {
-     $passwordErr = "password is required";
-   } else {
+   if (!empty($_POST["password"])) 
      $password = test_input($_POST["password"]);
    }
-   }
+   
 
 function test_input($data) {
    $data = trim($data);
@@ -62,30 +77,41 @@ function test_input($data) {
    return $data;
 }
 ?>
-<center><h1>SHARE ur FARE</h1>
-<br><br><br><br><br><br>
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="captcha.php"><br><br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <input type="text" name="vercode"size="6"<span class="error">*</span><br>
-  <br> username: <input type="text" name="username">
-   <span class="error">* <?php echo $useridErr;?></span>
-   <br><br>
-   password: <input type="password" name="password">
-   <span class="error">* <?php echo $passwordErr;?></span>
-   <br><br>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="submit" value="Submit"> 
-</form><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="signup.php">Sign Up</a><br>
+<center><h1>Share Ur Fare</h1>
+<br>
+<br>
+<div class="container">
+
+        
+
+<form class="form-signin" role="form" method="post" >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="captcha.php"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<input type="text" name="vercode"size="6"
+<br>
+<br> 
+<h2 class="form-signin-heading">Please sign in</h2>
+<input type="text" class="form-control" placeholder="Username" name="username" required autofocus>
+        <input type="password" class="form-control" placeholder="Password" name="password" required>
+         <label class="checkbox">
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+
+<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in
+</button></form><br>
+</div>
+<a href="signup.php">Sign Up</a><br>
 </form>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href ="for_my_password.php">Forgotten your Password?</a>
+<a href ="for_my_password.php">Forgotten your Password?</a>
 </center>
+
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-if ($_POST["vercode"] != $_SESSION["vercode"] OR $_SESSION["vercode"]=='')  { 
-echo "Authentication Error!"; 
+if ($_POST["vercode"] != $_SESSION["vercode"] OR $_SESSION["vercode"]=='') {
+echo "Authentication Error!";
 }
- else { 
+ else {
 $connect=mysql_connect("localhost","root","pcp10");
 if(!$connect)
 {
@@ -94,7 +120,7 @@ if(!$connect)
 if(!mysql_select_db("iitk")){
 die("Failed to select DB:" .mysql_error());
 }
-$results=mysql_query("SELECT * FROM users");  
+$results=mysql_query("SELECT * FROM users");
 $user=0;
 while($row=mysql_fetch_array($results))
 {
@@ -116,8 +142,8 @@ echo "User does not exist";}
 }
 }
 ?>
-<br><br><br>
-<p align="right"><img src="http://hitwebcounter.com/counter/counter.php?page=5664784&style=0005&nbdigits=8&type=page&initCount=0" title="" Alt=""   border="0" >
+<br>
+<p align="right"><img src="http://hitwebcounter.com/counter/counter.php?page=5664784&style=0005&nbdigits=8&type=page&initCount=0" title="" Alt="" border="0" >
 </a><br/></p>
 </body>
 </html>

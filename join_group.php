@@ -10,6 +10,14 @@ exit;
 $session=$_SESSION['loggedin'];
 ?>
   <style type="text/css">
+  h1{color:teal;} 
+  .id1{ color:goldenrod; font-size: 22px; } 
+  .id1:hover{ color:gold; }
+  .id2:hover{ color:indigo; } 
+  .id3{ color:olivedrab; font-size: 22px; } 
+  .id3:hover{ color:yellowgreen; } 
+  .id4{ color:mediumslateblue; font-size: 22px; } 
+  .id4:hover{ color:gold; }
   .my{color: red; font-size: 15pt;}
   .align{text-align: center; color: blue;}
   </style>
@@ -44,8 +52,9 @@ $key=$_POST['group'];
 $res_users=mysql_query("SELECT * FROM users WHERE `key`=$key");
 while($row_users=mysql_fetch_assoc($res_users))
 {
-	echo $row_users['name']."<br>";
+	echo '<h3 class=align text-align:center>'.$row_users['name'].'</h3>';
 }
+echo '<br><br>';
 echo "<form action='confirm_group.php' method='post'>" ."<input type='hidden' name='id' value='$session'>".
   "<input type='hidden' name='group' value='$key'>"."<input type='submit' name='confirm_group'value='Confirm Group'>"
 ."</form>";

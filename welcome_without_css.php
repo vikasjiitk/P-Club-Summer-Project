@@ -38,7 +38,7 @@ exit;
 		<a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3" style="word-spacing: 0.2em;">About us</font></b></i></a> 
 		<a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Help</font></b></i></a> 
 		<a href="signout.php" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Signout</font></b></i></a></p> <hr> <hr> 
-		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post"> 
+		<form action="group_search.php" method="post"> 
 			<font class= "id4">Source: </font>
 			<input type="text" name="source"><br><br> 
 			<font class= "id4">Destination: </font>
@@ -55,7 +55,14 @@ exit;
 			<input type="radio" name="gender" value="M">only male 
 			<input type="radio" name="gender" value="B">both <br><br> 
 			<font class= "id4">Vehicle type: </font>
-			<input type="text" name="vehicle"><br><br> 
+			<input class="form-control" placeholder="Type of vehicle" list="vehicle" name="vehicle">
+
+			<datalist id="vehicle">
+			<option value="Auto">
+			<option value="Vikram">
+			<option value="Any">
+			</datalist><br><br>
+
 			<font class= "id4"><abbr title="for whom u r booking">No. of people: </abbr></font>
 			<input type="number" name="number"><br><br> <input type="submit" name="submit" value="Find Group"> 
 		</form>

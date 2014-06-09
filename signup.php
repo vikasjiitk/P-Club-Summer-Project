@@ -12,8 +12,8 @@
 <body style="background-color:lavender";>
 <?php 
 $nameErr=$EmailErr=$usernameErr=$passErr=$confErr="*";
-$PhoneErr="";
-$name=$username=$Phone=$pass=$Email=$conf="";
+$genErr=$PhoneErr="";
+$gen=$name=$username=$Phone=$pass=$Email=$conf="";
 if($_SERVER["REQUEST_METHOD"]=="POST")
 {
 	if(empty($_POST["name"]))
@@ -45,6 +45,13 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
          $PhoneErr="only 10 digit phone no. required";}
        else $PhoneErr="";
    }
+   if(empty($_POST["gender"]))
+    $genErr="*required";
+  else
+    {
+         $gen=test($_POST["gender"]);
+    }
+
    //echo 'phone' . $PhoneErr;
       if(empty($_POST["username"]))
     $usernameErr="*required";
@@ -107,6 +114,10 @@ function test($data) {
     <input type="text" name="Phone"placeholder="Phone no.">
    <span class=error><?php echo $PhoneErr;?></span>
    <br><br>
+   Gender:<input type="radio" name="gender" value="F">Female 
+      <input type="radio" name="gender" value="M">Male
+      <span class=error><?php echo $genErr;?></span>
+      <br><br>
    <input type="text" name="username"placeholder="Choose a username">
    <span class=error><?php echo $usernameErr;?></span>
    <br><br>
@@ -120,7 +131,7 @@ function test($data) {
 </form>
 </span>
 <?php
-if(empty($usernameErr) && empty($passErr) && empty($confErr) && empty($nameErr) && empty($EmailErr) && empty($PhoneErr))
+if(empty($usernameErr) && empty($passErr)&& empty($genErr) && empty($confErr) && empty($nameErr) && empty($EmailErr) && empty($PhoneErr))
   { 
     echo 'Hi! '.$_POST["name"];
     $con = @mysqli_connect('localhost','root','pcp10','iitk');
@@ -133,8 +144,9 @@ if(empty($usernameErr) && empty($passErr) && empty($confErr) && empty($nameErr) 
     $Phone=@mysqli_real_escape_string($con,$_POST["Phone"]);
     $username=@mysqli_real_escape_string($con,$_POST["username"]);
     $pass=@mysqli_real_escape_string($con,$_POST["pass"]);
-    $sql="INSERT INTO users (`id`, `username`, `password`, `name`, `email`, `phone`)
-     VALUES(NULL,'$username','$pass','$name','$Email','$Phone')";
+    $gen=@mysqli_real_escape_string($con,$_POST["gender"]);
+    $sql="INSERT INTO users (`id`, `username`, `password`, `name`,`gender`, `email`, `phone`)
+     VALUES(NULL,'$username','$pass','$name','$gen','$Email','$Phone')";
      if(!mysqli_query($con,$sql))
      {die('Error: '.mysqli_error($con));}
 $message = "Account created successfully!";

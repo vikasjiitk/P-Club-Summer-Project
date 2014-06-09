@@ -10,14 +10,6 @@ exit;
 $session=$_SESSION['loggedin'];
 ?>
   <style type="text/css">
-  h1{color:teal;} 
-  .id1{ color:goldenrod; font-size: 22px; } 
-  .id1:hover{ color:gold; }
-  .id2:hover{ color:indigo; } 
-  .id3{ color:olivedrab; font-size: 22px; } 
-  .id3:hover{ color:yellowgreen; } 
-  .id4{ color:mediumslateblue; font-size: 22px; } 
-  .id4:hover{ color:gold; }
   .my{color: red; font-size: 15pt;}
   .align{text-align: center; color: blue;}
   </style>
@@ -40,6 +32,14 @@ $session=$_SESSION['loggedin'];
   <span class=align><h1>Group Members</h1></span> 
   <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $number=$_POST['number'];
+if($number>$_POST['limit'])
+{
+  $message = "Sorry! Cannot join.Group limit exceeded.";
+echo "<script type='text/javascript'>alert('$message');</script>";
+     echo '<META HTTP-EQUIV="Refresh" Content="0; URL=welcome.php">';
+     exit;
+}
 $connect=mysql_connect("localhost","root","pcp10");
 if(!$connect)
 {
@@ -50,16 +50,28 @@ die("Failed to select DB:" .mysql_error());
 }
 $key=$_POST['group'];
 $res_users=mysql_query("SELECT * FROM users WHERE `key`=$key");
+echo '<span class =my>';
+$i=1;
+$sql1=mysql_query("SELECT gender FROM users WHERE `id`=$session");
+$row_gen=mysql_fetch_assoc($sql1);
+if(strcmp($row_gen['gender'],$_POST['gender'])!=0&&strcmp($_POST['gender'],"B")!=0)
+{
+$message = "Sorry!.Not allowed due to Gender conflicts.";
+echo "<script type='text/javascript'>alert('$message');</script>";
+     echo '<META HTTP-EQUIV="Refresh" Content="0; URL=welcome.php">';
+     exit;  
+}
 while($row_users=mysql_fetch_assoc($res_users))
 {
-	echo '<h3 class=align text-align:center>'.$row_users['name'].'</h3>';
+	echo $i.") ".$row_users['name']."<br>";
+  $i++;
 }
-echo '<br><br>';
+echo "</span>";
 echo "<form action='confirm_group.php' method='post'>" ."<input type='hidden' name='id' value='$session'>".
-  "<input type='hidden' name='group' value='$key'>"."<input type='submit' name='confirm_group'value='Confirm Group'>"
+  "<input type='hidden' name='group' value='$key'>"."<input type='hidden' name='number' value='$number'>".
+  "<input type='submit' name='confirm_group'value='Confirm Group'>"
 ."</form>";
 }
  ?>
-
 </body>
 </html>

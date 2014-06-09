@@ -23,6 +23,9 @@
 body {background-image:url("b1.jpg");}
 background-repeat:repeat-x;
 {h1:color:blue;}
+input{
+   text-align:center;
+}
 </style>
 <style>
 h1
@@ -85,18 +88,19 @@ function test_input($data) {
         
 
 <form class="form-signin" role="form" method="post" >
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="captcha.php"><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-<input type="text" name="vercode"size="6"
-<br>
-<br> 
 <h2 class="form-signin-heading">Please sign in</h2>
+<img src="captcha.php"><br>
+
+
+<br>
+<input type="text"  placeholder="captcha" name="vercode" size="15" required autofocus>
+<br><br>
+
 <input type="text" class="form-control" placeholder="Username" name="username" required autofocus>
         <input type="password" class="form-control" placeholder="Password" name="password" required>
-         <label class="checkbox">
+        
           <input type="checkbox" value="remember-me"> Remember me
-        </label>
+        
 
 <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in
 </button></form><br>
@@ -120,15 +124,14 @@ if(!$connect)
 if(!mysql_select_db("iitk")){
 die("Failed to select DB:" .mysql_error());
 }
-$results=mysql_query("SELECT * FROM users");
-$user=0;
-while($row=mysql_fetch_array($results))
+$results=mysql_query("SELECT * FROM users WHERE username='$userid'");  
+while($row=mysql_fetch_assoc($results))
 {
   if(strcmp($row["username"],$userid)==0)
 {
   $user=1;
   if(strcmp($row["password"],$password)==0){
-$_SESSION['loggedin']="Yes";
+$_SESSION['loggedin']=$row["id"];
  header('Location: welcome.php');
 exit;
 }
@@ -137,12 +140,10 @@ exit;
   }
   break;
 }}
-if($user==0){
-echo "User does not exist";}
 }
 }
 ?>
-<br>
+<br><br><br><br>
 <p align="right"><img src="http://hitwebcounter.com/counter/counter.php?page=5664784&style=0005&nbdigits=8&type=page&initCount=0" title="" Alt="" border="0" >
 </a><br/></p>
 </body>

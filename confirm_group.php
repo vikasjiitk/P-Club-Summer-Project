@@ -19,6 +19,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
       $userid=$_POST['id'];
      $key=$_POST['group'];
     $sql="UPDATE users SET `key`= '$key' WHERE `id`='$userid'";
+    $number=$_POST['number'];
+    mysqli_query($con,"UPDATE groups SET `number`=$number WHERE `key`=$key");
     if(!mysqli_query($con,$sql))
     {die('Error: '.mysqli_error($con));}
  		else{

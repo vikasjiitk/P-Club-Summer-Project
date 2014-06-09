@@ -38,67 +38,74 @@ if($_SERVER["REQUEST_METHOD"]=='POST')
   $time=$_POST["time"];
   $date=$_POST["date"];
   $var=$_POST["variation"];
-  $gend=$_POST['gender'];
-  //echo $gend . '<br>';
+  //$gend=$_POST['gender'];
   $veh=$_POST["vehicle"];
-  $pup=$_POST["number"];
-
-  $time1=strtotime($time); //- $var*60*60 - 60*60;
-  $time2=strtotime($time); //+ $var*60*60 + 60*60;
-  $t1=date('H:i',$time1);
-  $t2=date('H:i',$time2);
-  //echo $t1 . '<br>' . $t2;
-  $sql="SELECT * FROM groups WHERE source='$source' and destination='$desti' and gender='$gend' and `date`='$date'";
+  $number=$_POST["number"];
+  $time1=strtotime($time);
+  $time2=strtotime($time)+$var*60*60;
+  $sql="SELECT * FROM groups WHERE source='$source' and destination='$desti'";
   if(mysql_query($sql))
   {
-    $query_run=mysql_query($sql);
-    $count=0;
-  while($row=mysql_fetch_assoc($query_run))
+    $query_run=mysql_query($sql);  
+    while($row=mysql_fetch_assoc($query_run))
   {
-    $array[$count]=$row['key'];
-    $array1[$count]=strtotime($row['time'])-$time1;
-    $count++;
-}
-for($i = 0; $i < $count; $i++) {  
-      $min = $i;  
-      for($j = $i + 1; $j < $count; $j++)  
-         if(abs($array1[$j]) < abs($array1[$min]))  
-            $min = $j;  
-      $tmp = $array1[$min];  
-      $array1[$min] = $array1[$i];  
-      $array1[$i] = $tmp; 
-      $tmp = $array[$min];  
-      $array[$min] = $array[$i];  
-      $array[$i] = $tmp;   
-   }  
-$i=0;
-if($count==0)
-  echo "Sorry! No Available Groups";
-else{
- echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' ."S.No". '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'."Source".
-'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'."Destination".'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'."Date".
-'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'."Time";
-
-
-while($i<$count){
-echo '<hr>';
-    echo '<span class=my>'; 
-    echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' 
+    $date1=date_create($row['date']);
+$date2=date_create($date);
+$diff=date_diff($date2,$date1);
+$difference=$diff->format("%R%a");
+$difference*=86400;
+ $t=abs(strtotime($row['time'])-$time1+$difference);
+     $key=$row['key'];
+    $sql2="UPDATE groups SET `time_diff`='$t' WHERE `key`='$key'";
+    if(mysql_query($sql2))
+  {
+    $query_run1=mysql_query($sql2);
+      }}
+      }
+      $var*=3600;
+$sql3="SELECT * FROM groups WHERE source='$source' and destination='$desti' and time_diff<='$var' ORDER BY time_diff";
+  if(mysql_query($sql3))
+  {
+    $query_run2=mysql_query($sql3);
+  $i=0;
+ if(mysql_num_rows($query_run2)==0)
+ {
+  echo '<span class=my>';
+    echo "SORRY! NO GROUPS AVAILABLE";
+    echo '</span>';
+ }   while($row=mysql_fetch_assoc($query_run2))
+  {
+    
+    echo '<hr>';
+    echo '<span class=my>';
+      echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' 
     . ($i+1) . '.' . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' 
     . $source . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' 
     . $desti . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' 
-    . $date . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' 
-    .date('H:i',$time1+$array1[$i]) . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . $gend;
-    echo "<form action='join_group.php' method='post'>" ."<input type='hidden' name='group' value='$array[$i]'>".
+    . $row['date'] . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' 
+    .$row['time'] . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' .
+     $row['gender'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'."TOTAL: ".$row['limit']
+     .'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+    // if(strcmp($_row['vehicle'],"ANY")
+     //{
+    //echo $row['number']."Members till now.".'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'."AUTO/VIKRAM";
+     //}
+     //else{
+     echo ($row['limit']-$row['number'])." SEATS AVAILABLE".'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$row['vehicle'];
+    $key=$row['key'];
+    $limit=$row['limit'];//}
+    $number+=$row['number'];
+    $gender=$row['gender'];
+    echo "<form action='join_group.php' method='post'>" ."<input type='hidden' name='group' value='$key'>".
+    "<input type='hidden' name='number' value='$number'>"."<input type='hidden' name='limit' value='$limit'>".
+    "<input type='hidden' name='gender' value='$gender'>".
     "<input type='submit' name='join_group'value='Join Group'>"
  ."</form>";
     echo '</span>';
     echo '<hr>'; 
     $i++;
 
-}
-}
+  }
  }
   else
   {echo'invalid query';}

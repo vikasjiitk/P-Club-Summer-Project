@@ -39,11 +39,17 @@ exit;
       <input type="radio" name="gender" value="M">only male
       <input type="radio" name="gender" value="B">both<br><br>
       <font class= "id4"></font>
-      <input type="text" name="vehicle"placeholder="Vehicle type: "><br><br> 
-      <font class= "id4"><abbr title="for whom ypu are booking"></abbr></font>
-      <input type="number" name="number"placeholder="No. of people: "><br><br> <input type="submit" name="submit" value="create group"> 
+      <select name="vehicle">
+      <option value="AUTO">AUTO</option>
+      <option value="VIKRAM">VIKRAM</option>
+      <option value="ANY">ANY</option>
+      </select>
+      <br><br>
+      <font class= "id4"><abbr title="for whom you are booking"></abbr></font>
+      <input type="number" name="number"placeholder="No. of people: "><br><br>
+      <input type="number" name="limit"placeholder="Limit group to: "><br><br>
+       <input type="submit" name="submit" value="create group"> 
     </form></sapn>
-
   <?php
   if($_SERVER["REQUEST_METHOD"]=="POST"){
   $con = @mysqli_connect('localhost','root','pcp10','iitk');
@@ -57,8 +63,17 @@ exit;
     $gender=@mysqli_real_escape_string($con,$_POST["gender"]);
     $vehicle=@mysqli_real_escape_string($con,$_POST["vehicle"]);
     $number=@mysqli_real_escape_string($con,$_POST["number"]);
-    $sql="INSERT INTO groups (`source`, `destination`, `date`, `time`, `gender`, `vehicle`,`number`)
-     VALUES('$source','$destination','$date','$time','$gender','$vehicle','$number')";
+    $limit=$_POST["limit"];
+    if(empty($limit))
+    {
+      if($vehicle=='AUTO')
+        $limit=3;
+        else
+        $limit=7;
+    }
+     $limit_no=@mysqli_real_escape_string($con,$limit);
+    $sql="INSERT INTO groups (`source`, `destination`, `date`, `time`, `gender`, `vehicle`,`number`,`limit`)
+     VALUES('$source','$destination','$date','$time','$gender','$vehicle','$number','$limit_no')";
      if(!mysqli_query($con,$sql))
      {die('Error: '.mysqli_error($con));}
       $userid=@mysqli_real_escape_string($con,$_SESSION['loggedin']);

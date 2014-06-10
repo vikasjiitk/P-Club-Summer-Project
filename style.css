@@ -1,0 +1,19 @@
+{
+   width: 300px;
+   border: 1px solid #D8D8D8;
+   padding: 10px;
+   border-radius: 5px;
+   font-family: Arial;
+   font-size: 11px;
+   text-transform: uppercase;
+   background-color: rgb(255, 249, 242);
+   color: rgb(211, 0, 0);
+   text-align: center;
+}
+ 
+img
+{
+   float: left;
+   bottom: 5px;
+}
+ 

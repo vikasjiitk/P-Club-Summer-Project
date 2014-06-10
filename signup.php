@@ -34,7 +34,7 @@ font-size: 50px;
   <center><h1>Share Ur Fare</h1>
 <?php
 $nameErr=$EmailErr=$usernameErr=$passErr=$confErr="*";
-$PhoneErr="";
+$genErr=$PhoneErr="";
 $err="Fill all details";
 $name=$username=$Phone=$pass=$Email=$conf="";
 if($_SERVER["REQUEST_METHOD"]=="POST")
@@ -69,12 +69,18 @@ if (empty($_POST["Email"]))
        else $PhoneErr="";
    }
    //echo 'phone' . $PhoneErr;
+ if(empty($_POST["gender"]))
+    $genErr="*required";
+  else
+    {
+         $gen=test($_POST["gender"]);
+    }
+
       if(empty($_POST["username"]))
     $usernameErr="Please enter a Username";
   else
     {
          $username=test($_POST["username"]);
-          //echo '<br>' . $username . '<br>';
           require 'connect.inc.php';
           $query = "SELECT `username` from `users`";
           $usernameErr="";
@@ -91,8 +97,7 @@ if (empty($_POST["Email"]))
          if (!preg_match("/^[a-zA-Z0-9]*$/",$username))
          $usernameErr = "For username, only letters and digits are allowed";
       }
-      //echo '<br>'. $usernameErr . '<br>';
-
+    
    if(empty($_POST["pass"]))
     {$passErr="*Password is required";}
      elseif(strlen($_POST["pass"])<=7)
@@ -107,13 +112,6 @@ if (empty($_POST["Email"]))
     {$confErr="*Enter Same Password"; }
     else $confErr="";
    }
-
-//empty($nameErr) && empty($EmailErr)&&empty($PhoneErr)&&
-//&&empty($passErr)&&empty($confErr)
-
-//echo '<br>' . $usernameErr . '<br>';
-
-
 }
 
 
@@ -136,7 +134,11 @@ function test($data) {
         <input type="text" class="form-control" placeholder="E-Mail" name="Email" >
         
         <input type="number" class="form-control" placeholder="Phone Number(optional)" name="Phone" >
-        
+       Gender:<input type="radio" class="form-control "name="gender" value="F">Female 
+      <input type="radio" name="gender" value="M">Male
+      <span class=error><?php echo $genErr;?></span>
+      <br><br>
+
         <input type="text" class="form-control" placeholder="Choose your Username" name="username" >
         
         <input type="password" class="form-control" placeholder="Password" name="pass" >
@@ -168,7 +170,7 @@ else if($confErr!= "" && $confErr!= "*") $err=$confErr;?>
 
 
 <?php
-if(empty($usernameErr) && empty($passErr) && empty($confErr) && empty($nameErr) && empty($EmailErr) && empty($PhoneErr))
+if(empty($usernameErr) && empty($passErr)&& empty($genErr) && empty($confErr) && empty($nameErr) && empty($EmailErr) && empty($PhoneErr))
   {
     
     $con = @mysqli_connect('localhost','root','pcp10','iitk');
@@ -182,23 +184,19 @@ if(empty($usernameErr) && empty($passErr) && empty($confErr) && empty($nameErr) 
     $Phone=@mysqli_real_escape_string($con,$_POST["Phone"]);
     $username=@mysqli_real_escape_string($con,$_POST["username"]);
     $pass=@mysqli_real_escape_string($con,$_POST["pass"]);
-    $sql="INSERT INTO users (`id`, `username`, `password`, `name`, `email`, `phone`)
-VALUES(NULL,'$username','$pass','$name','$Email','$Phone')";
+    $gen=@mysqli_real_escape_string($con,$_POST["gender"]);
+    $sql="INSERT INTO users (`id`, `username`, `password`, `name`,`gender`, `email`, `phone`)
+     VALUES(NULL,'$username','$pass','$name','$gen','$Email','$Phone')";
      if(!mysqli_query($con,$sql))
-     {
-      die('Error: '.mysqli_error($con));
-    }
-
-      $message = "Signed Up Successfully!
-      Please login to continue.";
+     {die('Error: '.mysqli_error($con));}
+$message = "Account created successfully!";
 echo "<script type='text/javascript'>alert('$message');</script>";
- echo '<META HTTP-EQUIV="Refresh" Content="0; URL=login1.php">';
-
-     
-
+     echo '<META HTTP-EQUIV="Refresh" Content="0; URL=login.php">';    
+    exit;  
       @mysqli_close($con);
-      $nameErr=$EmailErr=$usernameErr=$passErr=$confErr="";
-      $PhoneErr='';
-    }    ?>
+      $nameErr=$EmailErr=$usernameErr=$passErr=$confErr="*";
+      $PhoneErr='*';
+    }
+    ?>
 </body>
 </html>

@@ -51,15 +51,16 @@ exit;
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="welcome1.php"><span class="glyphicon glyphicon-home"></span>  Home</a></li>
+             <li class="active"><a href="welcome.php"><span class="glyphicon glyphicon-home"></span>  Home</a></li>
             <li><a href="create_group.php"><span class="glyphicon glyphicon-list-alt"></span> Create Group</a></li>
-            <li><a href="#about"><span class="glyphicon glyphicon-phone-alt"></span>  Contacts</a></li>
+           <li><a href="yourgroup.php"><span class="glyphicon glyphicon-tasks"></span>  Your Group</a></li>
+            
             <li><a href="#contact"><span class="glyphicon glyphicon-user"></span>  Profile</a></li>
 
-            
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-th-list"></span> <b class="caret"></b></a>
               <ul class="dropdown-menu">
+                <li><a href="#">Profile</a></li>
                 <li><a href="#">Notifications</a></li>
                 <li><a href="http://www.facebook.com">Help</a></li>
                 
@@ -78,8 +79,6 @@ exit;
         </div><!--/.nav-collapse -->
       </div>
     </div>
-
-
 <h1 style="text-align:Center;"><b><font class="id2"><ins>Share Ur Fare</ins></font></b></h1>
 
 <marquee><b class=red>Disclaimer:</b><i>If any person in your group fails to come for the journey,then the site would not be responsible. Hence, user discretion is adviced.</i></marquee>

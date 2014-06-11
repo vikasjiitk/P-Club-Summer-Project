@@ -59,14 +59,13 @@ h1{ font-family: Magneto;
           <ul class="nav navbar-nav">
             <li class="active"><a href="welcome.php"><span class="glyphicon glyphicon-home"></span>  Home</a></li>
             <li><a href="create_group.php"><span class="glyphicon glyphicon-list-alt"></span> Create Group</a></li>
-           <li><a href="yourgroup.php"><span class="glyphicon glyphicon-tasks"></span>  Your Group</a></li>
-            
+             <li><a href="yourgroup.php"><span class="glyphicon glyphicon-tasks"></span>  Your Group</a></li>
+            <li><a href="#about"><span class="glyphicon glyphicon-phone-alt"></span>  Contacts</a></li>
             <li><a href="#contact"><span class="glyphicon glyphicon-user"></span>  Profile</a></li>
 
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-th-list"></span> <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Profile</a></li>
                 <li><a href="#">Notifications</a></li>
                 <li><a href="http://www.facebook.com">Help</a></li>
                 
@@ -97,7 +96,7 @@ h1{ font-family: Magneto;
         <br><input type="text" class="form-control" placeholder="Destination" name="destination" required>
         <br><input type="date"  onblur="(this.type='text')" onfocus="(this.type='date')" class="form-control" placeholder="Date Of Journey" name="date" required>
         <br><input type="time"  onfocus="(this.type='time')" onblur="(this.type='text')" class="form-control" placeholder="Time" name="time" required>
-        <br><input type="time" type="text" onfocus="(this.type='time')" onblur="(this.type='text')" class="form-control" placeholder="Time Variation" name="variation" required>
+        <br><input type="number" step="0.5" min="0" onfocus="(this.type='number')" onblur="(this.type='number')" class="form-control" placeholder="Time Variation (in hrs)" name="variation" required>
         <br><input class="form-control" placeholder="Type of vehicle" list="vehicle" name="vehicle">
 
 <datalist id="vehicle">
@@ -105,8 +104,8 @@ h1{ font-family: Magneto;
 <option value="Vikram">
 <option value="Any">
 </datalist>
- <br><input type="number" class="form-control" placeholder="Number Of People" name="number" required>
-       <br>  <font>Gender Specific: </font>
+ <br><input type="number" min="1" class="form-control" placeholder="Number Of People" name="number" required>
+    <br>  <font>Gender Specific: </font>
 <input type="radio" name="gender"
 <?php if (isset($gender) && $gender=="female");?>
 value="female">Female

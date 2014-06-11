@@ -17,13 +17,14 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
       echo"Failed to connect to MYSQL: ".mysqli_connect_error;
       }
       $userid=$_POST['id'];
+      $book_no=$_POST['book_no'];
      $key=$_POST['group'];
-    $sql="UPDATE users SET `key`= '$key' WHERE `id`='$userid'";
+    $sql="UPDATE users SET `key`= '$key',`book_no`='$book_no' WHERE `id`='$userid'";
     $number=$_POST['number'];
-    mysqli_query($con,"UPDATE groups SET `number`=$number WHERE `key`=$key");
+    mysqli_query($con,"UPDATE groups SET `number`='$number' WHERE `key`=$key");
     if(!mysqli_query($con,$sql))
     {die('Error: '.mysqli_error($con));}
- 		else{
+  else{
     $message = "Group joined successfully!";
 echo "<script type='text/javascript'>alert('$message');</script>";
      echo '<META HTTP-EQUIV="Refresh" Content="0; URL=welcome.php">';

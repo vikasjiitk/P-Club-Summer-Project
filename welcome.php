@@ -89,7 +89,7 @@ h1{ font-family: Magneto;
 <marquee><b class=red>Disclaimer:</b><i>If any person in your group fails to come for the journey,then the site would not be responsible. Hence, user discretion is adviced.</i></marquee>
 
 <h3 class="form-signin-heading col">     &#160;&#160;&#160;&#160;&#160;&#160;  Please fill the following details.</h3>
-<form class="form-signin" action="result.php" role="form" method ="POST">
+<form class="form-signin" action="group_search.php" role="form" method ="POST">
 
 <input type="text" class="form-control" placeholder="Source" name="source" required autofocus>
         <br><input type="text" class="form-control" placeholder="Destination" name="destination" required>
@@ -115,7 +115,7 @@ value="male">Male
 <?php if (isset($gender) && $gender=="any");?>
 value="any">Any
    <br><br>
-   <button class="btn btn-lg btn-primary btn-block" type="submit">Submit
+   <button class="btn btn-lg btn-primary btn-block" type="submit">Find Group
 </button></form>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>

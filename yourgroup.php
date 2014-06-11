@@ -10,9 +10,10 @@ if(!$_SESSION['loggedin'])
 header("Location:login.php");
 exit;
 }
+
 ?>
   <style type="text/css"> 
-  .cen{text-align: center;}
+  .align{text-align: center;}
   table,th,td
   {
   border:1px solid black;
@@ -39,11 +40,11 @@ exit;
 	<hr>
 	<hr> 
 	<p style="word-spacing: 3em;">
-		<a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Home</font></b></i></a>
+		<a href="welcome.php" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Home</font></b></i></a>
 		<a href="create_group1.php" target=_top STYLE="text-decoration: none"><i><b><font class="id3">CreateGroup</font></b></i></a> 
 		<a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Contacts</font></b></i></a> 
 		<a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Profile</font></b></i></a> 
-		<a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3">YourGroup</font></b></i></a> 
+		<a href="yourgroup.php" target=_top STYLE="text-decoration: none"><i><b><font class="id3">YourGroup</font></b></i></a> 
 		<a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3" style="word-spacing: 0.2em;">About us</font></b></i></a> 
 		<a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Help</font></b></i></a> 
 		<a href="signout.php" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Signout</font></b></i></a></p> <hr> <hr> 
@@ -76,6 +77,7 @@ exit;
               <td>'.$row2["source"].'</td> <td>'.$row2["destination"].'</td> <td>'.$row2["date"].'</td> <td>'.$row2["time"].
               '</td></tr>
               </table>';
+              $number=$row2['number'];
             }
 
             echo '<br><h2 style=text-align:center class=id4>Group Members</h2>';
@@ -84,17 +86,29 @@ exit;
               $run3=mysql_query($query3) or die(mysql_error());
               echo '<table style="width:500px; text-align:center;" align="center"> 
               <tr style="background-color:#6699FF">
-              <th>S.no</th> <th>Name</th> <th>Email</th> <th>Phone no.</th>
+              <th>S.no</th> <th>Name</th> <th>Email</th> <th>Phone no.</th> <th>seats booked</th>
               </tr>';
               $count=1;
               while($row3=mysql_fetch_assoc($run3))
               {
                 echo '<tr>
-                <td>'.$count.'</td><td>'.$row3["name"].'</td><td>'.$row3["email"].'</td><td>'.$row3["phone"].'</td></tr>';
+                <td>'.$count.'</td><td>'.$row3["name"].'</td><td>'.$row3["email"].'</td><td>'.$row3["phone"].'</td><td>'.$row3['book_no'].'</td></tr>';
                 $count++;
+                if($row3['id']==$userid)
+                {
+                  $group=$row3['key'];
+                  $book_no=$row3['book_no'];
+                }
               } 
               echo '</table>';
+              echo "<span class=align><form action='leave_group.php' method='post'>" ."<input type='hidden' name='id' value='$userid'>".
+              "<input type='hidden' name='group' value='$group'>"."<input type='hidden' name='number' value='$number'>".
+              "<input type='hidden' name='book_no' value='$book_no'>".
+              "<input type='submit' name='' value='Leave this Group'>"
+            ."</form></span>";
+
             }
+
 
         }
         else echo '<span class=id4> <br><br><h2 style="text-align:center"> NO GROUP CREATED OR JOINED</h2</span> ';

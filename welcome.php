@@ -33,16 +33,14 @@ h1{ font-family: Magneto;
 	b.red{
 		color:red;
 	}
-	hr{color: red}
+  .col{
+    color: #6600FF;
+    font-family: "Lucida Handwriting";
+  }
+  }
+	hr{color:blue;}
 	body {background-image:url("b1.jpg");}
-.id1{ color:goldenrod; font-size: 22px; }
-.id1:hover{ color:gold; }
-.id2:hover{ color:indigo; }
-.id3{ color:olivedrab; font-size: 22px; }
-.id3:hover{ color:yellowgreen; }
-.id4{ color:mediumslateblue; font-size: 15px; }
-.id4:hover{ color:gold; }
-.id5:{ color:gold font-size: 12px; }
+
 </style>
 </head>
 <body style="background-color:lavender;">
@@ -59,26 +57,27 @@ h1{ font-family: Magneto;
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="welcome1.php"><span class="glyphicon glyphicon-home"></span>  Home</a></li>
+            <li class="active"><a href="welcome.php"><span class="glyphicon glyphicon-home"></span>  Home</a></li>
+            <li><a href="create_group.php"><span class="glyphicon glyphicon-list-alt"></span> Create Group</a></li>
             <li><a href="#about"><span class="glyphicon glyphicon-phone-alt"></span>  Contacts</a></li>
             <li><a href="#contact"><span class="glyphicon glyphicon-user"></span>  Profile</a></li>
+
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-th-list"></span> <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="#">Notifications</a></li>
-                <li><a href="#">Help</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Sign-out</a></li>
+                <li><a href="http://www.facebook.com">Help</a></li>
+                
                 <li class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
+                <li class="dropdown-header">Account</li>
+                <li><a href="#">About Us</a></li>
+                
               </ul>
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="../navbar/">Help</a></li>
-            <li><a href="../navbar-static-top/">About Us</a></li>
+            <li><a href="#">Help</a></li>
+            <li><a href="navbar-static-top/">About Us</a></li>
             <li class="active"><a href="signout.php"><span class="glyphicon glyphicon-log-out"></span>  Sign-out</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -89,7 +88,7 @@ h1{ font-family: Magneto;
 
 <marquee><b class=red>Disclaimer:</b><i>If any person in your group fails to come for the journey,then the site would not be responsible. Hence, user discretion is adviced.</i></marquee>
 
-<h3 class="form-signin-heading">Please fill the following details.</h3>
+<h3 class="form-signin-heading col">     &#160;&#160;&#160;&#160;&#160;&#160;  Please fill the following details.</h3>
 <form class="form-signin" action="result.php" role="form" method ="POST">
 
 <input type="text" class="form-control" placeholder="Source" name="source" required autofocus>
@@ -105,7 +104,7 @@ h1{ font-family: Magneto;
 <option value="Any">
 </datalist>
  <br><input type="number" class="form-control" placeholder="Number Of People" name="number" required>
-       <br>  <font class= "id4">Gender Specific: </font>
+       <br>  <font>Gender Specific: </font>
 <input type="radio" name="gender"
 <?php if (isset($gender) && $gender=="female");?>
 value="female">Female
@@ -119,12 +118,7 @@ value="any">Any
    <button class="btn btn-lg btn-primary btn-block" type="submit">Submit
 </button></form>
 
-
-
-
-
-
-
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 </body>
 </html>

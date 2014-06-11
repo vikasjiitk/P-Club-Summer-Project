@@ -8,27 +8,35 @@ header("Location:login.php");
 exit;
 }
 ?>
-  <style type="text/css">
-  .my{color: red; font-size: 15pt;}
-  .align{text-align: center; color: blue;}
-  </style>
+<style type="text/css">
+.my{color: red; font-size: 15pt;}
+.align{text-align: center; color: blue;}
+h1{color:teal;} 
+  .id1{ color:goldenrod; font-size: 22px; } 
+  .id1:hover{ color:gold; }
+  .id2:hover{ color:indigo; } 
+  .id3{ color:olivedrab; font-size: 22px; } 
+  .id3:hover{ color:yellowgreen; } 
+  .id4{ color:mediumslateblue; font-size: 22px; } 
+  .id4:hover{ color:gold; } 
+</style>
 </head>
 <body style="background-color:lavender;">
-  <h1 style="text-align:Center;"><i><b><font class="id2"><ins>SHARE ur FARE</ins></font></b></i></h1> 
-  <hr> 
-  <font class="id1">Disclaimer:</font>
-  <hr>
-  <hr> 
-  <p style="word-spacing: 3em;">
-    <a href="welcome.php" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Home</font></b></i></a>
-    <a href="create_group.php" target=_top STYLE="text-decoration: none"><i><b><font class="id3">CreateGroup</font></b></i></a> 
-    <a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Contacts</font></b></i></a> 
-    <a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Profile</font></b></i></a> 
-    <a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Notifications</font></b></i></a> 
-    <a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3" style="word-spacing: 0.2em;">About us</font></b></i></a> 
-    <a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Help</font></b></i></a> 
-    <a href="signout.php" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Signout</font></b></i></a></p> <hr> <hr> 
-  <span class=align><h1>Available Groups</h1></span> 
+<h1 style="text-align:Center;"><i><b><font class="id2"><ins>SHARE ur FARE</ins></font></b></i></h1>
+<hr>
+<font class="id1">Disclaimer:</font>
+<hr>
+<hr>
+<p style="word-spacing: 3em;">
+<a href="welcome.php" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Home</font></b></i></a>
+<a href="create_group.php" target=_top STYLE="text-decoration: none"><i><b><font class="id3">CreateGroup</font></b></i></a>
+<a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Contacts</font></b></i></a>
+<a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Profile</font></b></i></a>
+<a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Notifications</font></b></i></a>
+<a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3" style="word-spacing: 0.2em;">About us</font></b></i></a>
+<a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Help</font></b></i></a>
+<a href="signout.php" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Signout</font></b></i></a></p> <hr> <hr>
+<span class=align><h1>Available Groups</h1></span>
 <?php
 require 'connect.inc.php';
 if($_SERVER["REQUEST_METHOD"]=='POST')
@@ -40,13 +48,14 @@ if($_SERVER["REQUEST_METHOD"]=='POST')
   $var=$_POST["variation"];
   //$gend=$_POST['gender'];
   $veh=$_POST["vehicle"];
-  $number=$_POST["number"];
+  $book_no=$number=$_POST["number"];
+
   $time1=strtotime($time);
   $time2=strtotime($time)+$var*60*60;
   $sql="SELECT * FROM groups WHERE source='$source' and destination='$desti'";
   if(mysql_query($sql))
   {
-    $query_run=mysql_query($sql);  
+    $query_run=mysql_query($sql);
     while($row=mysql_fetch_assoc($query_run))
   {
     $date1=date_create($row['date']);
@@ -73,16 +82,16 @@ $sql3="SELECT * FROM groups WHERE source='$source' and destination='$desti' and 
   echo '<span class=my>';
     echo "SORRY! NO GROUPS AVAILABLE";
     echo '</span>';
- }   while($row=mysql_fetch_assoc($query_run2))
+ } while($row=mysql_fetch_assoc($query_run2))
   {
     
     echo '<hr>';
     echo '<span class=my>';
-      echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' 
-    . ($i+1) . '.' . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' 
-    . $source . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' 
-    . $desti . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' 
-    . $row['date'] . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' 
+      echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+    . ($i+1) . '.' . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+    . $source . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+    . $desti . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+    . $row['date'] . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
     .$row['time'] . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' .
      $row['gender'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'."TOTAL: ".$row['limit']
      .'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
@@ -98,11 +107,11 @@ $sql3="SELECT * FROM groups WHERE source='$source' and destination='$desti' and 
     $gender=$row['gender'];
     echo "<form action='join_group.php' method='post'>" ."<input type='hidden' name='group' value='$key'>".
     "<input type='hidden' name='number' value='$number'>"."<input type='hidden' name='limit' value='$limit'>".
-    "<input type='hidden' name='gender' value='$gender'>".
+    "<input type='hidden' name='gender' value='$gender'>"."<input type='hidden' name='book_no' value='$book_no'>".
     "<input type='submit' name='join_group'value='Join Group'>"
  ."</form>";
     echo '</span>';
-    echo '<hr>'; 
+    echo '<hr>';
     $i++;
 
   }

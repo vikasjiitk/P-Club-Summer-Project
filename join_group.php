@@ -25,7 +25,7 @@ $session=$_SESSION['loggedin'];
 <a href="create_group.php" target=_top STYLE="text-decoration: none"><i><b><font class="id3">CreateGroup</font></b></i></a>
 <a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Contacts</font></b></i></a>
 <a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Profile</font></b></i></a>
-<a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Notifications</font></b></i></a>
+<a href="yourgroup.php" target=_top STYLE="text-decoration: none"><i><b><font class="id3">YourGroup</font></b></i></a>
 <a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3" style="word-spacing: 0.2em;">About us</font></b></i></a>
 <a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Help</font></b></i></a>
 <a href="signout.php" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Signout</font></b></i></a></p> <hr> <hr>

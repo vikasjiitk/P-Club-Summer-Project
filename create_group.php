@@ -104,8 +104,8 @@ exit;
 </select>
 
 
-<input type="number" name="number" class="form-control" placeholder="No. of people you are booking for ">
-<input type="number" name="limit" class="form-control" placeholder="Limit group to "><br><br>
+<input type="number" name="number" min ="1" class="form-control" placeholder="No. of people you are booking for ">
+<input type="number" name="limit" min="1" class="form-control" placeholder="Limit group to "><br><br>
 
 <button class="btn btn-lg btn-primary btn-block" type="submit"><span class="glyphicon glyphicon-plus"></span> &#160;Create Group
 </button>

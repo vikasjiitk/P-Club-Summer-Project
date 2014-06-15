@@ -94,7 +94,7 @@ h1{ font-family: Magneto;
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $number=$_POST['number'];
-  $book_no=$_POST['book_no'];
+    $book_no=$_POST['book_no'];
 if($number>$_POST['limit'])
 {
   $message = "Sorry! Cannot join.Group limit exceeded.";
@@ -109,6 +109,18 @@ if(!$connect)
 }
 if(!mysql_select_db("iitk")){
 die("Failed to select DB:" .mysql_error());
+}
+$query="SELECT `key` FROM `users` WHERE `username`='$session'";
+         if($sql1=mysql_query($query))
+       {
+  $row_gen=mysql_fetch_assoc($sql1);
+if($row_gen['key']!=0)
+{
+$message = "Sorry!.You are already in a group";
+echo "<script type='text/javascript'>alert('$message');</script>";
+     echo '<META HTTP-EQUIV="Refresh" Content="0; URL=welcome.php">';
+     exit;
+}
 }
 $key=$_POST['group'];
 $res_users=mysql_query("SELECT * FROM users WHERE `key`=$key");

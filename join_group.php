@@ -63,7 +63,7 @@ h1{ font-family: Magneto;
             <li><a href="create_group.php"><span class="glyphicon glyphicon-list-alt"></span> Create Group</a></li>
              <li><a href="yourgroup.php"><span class="glyphicon glyphicon-tasks"></span>  Your Group</a></li>
             <li><a href="#about"><span class="glyphicon glyphicon-phone-alt"></span>  Contacts</a></li>
-            <li><a href="#contact"><span class="glyphicon glyphicon-user"></span>  Profile</a></li>
+            <li><a href="profile.php"><span class="glyphicon glyphicon-user"></span>  Profile</a></li>
 
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-th-list"></span> <b class="caret"></b></a>
@@ -114,9 +114,9 @@ $key=$_POST['group'];
 $res_users=mysql_query("SELECT * FROM users WHERE `key`=$key");
 echo '<span class =my>';
 $i=1;
-$sql1=mysql_query("SELECT gender FROM users WHERE `id`=$session");
+$sql1=mysql_query("SELECT gender FROM users WHERE `username`=$session");
 $row_gen=mysql_fetch_assoc($sql1);
-if(strcmp($row_gen['gender'],$_POST['gender'])!=0&&strcmp($_POST['gender'],"B")!=0)
+if($row_gen['gender']!=$_POST['gender']&&$_POST['gender']!="B")
 {
 $message = "Sorry!.Not allowed due to Gender conflicts.";
 echo "<script type='text/javascript'>alert('$message');</script>";
@@ -129,11 +129,10 @@ echo $i.") ".$row_users['name']."(seats booked: ".$row_users['book_no'].")<br><b
   $i++;
 }
 echo "</span>";
-echo "<form action='confirm_group.php' method='post'>" ."<input type='hidden' name='id' value='$session'>".
+echo "<form action='confirm_group.php' method='post'>" ."<input type='hidden' name='username' value='$session'>".
   "<input type='hidden' name='group' value='$key'>"."<input type='hidden' name='number' value='$number'>".
   "<input type='hidden' name='book_no' value='$book_no'>".
-  " <button class='btn btn-lg btn-default' type='submit'>Confirm Group
-</button>"
+  "<input type='submit' name='confirm_group'value='Confirm Group'>"
 ."</form>";
 }
  ?>

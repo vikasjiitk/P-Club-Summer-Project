@@ -118,7 +118,10 @@ if($_SERVER["REQUEST_METHOD"]=='POST')
   $var=$_POST["variation"];
   //$gend=$_POST['gender'];
   $veh=$_POST["vehicle"];
-  $book_no=$number=$_POST["number"];
+  $book_no=$_POST["number"];
+if($book_no=="")
+    $book_no=1;
+$number=$book_no;
 if($time=="")
   $time1=time();
 else

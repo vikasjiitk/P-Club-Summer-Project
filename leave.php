@@ -17,12 +17,26 @@ if(mysql_query($query1))
 
 	$query2="UPDATE groups SET `number`=`number`-'$book_no' WHERE `key`='$key' ";
 	$query3="UPDATE users SET `key`=0, `book_no`=0 WHERE `username`='$userid' ";
+	$query4="SELECT `number` FROM groups WHERE `key`='$key'";
+
 	if(!mysql_query($query2) || !mysql_query($query3))
 	{
 		die('Error: '.mysql_error());
 	}
 	else
 	{
+		if($run=mysql_query($query4))
+		{
+			$row=mysql_fetch_assoc($run);
+			if($row['number']==0)
+			{
+				$query5="DELETE FROM groups WHERE `key`='$key'";
+				if(!mysql_query($query5))
+				{
+					die('Error: '.mysql_error());
+				}
+			}
+		}
 		$message = "Group Left successfully!";
 		echo "<script type='text/javascript'>alert('$message');</script>";
      	echo '<META HTTP-EQUIV="Refresh" Content="0; URL=welcome.php">';

@@ -92,11 +92,11 @@ h1{ font-family: Magneto;
 <h3 class="form-signin-heading col">     &#160;&#160;&#160;&#160;&#160;&#160;  Please fill the following details.</h3>
 <form class="form-signin" action="group_search.php" role="form" method ="POST">
 
-<input type="text" class="form-control" placeholder="Source" name="source" required autofocus>
-        <br><input type="text" class="form-control" placeholder="Destination" name="destination" required>
-        <br><input type="date"  onblur="(this.type='text')" onfocus="(this.type='date')" class="form-control" placeholder="Date Of Journey" name="date" required>
-        <br><input type="time"  onfocus="(this.type='time')" onblur="(this.type='text')" class="form-control" placeholder="Time" name="time" required>
-        <br><input type="number" step="0.5" min="0" onfocus="(this.type='number')" onblur="(this.type='number')" class="form-control" placeholder="Time Variation (in hrs)" name="variation" required>
+<input type="text" class="form-control" placeholder="Source" name="source" >
+        <br><input type="text" class="form-control" placeholder="Destination" name="destination" >
+        <br><input type="date"  onblur="(this.type='text')" onfocus="(this.type='date')" class="form-control" placeholder="Date Of Journey" name="date">
+        <br><input type="time"  onfocus="(this.type='time')" onblur="(this.type='text')" class="form-control" placeholder="Time" name="time" >
+        <br><input type="number" step="0.5" min="0" onfocus="(this.type='number')" onblur="(this.type='number')" class="form-control" placeholder="Time Variation (in hrs)" name="variation" >
         <br><input class="form-control" placeholder="Type of vehicle" list="vehicle" name="vehicle">
 
 <datalist id="vehicle">
@@ -104,7 +104,7 @@ h1{ font-family: Magneto;
 <option value="Vikram">
 <option value="Any">
 </datalist>
- <br><input type="number" min="1" class="form-control" placeholder="Number Of People" name="number" required>
+ <br><input type="number" min="1" class="form-control" placeholder="Number Of People" name="number" >
     <br>  <font>Gender Specific: </font>
 <input type="radio" name="gender"
 <?php if (isset($gender) && $gender=="female");?>

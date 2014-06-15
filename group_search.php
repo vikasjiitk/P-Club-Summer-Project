@@ -37,6 +37,7 @@ body {background-image:url("b1.jpg");}
 .bau{font-family: "Bradley Hand ITC";color: #330099;
 }
 .aa{font-family: "Adobe Gothic Std B";color: #0033CC;}
+.red {color: red;}
 </style>
 </head>
 <body> 
@@ -86,7 +87,7 @@ body {background-image:url("b1.jpg");}
 
 
 
-          <h2 class="sub-header bau"><b>Available Groups</b></h2>
+        <center>  <h2 class="sub-header bau"><b>Available Groups</b></h2></center>
           <div class="table-responsive">
             <table class="table table-striped aa">
               <thead>
@@ -118,16 +119,23 @@ if($_SERVER["REQUEST_METHOD"]=='POST')
   //$gend=$_POST['gender'];
   $veh=$_POST["vehicle"];
   $book_no=$number=$_POST["number"];
-
+if($time=="")
+  $time1=time();
+else
   $time1=strtotime($time);
+  if($var=="")
+    $var=-1;
   $time2=strtotime($time)+$var*60*60;
-  $sql="SELECT * FROM groups WHERE source='$source' and destination='$desti'";
+  $sql="SELECT * FROM groups";
   if(mysql_query($sql))
   {
       $query_run=mysql_query($sql);
       while($row=mysql_fetch_assoc($query_run))
        {
+          
           $date1=date_create($row['date']);
+        if($date="")
+          $date=CURDATE();
           $date2=date_create($date);
           $diff=date_diff($date2,$date1);
           $difference=$diff->format("%R%a");
@@ -141,9 +149,59 @@ if($_SERVER["REQUEST_METHOD"]=='POST')
               }
         }
     }
+      if($var!=-1)
       $var*=3600;
-     $sql3="SELECT * FROM groups WHERE source='$source' and destination='$desti' and time_diff<='$var' ORDER BY time_diff";
-     if(mysql_query($sql3))
+
+      if($source=="")
+      {
+          if($desti=="")
+          {
+            if($var==-1)
+            { 
+              $sql3="SELECT * FROM groups ORDER BY time_diff";
+            } 
+            else
+            {
+              $sql3="SELECT * FROM groups WHERE time_diff<='$var' ORDER BY time_diff";
+            }
+        }
+        else
+       {
+           if($var==-1)
+            {
+              $sql3="SELECT * FROM groups WHERE destination='$desti' ORDER BY time_diff";
+            }
+          else
+          {
+            $sql3="SELECT * FROM groups WHERE  destination='$desti' and time_diff<='$var' ORDER BY time_diff";
+          } 
+        }
+      }
+        else{
+            if($desti=="")
+          {
+            if($var==-1)
+            { 
+              $sql3="SELECT * FROM groups WHERE source='$source' ORDER BY time_diff";
+            } 
+            else
+            {
+              $sql3="SELECT * FROM groups WHERE source='$source' and time_diff<='$var' ORDER BY time_diff";
+            }
+        }
+        else
+       {
+           if($var==-1)
+            {
+              $sql3="SELECT * FROM groups WHERE source='$source' and destination='$desti' ORDER BY time_diff";
+               }
+          else
+          {
+            $sql3="SELECT * FROM groups WHERE source='$source' and destination='$desti' and time_diff<='$var' ORDER BY time_diff";
+           }
+            }
+          }
+         if(mysql_query($sql3))
       {
         $query_run2=mysql_query($sql3);
         $i=0;
@@ -158,8 +216,8 @@ if($_SERVER["REQUEST_METHOD"]=='POST')
             echo 
                 "<tr>".
                   "<td>".($i+1)."</td>".
-                  "<td>".$source."</td>".
-                  "<td>".$desti."</td>".
+                  "<td>".$row['source']."</td>".
+                  "<td>".$row['destination']."</td>".
                   "<td>".$row['date']."</td>".
                   "<td>".$row['time']."</td>".
                   "<td>".$row['gender']."</td>".

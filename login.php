@@ -105,9 +105,7 @@ function test_input($data) {
 <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in
 </button></form><br>
 </div>
-<a href="signup.php">Sign Up</a><br>
-</form>
-<a href ="for_my_password.php">Forgotten your Password?</a>
+
 </center>
 
 <?php
@@ -116,6 +114,34 @@ if ($_POST["vercode"] != $_SESSION["vercode"] OR $_SESSION["vercode"]=='') {
 echo "Authentication Error!";
 }
  else {
+
+$ftp_server = "webhome.cc.iitk.ac.in";
+  $ftp_user = $_POST['username'];
+  $ftp_pass = $_POST['password'];
+
+  $_SESSION['username']=$ftp_user;
+  $_SESSION['password']=$ftp_pass;
+  // set up a connection or die
+  $conn_id = ftp_connect($ftp_server) or die("Couldn't connect to $ftp_server"); 
+
+  // try to login
+  if (@ftp_login($conn_id, $ftp_user, $ftp_pass)) {
+    /*$_SESSION['loggedin']=$row["id"];
+ header('Location: welcome.php');
+exit;
+  } */
+  $_SESSION['loggedin']=$ftp_user;
+
+      //include 'welcome.php';
+    header('Location: welcome.php');
+    }
+
+  else {
+      echo "Your Username & Password isn't a valid combination to take to the Wall";
+    ftp_close($conn_id);  
+  }
+}}
+/*
 $connect=mysql_connect("localhost","root","pcp10");
 if(!$connect)
 {
@@ -137,12 +163,15 @@ exit;
 }
   else{
     echo "Wrong password!";
-  }
-  break;
-}}
+  };}}}
+
+
+  break
 }
-}
+?>*/
 ?>
+
+
 <br><br><br><br>
 <p align="right"><img src="http://hitwebcounter.com/counter/counter.php?page=5664784&style=0005&nbdigits=8&type=page&initCount=0" title="" Alt="" border="0" >
 </a><br/></p>

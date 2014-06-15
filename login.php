@@ -123,55 +123,26 @@ $ftp_server = "webhome.cc.iitk.ac.in";
   $_SESSION['password']=$ftp_pass;
   // set up a connection or die
   $conn_id = ftp_connect($ftp_server) or die("Couldn't connect to $ftp_server"); 
-
   // try to login
   if (@ftp_login($conn_id, $ftp_user, $ftp_pass)) {
-    /*$_SESSION['loggedin']=$row["id"];
- header('Location: welcome.php');
-exit;
-  } */
+    
   $_SESSION['loggedin']=$ftp_user;
-
-      //include 'welcome.php';
-    header('Location: welcome.php');
-    }
+          require 'connect.inc.php';
+          $query = "SELECT `username` from `users` WHERE `username`='$ftp_user'";
+          if($query_run=mysql_query($query))
+          {
+          if(mysql_fetch_assoc($query_run))
+          header('Location: welcome.php');
+          else
+    header('Location: enterprofile.php');
+    }}
 
   else {
       echo "Your Username & Password isn't a valid combination to take to the Wall";
     ftp_close($conn_id);  
   }
 }}
-/*
-$connect=mysql_connect("localhost","root","pcp10");
-if(!$connect)
-{
-  die("Failed to connect: " . mysql_error());
-}
-if(!mysql_select_db("iitk")){
-die("Failed to select DB:" .mysql_error());
-}
-$results=mysql_query("SELECT * FROM users WHERE username='$userid'");  
-while($row=mysql_fetch_assoc($results))
-{
-  if(strcmp($row["username"],$userid)==0)
-{
-  $user=1;
-  if(strcmp($row["password"],$password)==0){
-$_SESSION['loggedin']=$row["id"];
- header('Location: welcome.php');
-exit;
-}
-  else{
-    echo "Wrong password!";
-  };}}}
-
-
-  break
-}
-?>*/
 ?>
-
-
 <br><br><br><br>
 <p align="right"><img src="http://hitwebcounter.com/counter/counter.php?page=5664784&style=0005&nbdigits=8&type=page&initCount=0" title="" Alt="" border="0" >
 </a><br/></p>

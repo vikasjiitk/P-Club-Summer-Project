@@ -114,14 +114,17 @@ $key=$_POST['group'];
 $res_users=mysql_query("SELECT * FROM users WHERE `key`=$key");
 echo '<span class =my>';
 $i=1;
-$sql1=mysql_query("SELECT gender FROM users WHERE `username`=$session");
-$row_gen=mysql_fetch_assoc($sql1);
+$query="SELECT `gender` FROM `users` WHERE `username`='$session'";
+         if($sql1=mysql_query($query))
+       {
+  $row_gen=mysql_fetch_assoc($sql1);
 if($row_gen['gender']!=$_POST['gender']&&$_POST['gender']!="B")
 {
 $message = "Sorry!.Not allowed due to Gender conflicts.";
 echo "<script type='text/javascript'>alert('$message');</script>";
      echo '<META HTTP-EQUIV="Refresh" Content="0; URL=welcome.php">';
      exit;
+}
 }
 while($row_users=mysql_fetch_assoc($res_users))
 {

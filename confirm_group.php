@@ -16,7 +16,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     if(mysqli_connect_errno()){
       echo"Failed to connect to MYSQL: ".mysqli_connect_error;
       }
-      $username=$_POST['id'];
+      $username=$_POST['username'];
       $book_no=$_POST['book_no'];
      $key=$_POST['group'];
     $sql="UPDATE users SET `key`= '$key',`book_no`='$book_no' WHERE `username`='$username'";

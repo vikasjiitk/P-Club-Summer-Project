@@ -1,18 +1,46 @@
-<!DOCTYPE html> 
-<html> 
+<!DOCTYPE html>
+<html>
 <head>
- <title>
- 	SHARE Ur FARE
+<title>
+  SHARE Ur FARE
  </title>
- <?php session_start();
+ <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="assets/ico/favicon.ico">
+
+    
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="navbar-fixed-top.css" rel="stylesheet">
+    <link href="welcome.css" rel="stylesheet">
+    
+<?php session_start();
 if(!$_SESSION['loggedin'])
 {
 header("Location:login.php");
 exit;
 }
-
 ?>
-  <style type="text/css"> 
+<style type="text/css">
+h1{ font-family: Magneto;
+  color:teal;}
+  b.red{
+    color:red;
+  }
+  .col{
+    color: #6600FF;
+    font-family: "Lucida Handwriting";
+  }
+  }
+  hr{color:blue;}
+  body {background-image:url("b1.jpg");}
+
   .align{text-align: center;}
   table,th,td
   {
@@ -23,41 +51,63 @@ exit;
   {
   padding:5px;
   }
-  h1{color:teal;} 
-  .id1{ color:goldenrod; font-size: 22px; } 
-  .id1:hover{ color:gold; }
-  .id2:hover{ color:indigo; } 
-  .id3{ color:olivedrab; font-size: 22px; } 
-  .id3:hover{ color:yellowgreen; } 
-  .id4{ color:mediumslateblue; font-size: 28px; } 
-  .id4:hover{ color:gold; } 
-</style> 
-</head> 
-<body style="background-color:lavender;"> 
-	<h1 style="text-align:Center;"><i><b><font class="id2"><ins>SHARE ur FARE</ins></font></b></i></h1> 
-	<hr> 
-	<font class="id1">Disclaimer:</font>
-	<hr>
-	<hr> 
-	<p style="word-spacing: 3em;">
-		<a href="welcome.php" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Home</font></b></i></a>
-		<a href="create_group1.php" target=_top STYLE="text-decoration: none"><i><b><font class="id3">CreateGroup</font></b></i></a> 
-		<a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Contacts</font></b></i></a> 
-		<a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Profile</font></b></i></a> 
-		<a href="yourgroup.php" target=_top STYLE="text-decoration: none"><i><b><font class="id3">YourGroup</font></b></i></a> 
-		<a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3" style="word-spacing: 0.2em;">About us</font></b></i></a> 
-		<a href="" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Help</font></b></i></a> 
-		<a href="signout.php" target=_top STYLE="text-decoration: none"><i><b><font class="id3">Signout</font></b></i></a></p> <hr> <hr> 
-		<?php
-		require 'connect.inc.php';
-		$userid=@mysql_real_escape_string($_SESSION['loggedin']);
-     	$query="SELECT `key` FROM users WHERE `id`='$userid' ";
-     //	echo $userid;
-     	if(mysql_query($query))
-     	{
-     		//echo 'success';
-     		$run=mysql_query($query) or die(mysql_error());
-     		$row=mysql_fetch_assoc($run);
+</style>
+</head>
+<body style="background-color:lavender;">
+  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Welcome <?php echo $_SESSION['userlogin']?> !</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="welcome.php"><span class="glyphicon glyphicon-home"></span>  Home</a></li>
+            <li><a href="create_group.php"><span class="glyphicon glyphicon-list-alt"></span> Create Group</a></li>
+             <li><a href="yourgroup.php"><span class="glyphicon glyphicon-tasks"></span>  Your Group</a></li>
+            <li><a href="#about"><span class="glyphicon glyphicon-phone-alt"></span>  Contacts</a></li>
+            <li><a href="#contact"><span class="glyphicon glyphicon-user"></span>  Profile</a></li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-th-list"></span> <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Notifications</a></li>
+                <li><a href="http://www.facebook.com">Help</a></li>
+                
+                <li class="divider"></li>
+                <li class="dropdown-header">Account</li>
+                <li><a href="#">About Us</a></li>
+                
+              </ul>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Help</a></li>
+            <li><a href="navbar-static-top/">About Us</a></li>
+            <li class="active"><a href="signout.php"><span class="glyphicon glyphicon-log-out"></span>  Sign-out</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+<h1 style="text-align:Center;"><b><font class="id2"><ins>Share Ur Fare</ins></font></b></h1>
+
+<marquee><b class=red>Disclaimer:</b><i>If any person in your group fails to come for the journey,then the site would not be responsible. Hence, user discretion is adviced.</i></marquee>
+<?php
+    require 'connect.inc.php';
+    $userid=@mysql_real_escape_string($_SESSION['loggedin']);
+      $query="SELECT `key` FROM users WHERE `id`='$userid' ";
+     // echo $userid;
+      if(mysql_query($query))
+      {
+        //echo 'success';
+        $run=mysql_query($query) or die(mysql_error());
+        $row=mysql_fetch_assoc($run);
         $group_id = $row["key"];
 
         if($group_id != 0)
@@ -103,8 +153,9 @@ exit;
               echo '</table>';
               echo "<span class=align><form action='leave_group.php' method='post'>" ."<input type='hidden' name='id' value='$userid'>".
               "<input type='hidden' name='group' value='$group'>"."<input type='hidden' name='number' value='$number'>".
-              "<input type='hidden' name='book_no' value='$book_no'>".
-              "<input type='submit' name='' value='Leave this Group'>"
+              "<input type='hidden' name='book_no' value='$book_no'>"."<br>".
+              " <button class='btn btn-lg btn-default' type='submit'>Leave Group
+</button>"
             ."</form></span>";
 
             }
@@ -112,8 +163,11 @@ exit;
 
         }
         else echo '<span class=id4> <br><br><h2 style="text-align:center"> NO GROUP CREATED OR JOINED</h2</span> ';
-     		
-     	}
-     	else echo '<br>failure';
-     	?>
+        
+      }
+      else echo '<br>failure';
+      ?>
      </body>
+
+
+

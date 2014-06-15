@@ -2,7 +2,7 @@
 <html> 
 <head>
  <title>
- 	My Group
+  My Group
  </title>
  <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -100,17 +100,17 @@ exit;
 <marquee><b class=red>Disclaimer:</b><i>If any person in your group fails to come for the journey,then the site would not be responsible. Hence, user discretion is adviced.</i></marquee>
 
  
-		 
-	<?php
-		require 'connect.inc.php';
-		$userid=@mysql_real_escape_string($_SESSION['loggedin']);
-     	$query="SELECT `key` FROM users WHERE `id`='$userid' ";
-     //	echo $userid;
-     	if(mysql_query($query))
-     	{
-     		//echo 'success';
-     		$run=mysql_query($query) or die(mysql_error());
-     		$row=mysql_fetch_assoc($run);
+     
+  <?php
+    require 'connect.inc.php';
+    $userid=@mysql_real_escape_string($_SESSION['loggedin']);
+      $query="SELECT `key` FROM users WHERE `id`='$userid' ";
+     // echo $userid;
+      if(mysql_query($query))
+      {
+        //echo 'success';
+        $run=mysql_query($query) or die(mysql_error());
+        $row=mysql_fetch_assoc($run);
         $group_id = $row["key"];
 
         if($group_id != 0)
@@ -165,8 +165,11 @@ exit;
 
         }
         else echo '<span class=bau> <br><br><h2 style="text-align:center; color:red; font-size:40px;"><b>NO GROUP CREATED OR JOINED</b></h2</span> ';
-     		
-     	}
-     	else echo '<br>failure';
-     	?>
+        
+      }
+      else echo '<br>failure';
+      ?>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
      </body>
+     </html>

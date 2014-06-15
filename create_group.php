@@ -1,4 +1,4 @@
-<html>
+<html> 
 <head>
   <title>Create Group</title>
   <meta charset="utf-8">
@@ -55,7 +55,7 @@ exit;
             <li><a href="create_group.php"><span class="glyphicon glyphicon-list-alt"></span> Create Group</a></li>
            <li><a href="yourgroup.php"><span class="glyphicon glyphicon-tasks"></span>  Your Group</a></li>
             
-            <li><a href="#contact"><span class="glyphicon glyphicon-user"></span>  Profile</a></li>
+            <li><a href="profile.php"><span class="glyphicon glyphicon-user"></span>  Profile</a></li>
 
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-th-list"></span> <b class="caret"></b></a>
@@ -104,7 +104,7 @@ exit;
 </select>
 
 
-<input type="number" name="number" min ="1" class="form-control" placeholder="No. of people you are booking for ">
+<input type="number" name="number" min="1" class="form-control" placeholder="No. of people you are booking for ">
 <input type="number" name="limit" min="1" class="form-control" placeholder="Limit group to "><br><br>
 
 <button class="btn btn-lg btn-primary btn-block" type="submit"><span class="glyphicon glyphicon-plus"></span> &#160;Create Group
@@ -136,9 +136,9 @@ exit;
 VALUES('$source','$destination','$date','$time','$gender','$vehicle','$number','$limit_no')";
      if(!mysqli_query($con,$sql))
      {die('Error: '.mysqli_error($con));}
-      $userid=@mysqli_real_escape_string($con,$_SESSION['loggedin']);
+      $username=@mysqli_real_escape_string($con,$_SESSION['loggedin']);
      $key=mysqli_insert_id($con);
-    $sql1="UPDATE users SET `key`= '$key',`book_no`='$number' WHERE `id`='$userid' ";
+    $sql1="UPDATE users SET `key`= '$key',`book_no`='$number' WHERE `username`='$username' ";
       if(!mysqli_query($con,$sql1))
      {die('Error: '.mysqli_error($con));}
      echo '<br>' . "<h3>Welcome to share your fare</h3>" . '<br>';

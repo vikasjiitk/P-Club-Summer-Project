@@ -132,7 +132,8 @@ echo "</span>";
 echo "<form action='confirm_group.php' method='post'>" ."<input type='hidden' name='id' value='$session'>".
   "<input type='hidden' name='group' value='$key'>"."<input type='hidden' name='number' value='$number'>".
   "<input type='hidden' name='book_no' value='$book_no'>".
-  "<input type='submit' name='confirm_group'value='Confirm Group'>"
+  " <button class='btn btn-lg btn-default' type='submit'>Confirm Group
+</button>"
 ."</form>";
 }
  ?>

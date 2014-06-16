@@ -39,6 +39,13 @@ h1{ font-family: Magneto;
     color: #6600FF;
     font-family: "Lucida Handwriting";
   }
+  .bau{font-family: "Bradley Hand ITC";color: #330099;}
+  .aa{
+    font-family: "Comic Sans MS";
+    color: black;
+    font-size: 20px;
+  }
+  }
   }
   hr{color:blue;}
   body {background-image:url("b1.jpg");}
@@ -90,7 +97,7 @@ h1{ font-family: Magneto;
 <h1 style="text-align:Center;"><b><font class="id2"><ins>Share Ur Fare</ins></font></b></h1>
 
 <marquee><b class=red>Disclaimer:</b><i>If any person in your group fails to come for the journey,then the site would not be responsible. Hence, user discretion is adviced.</i></marquee>
-<span class=align><h1>Group Members</h1></span>
+<h1 class="bau"><b>Group Members</b></h1>
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $number=$_POST['number'];
@@ -124,7 +131,7 @@ echo "<script type='text/javascript'>alert('$message');</script>";
 }
 $key=$_POST['group'];
 $res_users=mysql_query("SELECT * FROM users WHERE `key`=$key");
-echo '<span class =my>';
+echo '<span class=aa>';
 $i=1;
 $query="SELECT `gender` FROM `users` WHERE `username`='$session'";
          if($sql1=mysql_query($query))
@@ -140,14 +147,14 @@ echo "<script type='text/javascript'>alert('$message');</script>";
 }
 while($row_users=mysql_fetch_assoc($res_users))
 {
-echo $i.") ".$row_users['name']."(seats booked: ".$row_users['book_no'].")<br><br>";
+echo $i.") ".$row_users['name']."(Gender: ".$row_users['gender']."     , Seats Booked: ".$row_users['book_no']." )<br><br>";
   $i++;
 }
 echo "</span>";
 echo "<form action='confirm_group.php' method='post'>" ."<input type='hidden' name='username' value='$session'>".
   "<input type='hidden' name='group' value='$key'>"."<input type='hidden' name='number' value='$number'>".
   "<input type='hidden' name='book_no' value='$book_no'>".
-  "<input type='submit' name='confirm_group'value='Confirm Group'>"
+  "<button type='button submit' class='btn btn-lg btn-info' name='confirm_group'>Confirm Group</button>"
 ."</form>";
 }
  ?>

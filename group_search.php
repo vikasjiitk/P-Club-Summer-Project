@@ -58,7 +58,7 @@ body {background-image:url("b1.jpg");}
 <li><a href="create_group.php"><span class="glyphicon glyphicon-list-alt"></span> Create Group</a></li>
 <li><a href="yourgroup.php"><span class="glyphicon glyphicon-tasks"></span> Your Group</a></li>
 <li><a href="#about"><span class="glyphicon glyphicon-phone-alt"></span> Contacts</a></li>
-<li><a href="#contact"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+<li><a href="profile.php"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
 
 <li class="dropdown">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-th-list"></span> <b class="caret"></b></a>
@@ -122,28 +122,26 @@ if($_SERVER["REQUEST_METHOD"]=='POST')
 if($book_no=="")
     $book_no=1;
 $number=$book_no;
-if($time=="")
+if($time==""){
   $time1=time();
+}
 else
-  $time1=strtotime($time);
+  {$time1=strtotime($time);
+  }
   if($var=="")
     $var=-1;
-  $time2=strtotime($time)+$var*60*60;
-  $sql="SELECT * FROM groups";
+   $sql="SELECT * FROM groups";
   if(mysql_query($sql))
   {
       $query_run=mysql_query($sql);
       while($row=mysql_fetch_assoc($query_run))
        {
-          
-          $date1=date_create($row['date']);
-        if($date="")
-          $date=CURDATE();
-          $date2=date_create($date);
-          $diff=date_diff($date2,$date1);
-          $difference=$diff->format("%R%a");
-          $difference*=86400;
-          $t=abs(strtotime($row['time'])-$time1+$difference);
+          if($date=="")
+          $difference=strtotime($row['date']);
+        else{
+             $difference=strtotime($row['date'])-strtotime($date);
+             }
+             $t=abs(strtotime($row['time'])-$time1+$difference);  
           $key=$row['key'];
           $sql2="UPDATE groups SET `time_diff`='$t' WHERE `key`='$key'";
            if(mysql_query($sql2))
@@ -155,28 +153,46 @@ else
       if($var!=-1)
       $var*=3600;
 
-      if($source=="")
+      
+
+
+
+    if($source=="")
       {
           if($desti=="")
           {
             if($var==-1)
             { 
+             if($date=="")
               $sql3="SELECT * FROM groups ORDER BY time_diff";
+            else
+              $sql3="SELECT * FROM groups WHERE `date`='$date' ORDER BY time_diff";
             } 
             else
             {
+              if($date=="")
               $sql3="SELECT * FROM groups WHERE time_diff<='$var' ORDER BY time_diff";
+              else
+                  $sql3="SELECT * FROM groups WHERE time_diff<='$var' AND `date`='$date' ORDER BY time_diff";        
             }
         }
         else
        {
            if($var==-1)
             {
+              if($date=="")
               $sql3="SELECT * FROM groups WHERE destination='$desti' ORDER BY time_diff";
-            }
+              else
+              $sql3="SELECT * FROM groups WHERE destination='$desti' AND `date`='$date' ORDER BY time_diff";
+                        
+              }
           else
           {
-            $sql3="SELECT * FROM groups WHERE  destination='$desti' and time_diff<='$var' ORDER BY time_diff";
+            if($date=="")
+              $sql3="SELECT * FROM groups WHERE  destination='$desti' and time_diff<='$var' ORDER BY time_diff";
+            else
+            $sql3="SELECT * FROM groups WHERE  destination='$desti' and time_diff<='$var' and `date`='$date' ORDER BY time_diff";
+                     
           } 
         }
       }
@@ -185,25 +201,42 @@ else
           {
             if($var==-1)
             { 
+              if($date=="")
               $sql3="SELECT * FROM groups WHERE source='$source' ORDER BY time_diff";
+            else
+            $sql3="SELECT * FROM groups WHERE source='$source' and `date`='$date' ORDER BY time_diff";
+              
             } 
             else
             {
+             if($date=="")
               $sql3="SELECT * FROM groups WHERE source='$source' and time_diff<='$var' ORDER BY time_diff";
+            else
+            $sql3="SELECT * FROM groups WHERE source='$source' and time_diff<='$var' and `date`='$date' ORDER BY time_diff";
+              
             }
         }
         else
        {
            if($var==-1)
             {
+            if($date=="")
               $sql3="SELECT * FROM groups WHERE source='$source' and destination='$desti' ORDER BY time_diff";
+             else
+               $sql3="SELECT * FROM groups WHERE source='$source' and destination='$desti' and `date`='$date' ORDER BY time_diff";
+             
                }
           else
           {
+          if($date=="")
             $sql3="SELECT * FROM groups WHERE source='$source' and destination='$desti' and time_diff<='$var' ORDER BY time_diff";
+           else
+            $sql3="SELECT * FROM groups WHERE source='$source' and destination='$desti' and time_diff<='$var' and `date`='$date' ORDER BY time_diff";
+           
            }
             }
           }
+
          if(mysql_query($sql3))
       {
         $query_run2=mysql_query($sql3);

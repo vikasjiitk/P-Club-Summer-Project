@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html>
 <head>
 <title>
@@ -19,7 +19,7 @@
     <!-- Custom styles for this template -->
     <link href="navbar-fixed-top.css" rel="stylesheet">
     <link href="welcome.css" rel="stylesheet">
-    
+        <link href="offcanvas.css" rel="stylesheet">    
 <?php session_start();
 if(!$_SESSION['loggedin'])
 {
@@ -28,6 +28,14 @@ exit;
 }
 ?>
 <style type="text/css">
+.forms{
+  float: left;
+  width: 400px;
+}
+.newsfeed{
+  float: left;
+  width: 800px;
+}
 h1{ font-family: Magneto;
     color:teal;}
     b.red{
@@ -86,10 +94,11 @@ h1{ font-family: Magneto;
     </div>
 
 <h1 style="text-align:Center;"><b><font class="id2"><ins>Share Ur Fare</ins></font></b></h1>
-
 <marquee><b class=red>Disclaimer:</b><i>If any person in your group fails to come for the journey,then the site would not be responsible. Hence, user discretion is adviced.</i></marquee>
 
-<h3 class="form-signin-heading col">     &#160;&#160;&#160;&#160;&#160;&#160;  Please fill the following details.</h3>
+    <div class="forms">
+
+  <h3 class="form-signin-heading col">     &#160;&#160;Fill the following details.</h3>
 <form class="form-signin" action="group_search.php" role="form" method ="POST">
 
 <select class="form-control" placeholder="Source" name="source" >
@@ -147,8 +156,93 @@ value="any">Any
    <br><br>
    <button class="btn btn-lg btn-primary btn-block" type="submit">Find Group
 </button></form>
+              </div>
+            <div class="newsfeed">
+            
+            <h1>NEWSFEED</h1>
+            <p>
+            <div class="table-responsive">
+            <table class="table table-striped aa">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Source</th>
+                  <th>Destination</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  </tr>
+              </thead>
+          <tbody>
+            <?php
+require 'connect.inc.php';
+ $sql="SELECT * FROM groups";
+  if(mysql_query($sql))
+  {
+      $query_run=mysql_query($sql);
+      while($row=mysql_fetch_assoc($query_run))
+       {
+          
+          $date1=strtotime($row['date']);
+          $t=$date1+strtotime($row['time'])-strtotime('00:00:00');
+          $key=$row['key'];
+          $sql2="UPDATE groups SET `time_diff`='$t' WHERE `key`='$key'";
+           if(mysql_query($sql2))
+              {
+                $query_run1=mysql_query($sql2);
+              }
+        }
+    }
+ $sql3="SELECT * FROM groups ORDER BY time_diff";
+ if(mysql_query($sql3))
+      {
+        $query_run2=mysql_query($sql3);
+        $i=0;
+         if(mysql_num_rows($query_run2)==0)
+          {
+           echo '<span class=my>';
+           echo "SORRY! NO GROUPS AVAILABLE";
+           echo '</span>';
+          } 
+          while($row=mysql_fetch_assoc($query_run2))
+          {
+            echo 
+                "<tr>".
+                  "<td>".($i+1)."</td>".
+                  "<td>".$row['source']."</td>".
+                  "<td>".$row['destination']."</td>".
+                  "<td>".$row['date']."</td>".
+                  "<td>".$row['time']."</td>".
+                  "<td>";
+                
+              $key=$row['key'];
+              $limit=$row['limit'];
+              $number=$row['number']+1;
+              $gender=$row['gender'];
+             echo "<form action='group_search.php' method='post'>" ."<input type='hidden' name='group' value='$key'>".
+    "<input type='hidden' name='number' value='$number'>"."<input type='hidden' name='limit' value='$limit'>".
+    "<input type='hidden' name='gender' value='$gender'>".
+    "<button type='button submit' class='btn btn-lg btn-default'  name='join_group' value='Join Group'>Join</button>"."</form>"."</td>".
+                "</tr>";
+              $i++;
+          }
+  
 
+      }
+
+      else
+  {echo'invalid query';}
+       ?>
+</tbody>
+</table>
+</div> 
+      </p>
+            
+              </div><!--/span-->
+            </div><!--/row-->
+        </div><!--/span-->
+      
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+
 </body>
 </html>

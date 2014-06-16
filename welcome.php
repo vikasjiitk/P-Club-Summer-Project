@@ -98,7 +98,7 @@ h1{ font-family: Magneto;
 
     <div class="forms">
 
-  <h3 class="form-signin-heading col">     &#160;&#160;Fill the following details.</h3>
+  <h3 class="form-signin-heading col">     &#160;&#160;&#160;&#160;&#160;&#160;&#160;SEARCH FOR A GROUP</h3>
 <form class="form-signin" action="group_search.php" role="form" method ="POST">
 
 <select class="form-control" placeholder="Source" name="source" >
@@ -134,26 +134,9 @@ h1{ font-family: Magneto;
         <br><input type="date"  onblur="(this.type='text')" onfocus="(this.type='date')" class="form-control" placeholder="Date Of Journey" name="date">
         <br><input type="time"  onfocus="(this.type='time')" onblur="(this.type='text')" class="form-control" placeholder="Time" name="time" >
         <br><input type="number" step="0.5" min="0" onfocus="(this.type='number')" onblur="(this.type='number')" class="form-control" placeholder="Time Variation (in hrs)" name="variation" >
-        <br><select class="form-control" placeholder="Type of vehicle" name="vehicle">
-
-<!datalist id="vehicle">
-<option value="">--select vehicle type--</option>
-<option value="Auto">auto</option>
-<option value="Vikram">vikram</option>
-<option value="Any">any</option></select>
-<!/datalist>
+        
  <br><input type="number" min="1" class="form-control" placeholder="Number Of People" name="number" >
-    <br>  <font>Gender Specific: </font>
-<input type="radio" name="gender"
-<?php if (isset($gender) && $gender=="female");?>
-value="female">Female
-<input type="radio" name="gender"
-<?php if (isset($gender) && $gender=="male");?>
-value="male">Male
-<input type="radio" name="gender"
-<?php if (isset($gender) && $gender=="any");?>
-value="any">Any
-   <br><br>
+     <br>
    <button class="btn btn-lg btn-primary btn-block" type="submit">Find Group
 </button></form>
               </div>
@@ -200,7 +183,7 @@ require 'connect.inc.php';
          if(mysql_num_rows($query_run2)==0)
           {
            echo '<span class=my>';
-           echo "SORRY! NO GROUPS AVAILABLE";
+           echo "NO GROUPS AVAILABLE!";
            echo '</span>';
           } 
           while($row=mysql_fetch_assoc($query_run2))

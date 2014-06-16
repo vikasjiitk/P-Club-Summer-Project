@@ -35,6 +35,7 @@ if(!$_SESSION['loggedin'])
 header("Location:login.php");
 exit;
 }
+//echo "<br><br>".$_SESSION['loggedin'];
 ?>
 </head>
 <body style="background-color:lavender;">
@@ -47,7 +48,7 @@ exit;
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Welcome <?php echo $_SESSION['userlogin']?> !</a>
+          <a class="navbar-brand" href="#">Welcome <?php echo $_SESSION['loggedin']?> !</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -60,7 +61,7 @@ exit;
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-th-list"></span> <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Profile</a></li>
+                <li><a href="profile.php">Profile</a></li>
                 <li><a href="#">Notifications</a></li>
                 <li><a href="http://www.facebook.com">Help</a></li>
                 
@@ -87,8 +88,35 @@ exit;
 <span><h3 class="col">&#160;&#160;&#160;&#160;&#160;&#160;Create ur group</h3></span>
 <form class="form-signin" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" role="form" method ="POST">
 
-<input type="text" class="form-control" placeholder="Source" name="source" required autofocus>
-        <input type="text" class="form-control" placeholder="Destination" name="destination" required>
+
+<select class="form-control" placeholder="Source" name="source" required autofocus>
+  <option value="">Enter Source</option>
+  <option value="Allen Zoo">Allen Zoo</option>
+  <option value="Gumti">Gumti</option>
+  <option value="IITK">IITK</option>
+  <option value="JK Temple">JK Temple</option>
+  <option value="Kanpur Central">Kanpur Central</option>
+  <option value="Kalyanpur">Kalyanpur</option>
+  <option value="Moti Jheel">Moti Jheel</option>
+  <option value="Rawatpur">Rawatpur</option>
+  <option value="Rave 3">Rave 3</option>
+  <option value="Rave Moti">Rave Moti</option>
+  <option value="Z Square">Z Square</option>
+</select>
+<select class="form-control" placeholder="Destination" name="destination" required>
+              <option value="">Enter Destination</option>
+              <option value="Allen Zoo">Allen Zoo</option>
+              <option value="Gumti">Gumti</option>
+              <option value="IITK">IITK</option>
+              <option value="JK Temple">JK Temple</option>
+              <option value="Kanpur Central">Kanpur Central</option>
+              <option value="Kalyanpur">Kalyanpur</option>
+              <option value="Moti Jheel">Moti Jheel</option>
+              <option value="Rawatpur">Rawatpur</option>
+              <option value="Rave 3">Rave 3</option>
+              <option value="Rave Moti">Rave Moti</option>
+              <option value="Z Square">Z Square</option>
+            </select>
 <input type="date"  onblur="(this.type='text')" onfocus="(this.type='date')" class="form-control" placeholder="Date Of Journey" name="date" required>
 <input type="time"  onfocus="(this.type='time')" onblur="(this.type='text')" class="form-control" placeholder="Time" name="time" required>
 <br>
@@ -98,6 +126,7 @@ exit;
 <input type="radio" name="gender" value="M">Only Male(for males only)<br>
 <input type="radio" name="gender" value="B">both<br><br>
 <select class="form-control" name="vehicle">
+  <option value="">--select vehicle type--</option>
 <option value="AUTO">AUTO-RICKSHAW</option>
 <option value="VIKRAM">VIKRAM TEMPO</option>
 <option value="ANY">ANY</option>
@@ -138,6 +167,7 @@ VALUES('$source','$destination','$date','$time','$gender','$vehicle','$number','
      {die('Error: '.mysqli_error($con));}
       $username=@mysqli_real_escape_string($con,$_SESSION['loggedin']);
      $key=mysqli_insert_id($con);
+     echo $key;
     $sql1="UPDATE users SET `key`= '$key',`book_no`='$number' WHERE `username`='$username' ";
       if(!mysqli_query($con,$sql1))
      {die('Error: '.mysqli_error($con));}

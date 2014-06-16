@@ -29,22 +29,22 @@ exit;
 ?>
 <style type="text/css">
 h1{ font-family: Magneto;
-	color:teal;}
-	b.red{
-		color:red;
-	}
+    color:teal;}
+    b.red{
+        color:red;
+    }
   .col{
     color: #6600FF;
     font-family: "Lucida Handwriting";
   }
   }
-	hr{color:blue;}
-	body {background-image:url("b1.jpg");}
+    hr{color:blue;}
+    body {background-image:url("b1.jpg");}
 
 </style>
 </head>
 <body style="background-color:lavender;">
-	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -53,7 +53,7 @@ h1{ font-family: Magneto;
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Welcome <?php echo $_SESSION['userlogin']?> !</a>
+          <a class="navbar-brand" href="#">Welcome <?php echo $_SESSION['loggedin']?> !</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -61,7 +61,7 @@ h1{ font-family: Magneto;
             <li><a href="create_group.php"><span class="glyphicon glyphicon-list-alt"></span> Create Group</a></li>
              <li><a href="yourgroup.php"><span class="glyphicon glyphicon-tasks"></span>  Your Group</a></li>
             <li><a href="#about"><span class="glyphicon glyphicon-phone-alt"></span>  Contacts</a></li>
-            <li><a href="#contact"><span class="glyphicon glyphicon-user"></span>  Profile</a></li>
+            <li><a href="profile.php"><span class="glyphicon glyphicon-user"></span>  Profile</a></li>
 
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-th-list"></span> <b class="caret"></b></a>
@@ -92,18 +92,47 @@ h1{ font-family: Magneto;
 <h3 class="form-signin-heading col">     &#160;&#160;&#160;&#160;&#160;&#160;  Please fill the following details.</h3>
 <form class="form-signin" action="group_search.php" role="form" method ="POST">
 
-<input type="text" class="form-control" placeholder="Source" name="source" >
-        <br><input type="text" class="form-control" placeholder="Destination" name="destination" >
+<select class="form-control" placeholder="Source" name="source" >
+  <option value="">Enter Source</option>
+  <option value="Allen Zoo">Allen Zoo</option>
+  <option value="Gumti">Gumti</option>
+  <option value="IITK">IITK</option>
+  <option value="JK Temple">JK Temple</option>
+  <option value="Kanpur Central">Kanpur Central</option>
+  <option value="Kalyanpur">Kalyanpur</option>
+  <option value="Moti Jheel">Moti Jheel</option>
+  <option value="Rawatpur">Rawatpur</option>
+  <option value="Rave 3">Rave 3</option>
+  <option value="Rave Moti">Rave Moti</option>
+  <option value="Z Square">Z Square</option>
+</select>
+
+
+        <br><select class="form-control" placeholder="Destination" name="destination" >
+              <option value="">Enter Destination</option>
+              <option value="Allen Zoo">Allen Zoo</option>
+              <option value="Gumti">Gumti</option>
+              <option value="IITK">IITK</option>
+              <option value="JK Temple">JK Temple</option>
+              <option value="Kanpur Central">Kanpur Central</option>
+              <option value="Kalyanpur">Kalyanpur</option>
+              <option value="Moti Jheel">Moti Jheel</option>
+              <option value="Rawatpur">Rawatpur</option>
+              <option value="Rave 3">Rave 3</option>
+              <option value="Rave Moti">Rave Moti</option>
+              <option value="Z Square">Z Square</option>
+            </select>
         <br><input type="date"  onblur="(this.type='text')" onfocus="(this.type='date')" class="form-control" placeholder="Date Of Journey" name="date">
         <br><input type="time"  onfocus="(this.type='time')" onblur="(this.type='text')" class="form-control" placeholder="Time" name="time" >
         <br><input type="number" step="0.5" min="0" onfocus="(this.type='number')" onblur="(this.type='number')" class="form-control" placeholder="Time Variation (in hrs)" name="variation" >
-        <br><input class="form-control" placeholder="Type of vehicle" list="vehicle" name="vehicle">
+        <br><select class="form-control" placeholder="Type of vehicle" name="vehicle">
 
-<datalist id="vehicle">
-<option value="Auto">
-<option value="Vikram">
-<option value="Any">
-</datalist>
+<!datalist id="vehicle">
+<option value="">--select vehicle type--</option>
+<option value="Auto">auto</option>
+<option value="Vikram">vikram</option>
+<option value="Any">any</option></select>
+<!/datalist>
  <br><input type="number" min="1" class="form-control" placeholder="Number Of People" name="number" >
     <br>  <font>Gender Specific: </font>
 <input type="radio" name="gender"

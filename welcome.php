@@ -203,7 +203,8 @@ require 'connect.inc.php';
         $i=0;
          if(mysql_num_rows($query_run2)==0)
           {
-           echo '<span class=my>';
+            echo '</marquee>';
+           echo '<span>';
            echo "NO GROUPS AVAILABLE!";
            echo '</span>';
           }

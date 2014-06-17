@@ -1,7 +1,10 @@
+<!DOCTYPE html>
 <html>
 <head>
-  <title>groups</title>
-   <meta charset="utf-8">
+<title>
+  SHARE Ur FARE
+ </title>
+ <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -12,15 +15,12 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-      <link href="css/bootstrap-theme.min.css" rel="stylesheet">
-
 
     <!-- Custom styles for this template -->
     <link href="navbar-fixed-top.css" rel="stylesheet">
-    <link href="dashboard.css" rel="stylesheet">
-    <link href="theme.css" rel="stylesheet">
-
-  <?php session_start();
+    <link href="welcome.css" rel="stylesheet">
+        <link href="offcanvas.css" rel="stylesheet">
+<?php session_start();
 if(!$_SESSION['loggedin'])
 {
 header("Location:login.php");
@@ -28,19 +28,35 @@ exit;
 }
 ?>
 <style type="text/css">
-h1{ font-family: Magneto;
+.forms{
+float: left;
+width: 400px;
+}
+.newsfeed{
+float: left;
+width: 800px;
+color: #006666;
+}
+h1.Mag{ font-family: Magneto;
 color:teal;}
-.my{color: red; font-size: 15pt;}
-.align{text-align: center; }
+b.red{
+color:red;
+}
+.col{
+color: #6600FF;
+font-family: "Lucida Handwriting";
+}
+.a{ font-family: "Adobe Gothic Std B";}
+}
+hr{color:blue;}
+.new{
+  font-family: "Copperplate Gothic Bold";color=purple;
+}
 body {background-image:url("b1.jpg");}
 
-.bau{font-family: "Bradley Hand ITC";color: #330099;
-}
-.aa{font-family: "Adobe Gothic Std B";color: #0033CC;}
-.red {color: red;}
 </style>
 </head>
-<body> 
+<body>
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
 <div class="container">
 <div class="navbar-header">
@@ -50,7 +66,7 @@ body {background-image:url("b1.jpg");}
 <span class="icon-bar"></span>
 <span class="icon-bar"></span>
 </button>
-<a class="navbar-brand" href="#">Welcome <?php echo $_SESSION['userlogin']?> !</a>
+<a class="navbar-brand" href="#">Welcome <?php echo $_SESSION['loggedin']?> !</a>
 </div>
 <div class="navbar-collapse collapse">
 <ul class="nav navbar-nav">
@@ -80,68 +96,98 @@ body {background-image:url("b1.jpg");}
 </div>
 </div>
 
-<h1 style="text-align:Center;"><b><font class="id2"><ins>Share Ur Fare</ins></font></b></h1>
-
+<h1 class="Mag" style="text-align:Center;"><b><ins>Share Ur Fare</ins></b></h1>
 <marquee><b class=red>Disclaimer:</b><i>If any person in your group fails to come for the journey,then the site would not be responsible. Hence, user discretion is adviced.</i></marquee>
 
+<div class="forms">
+
+<h3 class="form-signin-heading col"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;SEARCH FOR A GROUP</h3>
+<form class="form-signin" action="group_search.php" role="form" method ="POST">
+
+<select class="form-control" placeholder="Source" name="source" >
+<option value="">Enter Source</option>
+<option value="Allen Zoo">Allen Zoo</option>
+<option value="Gumti">Gumti</option>
+<option value="IITK">IITK</option>
+<option value="JK Temple">JK Temple</option>
+<option value="Kanpur Central">Kanpur Central</option>
+<option value="Kalyanpur">Kalyanpur</option>
+<option value="Moti Jheel">Moti Jheel</option>
+<option value="Rawatpur">Rawatpur</option>
+<option value="Rave 3">Rave 3</option>
+<option value="Rave Moti">Rave Moti</option>
+<option value="Z Square">Z Square</option>
+</select>
 
 
+<br><select class="form-control" placeholder="Destination" name="destination" >
+<option value="">Enter Destination</option>
+<option value="Allen Zoo">Allen Zoo</option>
+<option value="Gumti">Gumti</option>
+<option value="IITK">IITK</option>
+<option value="JK Temple">JK Temple</option>
+<option value="Kanpur Central">Kanpur Central</option>
+<option value="Kalyanpur">Kalyanpur</option>
+<option value="Moti Jheel">Moti Jheel</option>
+<option value="Rawatpur">Rawatpur</option>
+<option value="Rave 3">Rave 3</option>
+<option value="Rave Moti">Rave Moti</option>
+<option value="Z Square">Z Square</option>
+</select>
+<br><input type="date" onblur="(this.type='text')" onfocus="(this.type='date')" class="form-control" placeholder="Date Of Journey" name="date">
+<br><input type="time" onfocus="(this.type='time')" onblur="(this.type='text')" class="form-control" placeholder="Time" name="time" >
+<br><input type="number" step="0.5" min="0" onfocus="(this.type='number')" onblur="(this.type='number')" class="form-control" placeholder="Time Variation (in hrs)" name="variation" >
+<br><input type="number" min="1" class="form-control" placeholder="Number Of People" name="number" >
+<br>
+<button class="btn btn-lg btn-primary btn-block" type="submit">Find Group
+</button></form>
+</div>
+<div class="newsfeed">
+<h1 class=new>NEWSFEED</h1>
+<br>
+<div class="table-responsive">
+<table class="table table-striped a">
+<thead>
+  <col width="25">
+  <col width="90">
+  <col width="130">
+  <col width="120">
+  <col width="100">
+  <col width="80">
+<tr>
+<th>#</th>
+<th>Source</th>
+<th>Destination</th>
+<th>Date</th>
+<th>Time</th>
+<th>Join?</th>
+</tr>
+</thead>
+</table>
+  </div>
+<marquee behavior="scroll" direction="up" scrollamount="3" height="360"  onmouseover="this.stop();" onmouseout="this.start();">
 
-        <center>  <h2 class="sub-header bau"><b>Available Groups</b></h2></center>
-          <div class="table-responsive">
-            <table class="table table-striped aa">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Source</th>
-                  <th>Destination</th>
-                  <th>Date</th>
-                  <th>Time</th>
-                  <th>Gender</th>
-                  <th>Seats</th>
-                  <th>Available</th>
-                  <th>Vehicle</th>
-                  <th>Join?</th>
-                </tr>
-              </thead>
-          <tbody>
-
-
+<p>
+<div class="table-responsive">
+<table class="table table-striped a">
+<tbody>
+  <col width="25">
+  <col width="90">
+  <col width="130">
+  <col width="120">
+  <col width="100">
+  <col width="80">
 <?php
 require 'connect.inc.php';
-if($_SERVER["REQUEST_METHOD"]=='POST')
-{
-  $desti=$_POST["destination"];
-  $source=$_POST["source"];
-  $time=$_POST["time"];
-  $date=$_POST["date"];
-  $var=$_POST["variation"];
-  //$gend=$_POST['gender'];
-  $veh=$_POST["vehicle"];
-  $book_no=$_POST["number"];
-if($book_no=="")
-    $book_no=1;
-$number=$book_no;
-if($time==""){
-  $time1=time();
-}
-else
-  {$time1=strtotime($time);
-  }
-  if($var=="")
-    $var=-1;
-   $sql="SELECT * FROM groups";
+ $sql="SELECT * FROM groups";
   if(mysql_query($sql))
   {
       $query_run=mysql_query($sql);
       while($row=mysql_fetch_assoc($query_run))
        {
-          if($date=="")
-          $difference=strtotime($row['date']);
-        else{
-             $difference=strtotime($row['date'])-strtotime($date);
-             }
-             $t=abs(strtotime($row['time'])-$time1+$difference);  
+          
+          $date1=strtotime($row['date']);
+          $t=$date1+strtotime($row['time'])-strtotime('00:00:00');
           $key=$row['key'];
           $sql2="UPDATE groups SET `time_diff`='$t' WHERE `key`='$key'";
            if(mysql_query($sql2))
@@ -150,126 +196,36 @@ else
               }
         }
     }
-      if($var!=-1)
-      $var*=3600;
-
-      
-
-
-
-    if($source=="")
-      {
-          if($desti=="")
-          {
-            if($var==-1)
-            { 
-             if($date=="")
-              $sql3="SELECT * FROM groups ORDER BY time_diff";
-            else
-              $sql3="SELECT * FROM groups WHERE `date`='$date' ORDER BY time_diff";
-            } 
-            else
-            {
-              if($date=="")
-              $sql3="SELECT * FROM groups WHERE time_diff<='$var' ORDER BY time_diff";
-              else
-                  $sql3="SELECT * FROM groups WHERE time_diff<='$var' AND `date`='$date' ORDER BY time_diff";        
-            }
-        }
-        else
-       {
-           if($var==-1)
-            {
-              if($date=="")
-              $sql3="SELECT * FROM groups WHERE destination='$desti' ORDER BY time_diff";
-              else
-              $sql3="SELECT * FROM groups WHERE destination='$desti' AND `date`='$date' ORDER BY time_diff";
-                        
-              }
-          else
-          {
-            if($date=="")
-              $sql3="SELECT * FROM groups WHERE  destination='$desti' and time_diff<='$var' ORDER BY time_diff";
-            else
-            $sql3="SELECT * FROM groups WHERE  destination='$desti' and time_diff<='$var' and `date`='$date' ORDER BY time_diff";
-                     
-          } 
-        }
-      }
-        else{
-            if($desti=="")
-          {
-            if($var==-1)
-            { 
-              if($date=="")
-              $sql3="SELECT * FROM groups WHERE source='$source' ORDER BY time_diff";
-            else
-            $sql3="SELECT * FROM groups WHERE source='$source' and `date`='$date' ORDER BY time_diff";
-              
-            } 
-            else
-            {
-             if($date=="")
-              $sql3="SELECT * FROM groups WHERE source='$source' and time_diff<='$var' ORDER BY time_diff";
-            else
-            $sql3="SELECT * FROM groups WHERE source='$source' and time_diff<='$var' and `date`='$date' ORDER BY time_diff";
-              
-            }
-        }
-        else
-       {
-           if($var==-1)
-            {
-            if($date=="")
-              $sql3="SELECT * FROM groups WHERE source='$source' and destination='$desti' ORDER BY time_diff";
-             else
-               $sql3="SELECT * FROM groups WHERE source='$source' and destination='$desti' and `date`='$date' ORDER BY time_diff";
-             
-               }
-          else
-          {
-          if($date=="")
-            $sql3="SELECT * FROM groups WHERE source='$source' and destination='$desti' and time_diff<='$var' ORDER BY time_diff";
-           else
-            $sql3="SELECT * FROM groups WHERE source='$source' and destination='$desti' and time_diff<='$var' and `date`='$date' ORDER BY time_diff";
-           
-           }
-            }
-          }
-
-         if(mysql_query($sql3))
+ $sql3="SELECT * FROM groups ORDER BY time_diff";
+ if(mysql_query($sql3))
       {
         $query_run2=mysql_query($sql3);
         $i=0;
          if(mysql_num_rows($query_run2)==0)
           {
-           echo '<span class=my>';
-           echo "SORRY! NO GROUPS AVAILABLE";
+           echo '<span>';
+           echo "NO GROUPS AVAILABLE!";
            echo '</span>';
-          } 
+          }
           while($row=mysql_fetch_assoc($query_run2))
           {
-            echo 
+            echo
                 "<tr>".
                   "<td>".($i+1)."</td>".
                   "<td>".$row['source']."</td>".
                   "<td>".$row['destination']."</td>".
                   "<td>".$row['date']."</td>".
                   "<td>".$row['time']."</td>".
-                  "<td>".$row['gender']."</td>".
-                  "<td>".$row['limit']."</td>".
-                  "<td>".($row['limit']-$row['number'])."</td>".
-                 "<td>".$row['vehicle']."</td>".
-                 "<td>";
+                  "<td>";
                 
               $key=$row['key'];
               $limit=$row['limit'];
-              $number+=$row['number'];
+              $number=$row['number']+1;
               $gender=$row['gender'];
-             echo "<form action='join_group.php' method='post'>" ."<input type='hidden' name='group' value='$key'>".
+             echo "<form action='group_search.php' method='post'>" ."<input type='hidden' name='group' value='$key'>".
     "<input type='hidden' name='number' value='$number'>"."<input type='hidden' name='limit' value='$limit'>".
-    "<input type='hidden' name='gender' value='$gender'>"."<input type='hidden' name='book_no' value='$book_no'>".
-    "<button type='button submit' class='btn btn-lg btn-default'  name='join_group' value='Join Group'>Join Group</button>"."</form>"."</td>".
+    "<input type='hidden' name='gender' value='$gender'>".
+    "<button type='button submit' class='btn btn-lg btn-default' name='join_group' value='Join Group'>Join</button>"."</form>"."</td>".
                 "</tr>";
               $i++;
           }
@@ -279,14 +235,17 @@ else
 
       else
   {echo'invalid query';}
-    }
-
-?>
+       ?>
 </tbody>
 </table>
 </div>
+</p>
+</marquee>
+</div><!--/span-->
+</div><!--/row-->
+</div><!--/span-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script src="js/docs.min.js"></script>
+
 </body>
 </html>

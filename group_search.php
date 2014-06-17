@@ -40,7 +40,7 @@ body {background-image:url("b1.jpg");}
 .red {color: red;}
 </style>
 </head>
-<body>
+<body> 
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
 <div class="container">
 <div class="navbar-header">
@@ -87,93 +87,89 @@ body {background-image:url("b1.jpg");}
 
 
 
-<center> <h2 class="sub-header bau"><b>Available Groups</b></h2></center>
-<div class="table-responsive">
-<table class="table table-striped aa">
-<thead>
-<tr>
-<th>#</th>
-<th>Source</th>
-<th>Destination</th>
-<th>Date</th>
-<th>Time</th>
-<th>Gender</th>
-<th>Seats</th>
-<th>Available</th>
-<th>Vehicle</th>
-<th>Join?</th>
-</tr>
-</thead>
-<tbody>
+        <center>  <h2 class="sub-header bau"><b>Available Groups</b></h2></center>
+          <div class="table-responsive">
+            <table class="table table-striped aa">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Source</th>
+                  <th>Destination</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Gender</th>
+                  <th>Seats</th>
+                  <th>Available</th>
+                  <th>Vehicle</th>
+                  <th>Join?</th>
+                </tr>
+              </thead>
+          <tbody>
 
 
 <?php
 require 'connect.inc.php';
 if($_SERVER["REQUEST_METHOD"]=='POST')
 {
-  $desti=$_POST["destination"];
-  $source=$_POST["source"];
-  $time=$_POST["time"];
-  $date=$_POST["date"];
-  $var=$_POST["variation"];
-  //$gend=$_POST['gender'];
-  $veh=$_POST["vehicle"];
-  $book_no=$_POST["number"];
-if($book_no=="")
-    $book_no=1;
-$number=$book_no;
-if($time==""){
-  $time1=time();
-}
-else
-  {$time1=strtotime($time);
-  }
-  if($var=="")
-    $var=-1;
-   $sql="SELECT * FROM groups";
-  if(mysql_query($sql))
-  {
-      $query_run=mysql_query($sql);
-      while($row=mysql_fetch_assoc($query_run))
-       {
-          if($date=="")
-          $difference=strtotime($row['date']);
-        else{
-             $difference=strtotime($row['date'])-strtotime($date);
-             }
-             $t=abs(strtotime($row['time'])-$time1+$difference);
-          $key=$row['key'];
-          $sql2="UPDATE groups SET `time_diff`='$t' WHERE `key`='$key'";
-           if(mysql_query($sql2))
-              {
-                $query_run1=mysql_query($sql2);
-              }
-        }
+  if(!$_POST['check'])
+    {
+      $key=$_POST['key'];
+      $sql3="SELECT * FROM groups WHERE `key`='$key'";;
+      $book_no=1;
+      $number=$book_no;
     }
-      if($var!=-1)
+    else{
+        $desti=$_POST["destination"];
+        $source=$_POST["source"];
+        $time=$_POST["time"];
+        $date=$_POST["date"];
+        $var=$_POST["variation"];
+        $book_no=$_POST["number"];
+          if($book_no=="")
+            $book_no=1;
+          $number=$book_no;
+          if($time=="")
+          $time1=time();
+          else
+          $time1=strtotime($time);
+          if($var=="")
+          $var=-1;
+          $sql="SELECT * FROM groups";
+          if(mysql_query($sql))
+            {
+              $query_run=mysql_query($sql);
+              while($row=mysql_fetch_assoc($query_run))
+                {
+                  if($date=="")
+                  $difference=strtotime($row['date']);
+                    else
+             $difference=strtotime($row['date'])-strtotime($date);
+             $t=abs(strtotime($row['time'])-$time1+$difference);  
+            $key=$row['key'];
+            $sql2="UPDATE groups SET `time_diff`='$t' WHERE `key`='$key'";
+            if(mysql_query($sql2))
+              $query_run1=mysql_query($sql2);
+               }
+          }
+       if($var!=-1)
       $var*=3600;
-
-      
-
-
-
     if($source=="")
       {
           if($desti=="")
           {
             if($var==-1)
-            {
+            { 
              if($date=="")
               $sql3="SELECT * FROM groups ORDER BY time_diff";
             else
               $sql3="SELECT * FROM groups WHERE `date`='$date' ORDER BY time_diff";
-            }
+            } 
             else
             {
               if($date=="")
               $sql3="SELECT * FROM groups WHERE time_diff<='$var' ORDER BY time_diff";
               else
-                  $sql3="SELECT * FROM groups WHERE time_diff<='$var' AND `date`='$date' ORDER BY time_diff";
+                  $sql3="SELECT * FROM groups WHERE time_diff<='$var' AND `date`='$date' ORDER BY time_diff";        
             }
         }
         else
@@ -189,24 +185,24 @@ else
           else
           {
             if($date=="")
-              $sql3="SELECT * FROM groups WHERE destination='$desti' and time_diff<='$var' ORDER BY time_diff";
+              $sql3="SELECT * FROM groups WHERE  destination='$desti' and time_diff<='$var' ORDER BY time_diff";
             else
-            $sql3="SELECT * FROM groups WHERE destination='$desti' and time_diff<='$var' and `date`='$date' ORDER BY time_diff";
+            $sql3="SELECT * FROM groups WHERE  destination='$desti' and time_diff<='$var' and `date`='$date' ORDER BY time_diff";
                      
-          }
+          } 
         }
       }
         else{
             if($desti=="")
           {
             if($var==-1)
-            {
+            { 
               if($date=="")
               $sql3="SELECT * FROM groups WHERE source='$source' ORDER BY time_diff";
             else
             $sql3="SELECT * FROM groups WHERE source='$source' and `date`='$date' ORDER BY time_diff";
               
-            }
+            } 
             else
             {
              if($date=="")
@@ -234,9 +230,9 @@ else
             $sql3="SELECT * FROM groups WHERE source='$source' and destination='$desti' and time_diff<='$var' and `date`='$date' ORDER BY time_diff";
            
            }
-            }
           }
-
+       }
+     }
          if(mysql_query($sql3))
       {
         $query_run2=mysql_query($sql3);
@@ -246,10 +242,10 @@ else
            echo '<span class=my>';
            echo "SORRY! NO GROUPS AVAILABLE";
            echo '</span>';
-          }
+          } 
           while($row=mysql_fetch_assoc($query_run2))
           {
-            echo
+            echo 
                 "<tr>".
                   "<td>".($i+1)."</td>".
                   "<td>".$row['source']."</td>".
@@ -269,7 +265,7 @@ else
              echo "<form action='join_group.php' method='post'>" ."<input type='hidden' name='group' value='$key'>".
     "<input type='hidden' name='number' value='$number'>"."<input type='hidden' name='limit' value='$limit'>".
     "<input type='hidden' name='gender' value='$gender'>"."<input type='hidden' name='book_no' value='$book_no'>".
-    "<button type='button submit' class='btn btn-lg btn-default' name='join_group' value='Join Group'>Join Group</button>"."</form>"."</td>".
+    "<button type='button submit' class='btn btn-lg btn-default'  name='join_group' value='Join Group'>Join Group</button>"."</form>"."</td>".
                 "</tr>";
               $i++;
           }

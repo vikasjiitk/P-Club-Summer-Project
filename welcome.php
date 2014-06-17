@@ -185,17 +185,30 @@ require 'connect.inc.php';
       $query_run=mysql_query($sql);
       while($row=mysql_fetch_assoc($query_run))
        {
-          
+          $del=time();          
           $date1=strtotime($row['date']);
           $t=$date1+strtotime($row['time'])-strtotime('00:00:00');
           $key=$row['key'];
           $sql2="UPDATE groups SET `time_diff`='$t' WHERE `key`='$key'";
            if(mysql_query($sql2))
               {
+                if($t<$del)
+                {
+                $sql5="UPDATE users SET `key`=0 WHERE `key`='$key'";
+                if(mysql_query($sql5))
+                  ;
+                  else
+                  echo "invalid";
+                }
                 $query_run1=mysql_query($sql2);
               }
         }
     }
+ $sql4="DELETE FROM groups WHERE `time_diff`<'$del'";
+ if(mysql_query($sql4))
+  ;
+  else
+  echo "invalid"; 
  $sql3="SELECT * FROM groups ORDER BY time_diff LIMIT 20";
  if(mysql_query($sql3))
       {

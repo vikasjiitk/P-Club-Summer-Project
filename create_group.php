@@ -167,15 +167,19 @@ VALUES('$source','$destination','$date','$time','$gender','$vehicle','$number','
      {die('Error: '.mysqli_error($con));}
       $username=@mysqli_real_escape_string($con,$_SESSION['loggedin']);
      $key=mysqli_insert_id($con);
-     echo $key;
+    // echo $key;
     $sql1="UPDATE users SET `key`= '$key',`book_no`='$number' WHERE `username`='$username' ";
       if(!mysqli_query($con,$sql1))
      {die('Error: '.mysqli_error($con));}
      echo '<br>' . "<h3>Welcome to share your fare</h3>" . '<br>';
-     @mysqli_close($con);}
+     @mysqli_close($con);
+    echo '<META HTTP-EQUIV="Refresh" Content="0; URL=welcome.php">';
+     }
+      
       ?>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+
 </body>
 </html>

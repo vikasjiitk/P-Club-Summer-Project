@@ -54,44 +54,47 @@ width: 400px;
 
 <body style="background-color:lavender;">
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-<div class="container">
-<div class="navbar-header">
-<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-<span class="sr-only">Toggle navigation</span>
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-</button>
-<a class="navbar-brand" href="#">Welcome <?php echo $_SESSION['loggedin']?> !</a>
-</div>
-<div class="navbar-collapse collapse">
-<ul class="nav navbar-nav">
-<li class="active"><a href="welcome.php"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-<li><a href="create_group.php"><span class="glyphicon glyphicon-list-alt"></span> Create Group</a></li>
-<li><a href="yourgroup.php"><span class="glyphicon glyphicon-tasks"></span> Your Group</a></li>
-<li><a href="#about"><span class="glyphicon glyphicon-phone-alt"></span> Contacts</a></li>
-<li><a href="profile.php"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Welcome <?php echo $_SESSION['userlogin']?> !</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+             <li><a href="welcome.php"><span class="glyphicon glyphicon-home"></span>  Home</a></li>
+            <li><a href="create_group.php"><span class="glyphicon glyphicon-list-alt"></span> Create Group</a></li>
+           <li ><a href="yourgroup.php"><span class="glyphicon glyphicon-tasks"></span>  Your Group</a></li>
+            
+            <li class="active"><a href="profile.php"><span class="glyphicon glyphicon-user"></span>  Profile</a></li>
 
-<li class="dropdown">
-<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-th-list"></span> <b class="caret"></b></a>
-<ul class="dropdown-menu">
-<li><a href="#">Notifications</a></li>
-<li><a href="http://www.facebook.com">Help</a></li>
-<li class="divider"></li>
-<li class="dropdown-header">Account</li>
-<li><a href="#">About Us</a></li>
-</ul>
-</li>
-</ul>
-<ul class="nav navbar-nav navbar-right">
-<li><a href="#">Help</a></li>
-<li><a href="navbar-static-top/">About Us</a></li>
-<li class="active"><a href="signout.php"><span class="glyphicon glyphicon-log-out"></span> Sign-out</a></li>
-</ul>
-</div><!--/.nav-collapse -->
-</div>
-</div>
-
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-th-list"></span> <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                
+                <li><a href="#">Notifications</a></li>
+                
+                
+                <li class="divider"></li>
+                <li class="dropdown-header">Account</li>
+                <li><a href="#">Help</a></li>
+                
+              </ul>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            
+            <li><a href="aboutus.php">About Us</a></li>
+            <li><a href="signout.php"><span class="glyphicon glyphicon-log-out"></span>  Sign-out</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    
 <h1 style="text-align:Center;"><b><font class="id2"><ins>Share Ur Fare</ins></font></b></h1>
 
 <marquee><b class=red>Disclaimer:</b><i>If any person in your group fails to come for the journey,then the site would not be responsible. Hence, user discretion is adviced.</i></marquee>
@@ -106,19 +109,19 @@ $userid=@mysql_real_escape_string($_SESSION['loggedin']);
       $run=mysql_query($query) or die(mysql_error());
       $row=mysql_fetch_assoc($run);
       $nam=$row["name"];
-      $gend=$row["gender"];
+      
       $ph=$row["phone"];
       $pic=$row["Photo"];
+      $Add=$row["Address"];
       $male="m.jpg";
       $female="f.jpg";
-    $cpic=$pic;
-    $file=$hid="";
+    
 }
 
 $nameErr=$genErr=$PhoneErr="";
 
 
-$gen=$name=$Phone=$username="";
+$name=$Phone=$username=$addr="";
 $username=$_SESSION['loggedin'];
 $check=0;
 if($_SERVER["REQUEST_METHOD"]=="POST")
@@ -145,9 +148,9 @@ if(!empty($_POST["name"]))
          else $PhoneErr="";
        
    }
-   if(!empty($_POST["gender"]))
+if(!empty($_POST["addr"]))
    {
-         $gen=test($_POST["gender"]);
+         $addr=test($_POST["addr"]);
     }
 
    //echo 'phone' . $PhoneErr;
@@ -171,7 +174,7 @@ function test($data) {
 enctype="multipart/form-data">
 
 <input type="file" name="file" id="file"><br>
-<input type="hidden" name="hid" value="1">
+
 <input type="submit" name="submit" value="Submit">
 
 </form>
@@ -188,14 +191,13 @@ enctype="multipart/form-data">
 <input type="text" class="form-control" placeholder="<?= $nam?>" name="name">
 <input type="hidden" class="form-control"  name="check" value="1">
 
-<input class="form-control" placeholder="<?= $gend?>" list="gender" name="gender">
 
-<datalist id="gender">
-<option value ="Male">
-<option value ="Female">
 
 </datalist>
+<input type="text" class="form-control" placeholder="<?= $Add?>" name="addr">
+
 <input type="text" class="form-control" placeholder="<?= $ph?>" name="Phone" >
+
 <br>
 
 <button class="btn btn-lg btn-primary btn-block" type="submit"></span>UPDATE
@@ -209,7 +211,7 @@ enctype="multipart/form-data">
 <?php
 
 
-if( empty($genErr)&& empty($PhoneErr) && empty($nameErr) && $check==1)
+if(empty($PhoneErr) && empty($nameErr) && $check==1)
   {
     
     $con = @mysqli_connect('localhost','root','pcp10','iitk');
@@ -221,22 +223,19 @@ if( empty($genErr)&& empty($PhoneErr) && empty($nameErr) && $check==1)
     
     $Phone=@mysqli_real_escape_string($con,$_POST["Phone"]);
     
-    if(strcmp($_POST['gender'],"Male")==0)
-  $gender='M';
-else $gender='F';
-    $gen=@mysqli_real_escape_string($con,$gender);
+    $addr=@mysqli_real_escape_string($con,$_POST["addr"]);
     
-    if(empty($name) && empty($gender) && empty($Phone))$sql="UPDATE users SET `name`='$nam',`gender`='$gend',`phone`='$ph'
-WHERE `username`='$username'"; 
-    else if(empty($gender) && empty($Phone))$sql="UPDATE users SET `name`='$name' WHERE `username`='$username'";
-    else if(empty($name) && empty($Phone) && strcmp($gender,'F')==0 && strcmp($pic,"m.jpg")==0)$sql="UPDATE users SET `Photo`='$female',`gender`='$gender' WHERE `username`='$username'";
-    else if(empty($name) && empty($Phone) && strcmp($gender,'M')==0 && strcmp($pic,"f.jpg")==0)$sql="UPDATE users SET `Photo`='$male',`gender`='$gender' WHERE `username`='$username'";
-    else if(empty($name) && empty($gender))$sql="UPDATE users SET `phone`='$Phone' WHERE `username`='$username'";
-    else if(empty($name) && strcmp($gender,'F')==0 && strcmp($pic,"m.jpg")==0)$sql="UPDATE users SET `Photo`='$female',`phone`='$Phone',`gender`='$gender' WHERE `username`='$username'";
-    else if(empty($gender))$sql="UPDATE users SET `phone`='$Phone',`name`='$name' WHERE `username`='$username'";
-    else if(empty($Phone) && strcmp($gender,'F')==0 && strcmp($pic,"m.jpg")==0)$sql="UPDATE users SET `Photo`='$female',`gender`='$gender',`name`='$name' WHERE `username`='$username'";
 
 
+
+    if($name=="")
+      $name=$nam;
+    
+    if($Phone=="")$Phone=$ph;
+     if($addr=="")$addr=$Add;
+ $sql="UPDATE users SET `name`='$name',`phone`='$Phone',`Address`='$addr' WHERE `username`='$username'"; 
+
+  
      if(!mysqli_query($con,$sql))
      {die('Error: '.mysqli_error($con));}
 $message = "Updated sucessfully";
@@ -248,6 +247,7 @@ echo "<script type='text/javascript'>alert('$message');</script>";
       $PhoneErr='*';
     }
     ?>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 </body>
 </html>

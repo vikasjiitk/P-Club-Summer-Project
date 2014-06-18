@@ -160,12 +160,12 @@ body {background-image:url("b1.jpg");}
 <th>Destination</th>
 <th>Date</th>
 <th>Time</th>
-<th>Join?</th>
+<th></th>
 </tr>
 </thead>
 </table>
   </div>
-<marquee behavior="scroll" direction="up" scrollamount="4" height="360"  onmouseover="this.stop();" onmouseout="this.start();">
+<marquee behavior="scroll" direction="up" scrollamount="6" height="360"  onmouseover="this.stop();" onmouseout="this.start();">
 
 <p>
 <div class="table-responsive">
@@ -185,24 +185,21 @@ require 'connect.inc.php';
       $query_run=mysql_query($sql);
       while($row=mysql_fetch_assoc($query_run))
        {
-          $del=time(); 
-          echo $del."<br>";         
-          $date1=strtotime($row['date'])-86400;
-          $t=$date1+strtotime($row['time'])-strtotime('00:00:00');
+          $del=time();          
+          $date1=strtotime($row['date']);
+          $t=$date1+strtotime($row['time'])-strtotime('00:00:00')-12600;
           $key=$row['key'];
-          echo $t."<br>";
+          
           $sql2="UPDATE groups SET `time_diff`='$t' WHERE `key`='$key'";
            if(mysql_query($sql2))
               {
                 if($t<$del)
                 {
                 $sql5="UPDATE users SET `key`=0 WHERE `key`='$key'";
-                $sql6="DELETE FROM notification WHERE `key`='$key'";
-                if(!mysql_query($sql5) || !mysql_query($sql6))
-                  {
-                    echo "Unable to connect";
-                    die('Error: '.mysql_error());
-                  }
+                if(mysql_query($sql5))
+                  ;
+                  else
+                  echo "invalid";
                 }
                 $query_run1=mysql_query($sql2);
               }
@@ -243,7 +240,7 @@ require 'connect.inc.php';
              echo "<form action='group_search.php' method='post'>" ."<input type='hidden' name='check' value='0'>".
              "<input type='hidden' name='limit' value='$limit'>".
     "<input type='hidden' name='key' value='$key'>".
-    "<button type='button submit' class='btn btn-lg btn-default' name='join_group' value='Join Group'>Join</button>"."</form>"."</td>".
+    "<button type='button submit' class='btn btn-lg btn-default' name='join_group' value='Join Group'>VIEW</button>"."</form>"."</td>".
                 "</tr>";
               $i++;
           }

@@ -50,7 +50,7 @@ font-family: "Lucida Handwriting";
 }
 hr{color:blue;}
 .new{
-font-family: "Copperplate Gothic Bold";color=purple;
+  font-family: "Copperplate Gothic Bold";color=purple;
 }
 body {background-image:url("b1.jpg");}
 
@@ -58,46 +58,44 @@ body {background-image:url("b1.jpg");}
 </head>
 <body>
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Welcome <?php echo $_SESSION['userlogin']?> !</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-             <li class="active"><a href="welcome.php"><span class="glyphicon glyphicon-home"></span>  Home</a></li>
-            <li><a href="create_group.php"><span class="glyphicon glyphicon-list-alt"></span> Create Group</a></li>
-           <li><a href="yourgroup.php"><span class="glyphicon glyphicon-tasks"></span>  Your Group</a></li>
-            
-            <li><a href="profile.php"><span class="glyphicon glyphicon-user"></span>  Profile</a></li>
+<div class="container">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="#">Welcome <?php echo $_SESSION['loggedin']?> !</a>
+</div>
+<div class="navbar-collapse collapse">
+<ul class="nav navbar-nav">
+<li class="active"><a href="welcome.php"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+<li><a href="create_group.php"><span class="glyphicon glyphicon-list-alt"></span> Create Group</a></li>
+<li><a href="yourgroup.php"><span class="glyphicon glyphicon-tasks"></span> Your Group</a></li>
+<li><a href="#about"><span class="glyphicon glyphicon-phone-alt"></span> Contacts</a></li>
+<li><a href="profile.php"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
 
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-th-list"></span> <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                
-                <li><a href="#">Notifications</a></li>
-                
-                
-                <li class="divider"></li>
-                <li class="dropdown-header">Account</li>
-                <li><a href="#">Help</a></li>
-                
-              </ul>
-            </li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            
-            <li><a href="aboutus.php">About Us</a></li>
-            <li><a href="signout.php"><span class="glyphicon glyphicon-log-out"></span>  Sign-out</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </div>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-th-list"></span> <b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="#">Notifications</a></li>
+<li><a href="http://www.facebook.com">Help</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Account</li>
+<li><a href="#">About Us</a></li>
+</ul>
+</li>
+</ul>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="#">Help</a></li>
+<li><a href="navbar-static-top/">About Us</a></li>
+<li class="active"><a href="signout.php"><span class="glyphicon glyphicon-log-out"></span> Sign-out</a></li>
+</ul>
+</div><!--/.nav-collapse -->
+</div>
+</div>
+
 <h1 class="Mag" style="text-align:Center;"><b><ins>Share Ur Fare</ins></b></h1>
 <marquee><b class=red>Disclaimer:</b><i>If any person in your group fails to come for the journey,then the site would not be responsible. Hence, user discretion is adviced.</i></marquee>
 
@@ -150,12 +148,12 @@ body {background-image:url("b1.jpg");}
 <div class="table-responsive">
 <table class="table table-striped a">
 <thead>
-<col width="25">
-<col width="90">
-<col width="130">
-<col width="120">
-<col width="100">
-<col width="80">
+  <col width="25">
+  <col width="90">
+  <col width="130">
+  <col width="120">
+  <col width="100">
+  <col width="80">
 <tr>
 <th>#</th>
 <th>Source</th>
@@ -166,19 +164,19 @@ body {background-image:url("b1.jpg");}
 </tr>
 </thead>
 </table>
-</div>
-<marquee behavior="scroll" direction="up" scrollamount="4" height="360" onmouseover="this.stop();" onmouseout="this.start();">
+  </div>
+<marquee behavior="scroll" direction="up" scrollamount="4" height="360"  onmouseover="this.stop();" onmouseout="this.start();">
 
 <p>
 <div class="table-responsive">
 <table class="table table-striped a">
 <tbody>
-<col width="25">
-<col width="90">
-<col width="130">
-<col width="120">
-<col width="100">
-<col width="80">
+  <col width="25">
+  <col width="90">
+  <col width="130">
+  <col width="120">
+  <col width="100">
+  <col width="80">
 <?php
 require 'connect.inc.php';
  $sql="SELECT * FROM groups";
@@ -187,17 +185,34 @@ require 'connect.inc.php';
       $query_run=mysql_query($sql);
       while($row=mysql_fetch_assoc($query_run))
        {
-          
-          $date1=strtotime($row['date']);
+          $del=time(); 
+          echo $del."<br>";         
+          $date1=strtotime($row['date'])-86400;
           $t=$date1+strtotime($row['time'])-strtotime('00:00:00');
           $key=$row['key'];
+          echo $t."<br>";
           $sql2="UPDATE groups SET `time_diff`='$t' WHERE `key`='$key'";
            if(mysql_query($sql2))
               {
+                if($t<$del)
+                {
+                $sql5="UPDATE users SET `key`=0 WHERE `key`='$key'";
+                $sql6="DELETE FROM notification WHERE `key`='$key'";
+                if(!mysql_query($sql5) || !mysql_query($sql6))
+                  {
+                    echo "Unable to connect";
+                    die('Error: '.mysql_error());
+                  }
+                }
                 $query_run1=mysql_query($sql2);
               }
         }
     }
+ $sql4="DELETE FROM groups WHERE `time_diff`<'$del'";
+ if(mysql_query($sql4))
+  ;
+  else
+  echo "invalid"; 
  $sql3="SELECT * FROM groups ORDER BY time_diff LIMIT 20";
  if(mysql_query($sql3))
       {

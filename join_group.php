@@ -30,30 +30,30 @@ $session=$_SESSION['loggedin'];
 ?>
 <style type="text/css">
 h1{ font-family: Magneto;
-  color:teal;}
-  b.red{
-    color:red;
-  }
-  .my{color: red; font-size: 15pt;}
-  .col{
-    color: #6600FF;
-    font-family: "Lucida Handwriting";
-  }
-  .bau{font-family: "Bradley Hand ITC";color: #330099;}
-  .aa{
-    font-family: "Comic Sans MS";
-    color: black;
-    font-size: 20px;
-  }
-  }
-  }
-  hr{color:blue;}
-  body {background-image:url("b1.jpg");}
+color:teal;}
+b.red{
+color:red;
+}
+.my{color: red; font-size: 15pt;}
+.col{
+color: #6600FF;
+font-family: "Lucida Handwriting";
+}
+.bau{font-family: "Bradley Hand ITC";color: #330099;}
+.aa{
+font-family: "Comic Sans MS";
+color: black;
+font-size: 20px;
+}
+}
+}
+hr{color:blue;}
+body {background-image:url("b1.jpg");}
 
 </style>
 </head>
 <body style="background-color:lavender;">
-  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -66,34 +66,34 @@ h1{ font-family: Magneto;
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="welcome.php"><span class="glyphicon glyphicon-home"></span>  Home</a></li>
+             <li class="active"><a href="welcome.php"><span class="glyphicon glyphicon-home"></span>  Home</a></li>
             <li><a href="create_group.php"><span class="glyphicon glyphicon-list-alt"></span> Create Group</a></li>
-             <li><a href="yourgroup.php"><span class="glyphicon glyphicon-tasks"></span>  Your Group</a></li>
-            <li><a href="#about"><span class="glyphicon glyphicon-phone-alt"></span>  Contacts</a></li>
+           <li><a href="yourgroup.php"><span class="glyphicon glyphicon-tasks"></span>  Your Group</a></li>
+            
             <li><a href="profile.php"><span class="glyphicon glyphicon-user"></span>  Profile</a></li>
 
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-th-list"></span> <b class="caret"></b></a>
               <ul class="dropdown-menu">
+                
                 <li><a href="#">Notifications</a></li>
-                <li><a href="http://www.facebook.com">Help</a></li>
+                
                 
                 <li class="divider"></li>
                 <li class="dropdown-header">Account</li>
-                <li><a href="#">About Us</a></li>
+                <li><a href="#">Help</a></li>
                 
               </ul>
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Help</a></li>
-            <li><a href="navbar-static-top/">About Us</a></li>
-            <li class="active"><a href="signout.php"><span class="glyphicon glyphicon-log-out"></span>  Sign-out</a></li>
+            
+            <li><a href="aboutus.php">About Us</a></li>
+            <li><a href="signout.php"><span class="glyphicon glyphicon-log-out"></span>  Sign-out</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </div>
-
 <h1 style="text-align:Center;"><b><font class="id2"><ins>Share Ur Fare</ins></font></b></h1>
 
 <marquee><b class=red>Disclaimer:</b><i>If any person in your group fails to come for the journey,then the site would not be responsible. Hence, user discretion is adviced.</i></marquee>
@@ -147,7 +147,7 @@ echo "<script type='text/javascript'>alert('$message');</script>";
 }
 while($row_users=mysql_fetch_assoc($res_users))
 {
-echo $i.") ".$row_users['name']."(Gender: ".$row_users['gender']."     , Seats Booked: ".$row_users['book_no']." )<br><br>";
+echo $i.") ".$row_users['name']."(Gender: ".$row_users['gender']." , Seats Booked: ".$row_users['book_no']." )<br><br>";
   $i++;
 }
 echo "</span>";

@@ -18,8 +18,9 @@ if(mysql_query($query1))
 	$query2="UPDATE groups SET `number`=`number`-'$book_no' WHERE `key`='$key' ";
 	$query3="UPDATE users SET `key`=0, `book_no`=0 WHERE `username`='$userid' ";
 	$query4="SELECT `number` FROM groups WHERE `key`='$key'";
-
-	if(!mysql_query($query2) || !mysql_query($query3))
+	$query5="INSERT INTO notification(`username`,`key`,`code`,`time`) VALUES('$userid','$key',0,NOW())";
+	$query6="UPDATE users SET `notify`=`notify`+1 WHERE `key`='$key'";
+	if(!mysql_query($query2) || !mysql_query($query3) || !mysql_query($query5) || !mysql_query($query6))
 	{
 		die('Error: '.mysql_error());
 	}
@@ -31,7 +32,8 @@ if(mysql_query($query1))
 			if($row['number']==0)
 			{
 				$query5="DELETE FROM groups WHERE `key`='$key'";
-				if(!mysql_query($query5))
+				$query6="DELETE FROM notification WHERE `key`='$key'";
+				if(!mysql_query($query5) || !mysql_query($query6))
 				{
 					die('Error: '.mysql_error());
 				}

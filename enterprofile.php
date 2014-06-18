@@ -128,8 +128,15 @@ if( empty($genErr)&& empty($nameErr) && empty($PhoneErr))
   $gender='M';
 else $gender='F';
     $gen=@mysqli_real_escape_string($con,$gender);
-    $sql="INSERT INTO users (`name`,`gender`, `phone`,`username`)
-VALUES('$name','$gen','$Phone','$username')";
+    $usr=$_SESSION['loggedin'];
+    $male="m.jpg";
+    $female="f.jpg";
+    if(strcmp($gender,'M')==0)
+    $sql="INSERT INTO users (`name`,`gender`, `phone`,`username`,`Photo`)
+VALUES('$name','$gen','$Phone','$username','$male')";
+ else $sql="INSERT INTO users (`name`,`gender`, `phone`,`username`,`Photo`)
+VALUES('$name','$gen','$Phone','$username','$female')";
+    
      if(!mysqli_query($con,$sql))
      {die('Error: '.mysqli_error($con));}
 $message = "Created sucessfully";

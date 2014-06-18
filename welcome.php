@@ -26,6 +26,14 @@ if(!$_SESSION['loggedin'])
 header("Location:login.php");
 exit;
 }
+require 'connect.inc.php';
+$userid=@mysql_real_escape_string($_SESSION['loggedin']);
+$sql1="SELECT `notify` from users WHERE `username`='$userid'";
+ if($run=mysql_query($sql1))
+ {
+  $row=mysql_fetch_assoc($run);
+  $noti=$row['notify'];
+ }
 ?>
 <style type="text/css">
 .forms{
@@ -73,7 +81,7 @@ body {background-image:url("b1.jpg");}
 <li class="active"><a href="welcome.php"><span class="glyphicon glyphicon-home"></span> Home</a></li>
 <li><a href="create_group.php"><span class="glyphicon glyphicon-list-alt"></span> Create Group</a></li>
 <li><a href="yourgroup.php"><span class="glyphicon glyphicon-tasks"></span> Your Group</a></li>
-<li><a href="#about"><span class="glyphicon glyphicon-phone-alt"></span> Contacts</a></li>
+<li><a href="yourgroup.php"><span class="glyphicon glyphicon-phone-alt"></span> New Notifications: <?php if($noti!=0){echo '<span style="color: #FF0000;font-size:25px;"><b>('.$noti.')</b></span>';} else echo '(0)';?></a></li>
 <li><a href="profile.php"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
 
 <li class="dropdown">
@@ -142,8 +150,10 @@ body {background-image:url("b1.jpg");}
 <button class="btn btn-lg btn-primary btn-block" type="submit">Find Group
 </button></form>
 </div>
+
 <div class="newsfeed">
 <h1 class=new>NEWSFEED</h1>
+
 <br>
 <div class="table-responsive">
 <table class="table table-striped a">
@@ -160,12 +170,12 @@ body {background-image:url("b1.jpg");}
 <th>Destination</th>
 <th>Date</th>
 <th>Time</th>
-<th></th>
+<th>Join?</th>
 </tr>
 </thead>
 </table>
   </div>
-<marquee behavior="scroll" direction="up" scrollamount="6" height="360"  onmouseover="this.stop();" onmouseout="this.start();">
+<marquee behavior="scroll" direction="up" scrollamount="4" height="360"  onmouseover="this.stop();" onmouseout="this.start();">
 
 <p>
 <div class="table-responsive">
@@ -180,26 +190,31 @@ body {background-image:url("b1.jpg");}
 <?php
 require 'connect.inc.php';
  $sql="SELECT * FROM groups";
+ 
+
   if(mysql_query($sql))
   {
       $query_run=mysql_query($sql);
       while($row=mysql_fetch_assoc($query_run))
        {
-          $del=time();          
-          $date1=strtotime($row['date']);
-          $t=$date1+strtotime($row['time'])-strtotime('00:00:00')-12600;
+          $del=time(); 
+                  
+          $date1=strtotime($row['date'])-86400;
+          $t=$date1+strtotime($row['time'])-strtotime('00:00:00');
           $key=$row['key'];
-          
+         
           $sql2="UPDATE groups SET `time_diff`='$t' WHERE `key`='$key'";
            if(mysql_query($sql2))
               {
                 if($t<$del)
                 {
                 $sql5="UPDATE users SET `key`=0 WHERE `key`='$key'";
-                if(mysql_query($sql5))
-                  ;
-                  else
-                  echo "invalid";
+                $sql6="DELETE FROM notification WHERE `key`='$key'";
+                if(!mysql_query($sql5) || !mysql_query($sql6))
+                  {
+                    echo "Unable to connect";
+                    die('Error: '.mysql_error());
+                  }
                 }
                 $query_run1=mysql_query($sql2);
               }
@@ -240,7 +255,7 @@ require 'connect.inc.php';
              echo "<form action='group_search.php' method='post'>" ."<input type='hidden' name='check' value='0'>".
              "<input type='hidden' name='limit' value='$limit'>".
     "<input type='hidden' name='key' value='$key'>".
-    "<button type='button submit' class='btn btn-lg btn-default' name='join_group' value='Join Group'>VIEW</button>"."</form>"."</td>".
+    "<button type='button submit' class='btn btn-lg btn-default' name='join_group' value='Join Group'>Join</button>"."</form>"."</td>".
                 "</tr>";
               $i++;
           }

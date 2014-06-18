@@ -42,11 +42,11 @@ font-size: 50px;
 <center><h1>Share Ur Fare</h1><br><br>
 
 <?php
-$nameErr="*";
+$nameErr=$addErr="*";
 $genErr=$PhoneErr="";
 
 $err="Fill all details";
-$gen=$name=$Phone=$username="";
+$gen=$name=$Phone=$username=$addr="";
 $username=$_SESSION['loggedin'];
 if($_SERVER["REQUEST_METHOD"]=="POST")
 {
@@ -76,6 +76,12 @@ else
     {
          $gen=test($_POST["gender"]);
     }
+   if(empty($_POST["addr"]))
+    $addErr="*required";
+  else
+    {
+         $addr=test($_POST["addr"]);
+    }
 
    //echo 'phone' . $PhoneErr;
    
@@ -90,15 +96,16 @@ function test($data) {
 <div class="container">
 <form class="form-signin" role="form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 <h2 class="form-signin-heading">Create  your  Profile</h2>
-<input type="text" class="form-control" placeholder="Name" name="name">
+<input type="text" class="form-control" placeholder="Name" name="name" required>
 
-<input class="form-control" placeholder="Gender" list="gender" name="gender">
-
+<input class="form-control" placeholder="Gender" list="gender" name="gender" required>
+ 
 <datalist id="gender">
 <option value ="Male">
-<option value ="Female"">
+<option value ="Female">
 
 </datalist>
+<input type="text" class="form-control" placeholder="Address" name="addr" required>
 <input type="number" class="form-control" placeholder="Phone Number(recommended)" name="Phone" >
 <br>
 
@@ -123,7 +130,7 @@ if( empty($genErr)&& empty($nameErr) && empty($PhoneErr))
     $name=@mysqli_real_escape_string($con,$_POST["name"]);
     
     $Phone=@mysqli_real_escape_string($con,$_POST["Phone"]);
-    
+    $addr=@mysqli_real_escape_string($con,$_POST["addr"]);
     if(strcmp($_POST['gender'],"Male")==0)
   $gender='M';
 else $gender='F';
@@ -132,10 +139,10 @@ else $gender='F';
     $male="m.jpg";
     $female="f.jpg";
     if(strcmp($gender,'M')==0)
-    $sql="INSERT INTO users (`name`,`gender`, `phone`,`username`,`Photo`)
-VALUES('$name','$gen','$Phone','$username','$male')";
- else $sql="INSERT INTO users (`name`,`gender`, `phone`,`username`,`Photo`)
-VALUES('$name','$gen','$Phone','$username','$female')";
+    $sql="INSERT INTO users (`name`,`gender`, `phone`,`username`,`Photo`,`Address`)
+VALUES('$name','$gen','$Phone','$username','$male','$addr')";
+ else $sql="INSERT INTO users (`name`,`gender`, `phone`,`username`,`Photo`,`Address`)
+VALUES('$name','$gen','$Phone','$username','$female','$addr')";
     
      if(!mysqli_query($con,$sql))
      {die('Error: '.mysqli_error($con));}

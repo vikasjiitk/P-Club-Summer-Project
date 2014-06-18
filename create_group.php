@@ -1,4 +1,4 @@
-<html>
+<html> 
 <head>
   <title>Create Group</title>
   <meta charset="utf-8">
@@ -35,6 +35,7 @@ if(!$_SESSION['loggedin'])
 header("Location:login.php");
 exit;
 }
+//echo "<br><br>".$_SESSION['loggedin'];
 ?>
 </head>
 <body style="background-color:lavender;">
@@ -47,12 +48,12 @@ exit;
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Welcome <?php echo $_SESSION['userlogin']?> !</a>
+          <a class="navbar-brand" href="#">Welcome <?php echo $_SESSION['loggedin']?> !</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-             <li><a href="welcome.php"><span class="glyphicon glyphicon-home"></span>  Home</a></li>
-            <li  class="active"><a href="create_group.php"><span class="glyphicon glyphicon-list-alt"></span> Create Group</a></li>
+             <li class="active"><a href="welcome.php"><span class="glyphicon glyphicon-home"></span>  Home</a></li>
+            <li><a href="create_group.php"><span class="glyphicon glyphicon-list-alt"></span> Create Group</a></li>
            <li><a href="yourgroup.php"><span class="glyphicon glyphicon-tasks"></span>  Your Group</a></li>
             
             <li><a href="profile.php"><span class="glyphicon glyphicon-user"></span>  Profile</a></li>
@@ -60,21 +61,21 @@ exit;
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-th-list"></span> <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                
+                <li><a href="profile.php">Profile</a></li>
                 <li><a href="#">Notifications</a></li>
-                
+                <li><a href="http://www.facebook.com">Help</a></li>
                 
                 <li class="divider"></li>
                 <li class="dropdown-header">Account</li>
-                <li><a href="#">Help</a></li>
+                <li><a href="#">About Us</a></li>
                 
               </ul>
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            
-            <li><a href="aboutus.php">About Us</a></li>
-            <li><a href="signout.php"><span class="glyphicon glyphicon-log-out"></span>  Sign-out</a></li>
+            <li><a href="#">Help</a></li>
+            <li><a href="navbar-static-top/">About Us</a></li>
+            <li class="active"><a href="signout.php"><span class="glyphicon glyphicon-log-out"></span>  Sign-out</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -87,8 +88,35 @@ exit;
 <span><h3 class="col">&#160;&#160;&#160;&#160;&#160;&#160;Create ur group</h3></span>
 <form class="form-signin" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" role="form" method ="POST">
 
-<input type="text" class="form-control" placeholder="Source" name="source" required autofocus>
-        <input type="text" class="form-control" placeholder="Destination" name="destination" required>
+
+<select class="form-control" placeholder="Source" name="source" required autofocus>
+  <option value="">Enter Source</option>
+  <option value="Allen Zoo">Allen Zoo</option>
+  <option value="Gumti">Gumti</option>
+  <option value="IITK">IITK</option>
+  <option value="JK Temple">JK Temple</option>
+  <option value="Kanpur Central">Kanpur Central</option>
+  <option value="Kalyanpur">Kalyanpur</option>
+  <option value="Moti Jheel">Moti Jheel</option>
+  <option value="Rawatpur">Rawatpur</option>
+  <option value="Rave 3">Rave 3</option>
+  <option value="Rave Moti">Rave Moti</option>
+  <option value="Z Square">Z Square</option>
+</select>
+<select class="form-control" placeholder="Destination" name="destination" required>
+              <option value="">Enter Destination</option>
+              <option value="Allen Zoo">Allen Zoo</option>
+              <option value="Gumti">Gumti</option>
+              <option value="IITK">IITK</option>
+              <option value="JK Temple">JK Temple</option>
+              <option value="Kanpur Central">Kanpur Central</option>
+              <option value="Kalyanpur">Kalyanpur</option>
+              <option value="Moti Jheel">Moti Jheel</option>
+              <option value="Rawatpur">Rawatpur</option>
+              <option value="Rave 3">Rave 3</option>
+              <option value="Rave Moti">Rave Moti</option>
+              <option value="Z Square">Z Square</option>
+            </select>
 <input type="date"  onblur="(this.type='text')" onfocus="(this.type='date')" class="form-control" placeholder="Date Of Journey" name="date" required>
 <input type="time"  onfocus="(this.type='time')" onblur="(this.type='text')" class="form-control" placeholder="Time" name="time" required>
 <br>
@@ -98,13 +126,14 @@ exit;
 <input type="radio" name="gender" value="M">Only Male(for males only)<br>
 <input type="radio" name="gender" value="B">both<br><br>
 <select class="form-control" name="vehicle">
+  <option value="">--select vehicle type--</option>
 <option value="AUTO">AUTO-RICKSHAW</option>
 <option value="VIKRAM">VIKRAM TEMPO</option>
 <option value="ANY">ANY</option>
 </select>
 
 
-<input type="number" name="number" min ="1" class="form-control" placeholder="No. of people you are booking for ">
+<input type="number" name="number" min="1" class="form-control" placeholder="No. of people you are booking for ">
 <input type="number" name="limit" min="1" class="form-control" placeholder="Limit group to "><br><br>
 
 <button class="btn btn-lg btn-primary btn-block" type="submit"><span class="glyphicon glyphicon-plus"></span> &#160;Create Group
@@ -136,16 +165,21 @@ exit;
 VALUES('$source','$destination','$date','$time','$gender','$vehicle','$number','$limit_no')";
      if(!mysqli_query($con,$sql))
      {die('Error: '.mysqli_error($con));}
-      $userid=@mysqli_real_escape_string($con,$_SESSION['loggedin']);
+      $username=@mysqli_real_escape_string($con,$_SESSION['loggedin']);
      $key=mysqli_insert_id($con);
-    $sql1="UPDATE users SET `key`= '$key',`book_no`='$number' WHERE `id`='$userid' ";
+    // echo $key;
+    $sql1="UPDATE users SET `key`= '$key',`book_no`='$number' WHERE `username`='$username' ";
       if(!mysqli_query($con,$sql1))
      {die('Error: '.mysqli_error($con));}
      echo '<br>' . "<h3>Welcome to share your fare</h3>" . '<br>';
-     @mysqli_close($con);}
+     @mysqli_close($con);
+    echo '<META HTTP-EQUIV="Refresh" Content="0; URL=welcome.php">';
+     }
+      
       ?>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+
 </body>
 </html>

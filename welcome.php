@@ -199,8 +199,8 @@ require 'connect.inc.php';
        {
           $del=time(); 
                   
-          $date1=strtotime($row['date'])-86400;
-          $t=$date1+strtotime($row['time'])-strtotime('00:00:00');
+          $date1=strtotime($row['date']);
+          $t=$date1+strtotime($row['time'])-strtotime('00:00:00')-12600;
           $key=$row['key'];
          
           $sql2="UPDATE groups SET `time_diff`='$t' WHERE `key`='$key'";

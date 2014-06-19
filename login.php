@@ -20,11 +20,19 @@
     
     
 <style>
-body {background-image:url("b1.jpg");}
+body {background-image:url("b5.jpg");}
 background-repeat:repeat-x;
 {h1:color:blue;}
 input{
    text-align:center;
+}
+.bg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -5000;
 }
 </style>
 <style>
@@ -57,7 +65,7 @@ tt=display_c();
 }
 </script>
 </head>
-<body onload=display_ct();>
+<body class="bg" onload=display_ct();>
 <span id='ct' ></span></p>
 <?php
 
@@ -146,5 +154,6 @@ $ftp_server = "webhome.cc.iitk.ac.in";
 <br><br><br><br>
 <p align="right"><img src="http://hitwebcounter.com/counter/counter.php?page=5664784&style=0005&nbdigits=8&type=page&initCount=0" title="" Alt="" border="0" >
 </a><br/></p>
+<div align="center"><img src="b5.jpg" class="bg"></div>
 </body>
 </html>

@@ -26,24 +26,26 @@ if(!$_SESSION['loggedin'])
 header("Location:login.php");
 exit;
 }
-require 'connect.inc.php';
-$userid=@mysql_real_escape_string($_SESSION['loggedin']);
-$sql1="SELECT `notify` from users WHERE `username`='$userid'";
- if($run=mysql_query($sql1))
- {
-  $row=mysql_fetch_assoc($run);
-  $noti=$row['notify'];
- }
 ?>
 <style type="text/css">
 .forms{
 float: left;
 width: 400px;
+  border: 2px solid;
+    border-radius: 25px;
+margin-left: 40px;
+    
+background-color:#CCFFFF;
 }
 .newsfeed{
 float: left;
 width: 800px;
 color: #006666;
+background-color:white;
+  border: 2px solid;
+    border-radius: 25px;
+margin-left: 70px;
+    box-shadow: 10px 10px 5px #888888;
 }
 h1.Mag{ font-family: Magneto;
 color:teal;}
@@ -66,43 +68,47 @@ body {background-image:url("b1.jpg");}
 </head>
 <body>
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-<div class="container">
-<div class="navbar-header">
-<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-<span class="sr-only">Toggle navigation</span>
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-</button>
-<a class="navbar-brand" href="#">Welcome <?php echo $_SESSION['loggedin']?> !</a>
-</div>
-<div class="navbar-collapse collapse">
-<ul class="nav navbar-nav">
-<li class="active"><a href="welcome.php"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-<li><a href="create_group.php"><span class="glyphicon glyphicon-list-alt"></span> Create Group</a></li>
-<li><a href="yourgroup.php"><span class="glyphicon glyphicon-tasks"></span> Your Group</a></li>
-<li><a href="yourgroup.php"><span class="glyphicon glyphicon-phone-alt"></span> New Notifications: <?php if($noti!=0){echo '<span style="color: #FF0000;font-size:25px;"><b>('.$noti.')</b></span>';} else echo '(0)';?></a></li>
-<li><a href="profile.php"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Welcome <?php echo $_SESSION['userlogin']?> !</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+             <li class="active"><a href="welcome.php"><span class="glyphicon glyphicon-home"></span>  Home</a></li>
+            <li><a href="create_group.php"><span class="glyphicon glyphicon-list-alt"></span> Create Group</a></li>
+           <li><a href="yourgroup.php"><span class="glyphicon glyphicon-tasks"></span>  Your Group</a></li>
+            
+            <li><a href="profile.php"><span class="glyphicon glyphicon-user"></span>  Profile</a></li>
 
-<li class="dropdown">
-<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-th-list"></span> <b class="caret"></b></a>
-<ul class="dropdown-menu">
-<li><a href="#">Notifications</a></li>
-<li><a href="http://www.facebook.com">Help</a></li>
-<li class="divider"></li>
-<li class="dropdown-header">Account</li>
-<li><a href="#">About Us</a></li>
-</ul>
-</li>
-</ul>
-<ul class="nav navbar-nav navbar-right">
-<li><a href="#">Help</a></li>
-<li><a href="navbar-static-top/">About Us</a></li>
-<li class="active"><a href="signout.php"><span class="glyphicon glyphicon-log-out"></span> Sign-out</a></li>
-</ul>
-</div><!--/.nav-collapse -->
-</div>
-</div>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-th-list"></span> <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                
+                <li><a href="#">Notifications</a></li>
+                
+                
+                <li class="divider"></li>
+                <li class="dropdown-header">Account</li>
+                <li><a href="#">Help</a></li>
+                
+              </ul>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            
+            <li><a href="aboutus.php">About Us</a></li>
+            <li><a href="signout.php"><span class="glyphicon glyphicon-log-out"></span>Sign-out</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
 
 <h1 class="Mag" style="text-align:Center;"><b><ins>Share Ur Fare</ins></b></h1>
 <marquee><b class=red>Disclaimer:</b><i>If any person in your group fails to come for the journey,then the site would not be responsible. Hence, user discretion is adviced.</i></marquee>
@@ -150,10 +156,8 @@ body {background-image:url("b1.jpg");}
 <button class="btn btn-lg btn-primary btn-block" type="submit">Find Group
 </button></form>
 </div>
-
 <div class="newsfeed">
 <h1 class=new>NEWSFEED</h1>
-
 <br>
 <div class="table-responsive">
 <table class="table table-striped a">
@@ -170,12 +174,12 @@ body {background-image:url("b1.jpg");}
 <th>Destination</th>
 <th>Date</th>
 <th>Time</th>
-<th>Join?</th>
+<th></th>
 </tr>
 </thead>
 </table>
   </div>
-<marquee behavior="scroll" direction="up" scrollamount="4" height="360"  onmouseover="this.stop();" onmouseout="this.start();">
+<marquee behavior="scroll" direction="up" scrollamount="9" height="375"  onmouseover="this.stop();" onmouseout="this.start();">
 
 <p>
 <div class="table-responsive">
@@ -190,31 +194,26 @@ body {background-image:url("b1.jpg");}
 <?php
 require 'connect.inc.php';
  $sql="SELECT * FROM groups";
- 
-
   if(mysql_query($sql))
   {
       $query_run=mysql_query($sql);
       while($row=mysql_fetch_assoc($query_run))
        {
-          $del=time(); 
-                  
+          $del=time();          
           $date1=strtotime($row['date']);
           $t=$date1+strtotime($row['time'])-strtotime('00:00:00')-12600;
           $key=$row['key'];
-         
+          
           $sql2="UPDATE groups SET `time_diff`='$t' WHERE `key`='$key'";
            if(mysql_query($sql2))
               {
                 if($t<$del)
                 {
                 $sql5="UPDATE users SET `key`=0 WHERE `key`='$key'";
-                $sql6="DELETE FROM notification WHERE `key`='$key'";
-                if(!mysql_query($sql5) || !mysql_query($sql6))
-                  {
-                    echo "Unable to connect";
-                    die('Error: '.mysql_error());
-                  }
+                if(mysql_query($sql5))
+                  ;
+                  else
+                  echo "invalid";
                 }
                 $query_run1=mysql_query($sql2);
               }
@@ -254,9 +253,11 @@ require 'connect.inc.php';
               $gender=$row['gender'];
              echo "<form action='group_search.php' method='post'>" ."<input type='hidden' name='check' value='0'>".
              "<input type='hidden' name='limit' value='$limit'>".
-    "<input type='hidden' name='key' value='$key'>".
-    "<button type='button submit' class='btn btn-lg btn-default' name='join_group' value='Join Group'>Join</button>"."</form>"."</td>".
+    "<input type='hidden' name='key' value='$key'>";
+     if($limit!=($number-1))echo "<button type='button submit' class='btn btn-lg btn-success' name='join_group' value='Join Group'>Join</button>"."</form>"."</td>".
                 "</tr>";
+              else echo "<button type='button submit' class='btn btn-lg btn-danger' name='join_group' value='Join Group'>Join</button>"."</form>"."</td>".
+                "</tr>";            
               $i++;
           }
   

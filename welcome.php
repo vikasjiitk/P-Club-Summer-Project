@@ -26,6 +26,14 @@ if(!$_SESSION['loggedin'])
 header("Location:login.php");
 exit;
 }
+require 'connect.inc.php';
+$userid=@mysql_real_escape_string($_SESSION['loggedin']);
+$sql1="SELECT `notify` from users WHERE `username`='$userid'";
+ if($run=mysql_query($sql1))
+ {
+  $row=mysql_fetch_assoc($run);
+  $noti=$row['notify'];
+ }
 ?>
 <style type="text/css">
 .forms{
@@ -83,7 +91,7 @@ body {background-image:url("b1.jpg");}
              <li class="active"><a href="welcome.php"><span class="glyphicon glyphicon-home"></span>  Home</a></li>
             <li><a href="create_group.php"><span class="glyphicon glyphicon-list-alt"></span> Create Group</a></li>
            <li><a href="yourgroup.php"><span class="glyphicon glyphicon-tasks"></span>  Your Group</a></li>
-            
+            <li><a href="yourgroup.php"><span class="glyphicon glyphicon-phone-alt"></span> New Notifications: <?php if($noti!=0){echo '<span style="color: #FF0000;font-size:25px;"><b>('.$noti.')</b></span>';} else echo '(0)';?></a></li>
             <li><a href="profile.php"><span class="glyphicon glyphicon-user"></span>  Profile</a></li>
 
             <li class="dropdown">

@@ -84,29 +84,18 @@ body {background-image:url("b1.jpg");}
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Welcome <?php echo $_SESSION['userlogin']?> !</a>
+          <a class="navbar-brand" href="welcome.php">Welcome <?php echo $_SESSION['userlogin']?> !</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
              <li class="active"><a href="welcome.php"><span class="glyphicon glyphicon-home"></span>  Home</a></li>
             <li><a href="create_group.php"><span class="glyphicon glyphicon-list-alt"></span> Create Group</a></li>
            <li><a href="yourgroup.php"><span class="glyphicon glyphicon-tasks"></span>  Your Group</a></li>
-            <li><a href="yourgroup.php"><span class="glyphicon glyphicon-phone-alt"></span> New Notifications: <?php if($noti!=0){echo '<span style="color: #FF0000;font-size:25px;"><b>('.$noti.')</b></span>';} else echo '(0)';?></a></li>
+            <li><a href="yourgroup.php"><span class="glyphicon glyphicon-pushpin"></span> New Notifications: <?php if($noti!=0){echo '<span style="color: #FF0000;font-size:25px;"><b>('.$noti.')</b></span>';} else echo '(0)';?></a></li>
             <li><a href="profile.php"><span class="glyphicon glyphicon-user"></span>  Profile</a></li>
+            <li><a href="chat.php"><span class="glyphicon glyphicon-comment"></span> Group Chat</a></li>
 
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-th-list"></span> <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                
-                <li><a href="#">Notifications</a></li>
-                
-                
-                <li class="divider"></li>
-                <li class="dropdown-header">Account</li>
-                <li><a href="#">Help</a></li>
-                
-              </ul>
-            </li>
+            
           </ul>
           <ul class="nav navbar-nav navbar-right">
             
@@ -205,9 +194,10 @@ require 'connect.inc.php';
   if(mysql_query($sql))
   {
       $query_run=mysql_query($sql);
+       $del=time(); 
       while($row=mysql_fetch_assoc($query_run))
        {
-          $del=time();          
+                  
           $date1=strtotime($row['date']);
           $t=$date1+strtotime($row['time'])-strtotime('00:00:00')-12600;
           $key=$row['key'];
@@ -217,6 +207,11 @@ require 'connect.inc.php';
               {
                 if($t<$del)
                 {
+                $file = 'chat/".$key.".html"';
+                echo $file;
+                if(file_exists($file))
+                if (!unlink($file))
+                echo ("Error deleting $file");
                 $sql5="UPDATE users SET `key`=0 WHERE `key`='$key'";
                 if(mysql_query($sql5))
                   ;
@@ -227,6 +222,7 @@ require 'connect.inc.php';
               }
         }
     }
+ 
  $sql4="DELETE FROM groups WHERE `time_diff`<'$del'";
  if(mysql_query($sql4))
   ;

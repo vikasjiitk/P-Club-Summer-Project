@@ -207,7 +207,7 @@ require 'connect.inc.php';
               {
                 if($t<$del)
                 {
-                $file = 'chat/".$key.".html"';
+                $file = "chat/".$key.".html";
                 echo $file;
                 if(file_exists($file))
                 if (!unlink($file))

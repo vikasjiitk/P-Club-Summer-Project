@@ -119,7 +119,11 @@ function test_input($data) {
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 if ($_POST["vercode"] != $_SESSION["vercode"] OR $_SESSION["vercode"]=='') {
-echo "Authentication Error!";
+echo "<div class='container'>"."<form class='form-signin' role='form'>"."<center>".
+"<button class='btn btn-lg btn-warning' disabled>Authentication Error !
+</button>"."</center>"."</form>".
+
+"</div>";
 }
  else {
 
@@ -146,7 +150,11 @@ $ftp_server = "webhome.cc.iitk.ac.in";
     }}
 
   else {
-      echo "Your Username & Password isn't a valid combination to take to the Wall";
+       echo "<div class='container'>"."<form class='form-signin' role='form'>"."<center>".
+"<button class='btn btn-lg btn-warning' disabled>Incorrect Username/Password
+</button>"."</center>"."</form>".
+
+"</div>";
     ftp_close($conn_id);  
   }
 }}

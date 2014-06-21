@@ -39,7 +39,7 @@ $sql1="SELECT `notify`,`key` from users WHERE `username`='$userid'";
 <style type="text/css">
 .forms{
 float: left;
-width: 400px;
+width: 30%;
 
 margin-left: 40px;
 
@@ -51,7 +51,7 @@ background-color: transparent;
 
 .newsfeed{
 float: left;
-width: 800px;
+width: 50%;
 color: #006666;
 background-color:transparent;
 border: 0px solid;

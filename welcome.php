@@ -51,7 +51,7 @@ background-color: transparent;
 .newsfeed{
 float: left;
 width: 800px;
-color: #006666;
+
 background-color:transparent;
 border: 0px solid;
 
@@ -59,7 +59,7 @@ margin-left: 70px;
 
 }
 h1.Mag{ font-family: Magneto;
-color:#99FF33;}
+color:#FFCC00;}
 b.red{
 color:red;
 }
@@ -71,9 +71,9 @@ font-family: "Berlin Sans FB Demi";
 }
 hr{color:blue;}
 .new{
-font-family: "Copperplate Gothic Bold";color=purple;
+font-family: "Gungsuh";
 }
-body {background-image: url("b1.jpg");
+body {background-image: url("b.jpg");
 background-repeat: no-repeat;
 background-size: cover;}
 .thumbnail:hover img{
@@ -90,7 +90,7 @@ visibility: hidden;
 color: black;
 text-decoration: none;
 }
-
+h2.new{color:#FFCC00;}
 .thumbnail span img{ /*CSS for enlarged image*/
 border-width: 0;
 padding: 2px;
@@ -127,6 +127,7 @@ z-index: 50;
 
 </ul>
 <ul class="nav navbar-nav navbar-right">
+<li><a href="contacts.php">Contacts</a></li>
 <li><a href="aboutus.php">About Us</a></li>
 <li><a href="signout.php"><span class="glyphicon glyphicon-log-out"></span>Sign-out</a></li>
 </ul>
@@ -140,7 +141,7 @@ z-index: 50;
 
 <div class="forms">
 
-<h3 class="form-signin-heading col">  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;SEARCH FOR A GROUP</h3>
+<h2 class="new" style="color:#FFFFCC;">  &#160; &#160;&#160;&#160;&#160;&#160;Search Groups</h2>
 <form class="form-signin" action="group_search.php" role="form" method ="POST">
 
 <select class="form-control" placeholder="Source" name="source" >
@@ -178,13 +179,13 @@ z-index: 50;
 <br><input type="number" step="0.5" min="0" onfocus="(this.type='number')" onblur="(this.type='number')" class="form-control" placeholder="Time Variation (in hrs)" name="variation" >
 <br><input type="number" min="1" class="form-control" placeholder="Number Of People" name="number" >
 <br><input type="hidden" name="check" value="1">
-<button class="btn btn-lg btn-primary btn-block" type="submit">Find Group
+<button class="btn btn-lg btn-warning btn-block" type="submit">Find Group
 </button></form>
 </div>
 <div class="newsfeed">
-<h1 class=new>NEWSFEED</h1>
+<h2 class="new" style="color:#FFFFCC;">Newsfeed</h2>
 <br>
-<div class="table-responsive">
+<div class="table-responsive" style="color:black;">
 <table class="table table-striped a">
 <thead>
 <col width="25">
@@ -207,7 +208,7 @@ z-index: 50;
 <marquee behavior="scroll" direction="up" scrollamount="9" height="375" onmouseover="this.stop();" onmouseout="this.start();">
 
 <p>
-<div class="table-responsive">
+<div class="table-responsive" style="color:black;">
 <table class="table table-striped a">
 <tbody>
 <col width="25">

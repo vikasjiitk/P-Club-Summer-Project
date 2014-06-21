@@ -358,7 +358,7 @@ require 'connect.inc.php';
              echo "<form action='group_search.php' method='post'>" ."<input type='hidden' name='check' value='0'>".
              "<input type='hidden' name='limit' value='$limit'>".
     "<input type='hidden' name='key' value='$key'>";
-     if($limit>=($number)echo "<button type='button submit' class='btn btn-lg btn-success' name='join_group' value='Join Group'>Join</button>"."</form>"."</td>".
+     if($limit>=($number))echo "<button type='button submit' class='btn btn-lg btn-success' name='join_group' value='Join Group'>Join</button>"."</form>"."</td>".
                 "</tr>";
               else echo "<button type='button submit' class='btn btn-lg btn-danger' name='join_group' value='Join Group'>Join</button>"."</form>"."</td>".
                 "</tr>";

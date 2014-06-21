@@ -38,6 +38,13 @@ echo "<script type='text/javascript'>alert('$message');</script>";
    } 
 ?>
   <style type="text/css">
+  body {background-image: url("b1.jpg");
+background-repeat: no-repeat;
+background-size: cover;
+}
+  .create{
+    margin-left: 20%;
+  }  
    .col{
     color: #6600FF;
     font-family: "Lucida Handwriting";
@@ -64,8 +71,8 @@ echo "<script type='text/javascript'>alert('$message');</script>";
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-             <li class="active"><a href="welcome.php"><span class="glyphicon glyphicon-home"></span>  Home</a></li>
-            <li><a href="create_group.php"><span class="glyphicon glyphicon-list-alt"></span> Create Group</a></li>
+             <li><a href="welcome.php"><span class="glyphicon glyphicon-home"></span>  Home</a></li>
+            <li class="active"><a href="create_group.php"><span class="glyphicon glyphicon-list-alt"></span> Create Group</a></li>
            <li><a href="yourgroup.php"><span class="glyphicon glyphicon-tasks"></span>  Your Group</a></li>
             <li><a href="profile.php"><span class="glyphicon glyphicon-user"></span>  Profile</a></li>
             <li><a href="chat.php"><span class="glyphicon glyphicon-comment"></span> Group Chat</a></li>
@@ -73,7 +80,7 @@ echo "<script type='text/javascript'>alert('$message');</script>";
             
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            
+            <li><a href="contacts.php"><span class="glyphicon glyphicon-phone-alt"></span>Contacts</a></li>
             <li><a href="aboutus.php">About Us</a></li>
             <li><a href="signout.php"><span class="glyphicon glyphicon-log-out"></span>Sign-out</a></li>
           </ul>
@@ -86,25 +93,27 @@ echo "<script type='text/javascript'>alert('$message');</script>";
 <marquee><b class=red>Disclaimer:</b><i>If any person in your group fails to come for the journey,then the site would not be responsible. Hence, user discretion is adviced.</i></marquee>
 
 
-<span><h3 class="col">&#160;&#160;&#160;&#160;&#160;&#160;Create ur group</h3></span>
+<div class="create"><span><h3 class="col">&#160;&#160;&#160;&#160;&#160;&#160;Create ur group</h3></span>
 <form class="form-signin" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" role="form" method ="POST">
 
 
-<select class="form-control" placeholder="Source" name="source" required autofocus>
-  <option value="">Enter Source</option>
-  <option value="Allen Zoo">Allen Zoo</option>
-  <option value="Gumti">Gumti</option>
-  <option value="IITK">IITK</option>
-  <option value="JK Temple">JK Temple</option>
-  <option value="Kanpur Central">Kanpur Central</option>
-  <option value="Kalyanpur">Kalyanpur</option>
-  <option value="Moti Jheel">Moti Jheel</option>
-  <option value="Rawatpur">Rawatpur</option>
-  <option value="Rave 3">Rave 3</option>
-  <option value="Rave Moti">Rave Moti</option>
-  <option value="Z Square">Z Square</option>
+<select class="form-control" placeholder="Source" name="source" onchange='CheckInput(this.value);' required>
+<option>Enter Source</option>
+<option value="Allen Zoo">Allen Zoo</option>
+<option value="Gumti">Gumti</option>
+<option value="IITK">IITK</option>
+<option value="JK Temple">JK Temple</option>
+<option value="Kanpur Central">Kanpur Central</option>
+<option value="Kalyanpur">Kalyanpur</option>
+<option value="Moti Jheel">Moti Jheel</option>
+<option value="Rawatpur">Rawatpur</option>
+<option value="Rave 3">Rave 3</option>
+<option value="Rave Moti">Rave Moti</option>
+<option value="Z Square">Z Square</option>
+<option value="others">Others</option>
 </select>
-<select class="form-control" placeholder="Destination" name="destination" required>
+<input type="text" name="source" id="source" class="form-control" placeholder="Enter Source" style='display:none;'/ required>
+<select class="form-control" placeholder="Destination" name="destination" onchange='CheckInput1(this.value);'required>
               <option value="">Enter Destination</option>
               <option value="Allen Zoo">Allen Zoo</option>
               <option value="Gumti">Gumti</option>
@@ -117,27 +126,29 @@ echo "<script type='text/javascript'>alert('$message');</script>";
               <option value="Rave 3">Rave 3</option>
               <option value="Rave Moti">Rave Moti</option>
               <option value="Z Square">Z Square</option>
+            <option value="others">Others</option>
             </select>
+<input type="text" name="destination" id="destination" class="form-control" placeholder="Enter destination" style='display:none;'/ required>
 <input type="date"  onblur="(this.type='text')" onfocus="(this.type='date')" min="2014-06-20" class="form-control" placeholder="Date Of Journey" name="date" required>
 <input type="time"  onfocus="(this.type='time')" onblur="(this.type='text')" class="form-control" placeholder="Time" name="time" required>
-<br>
-<font class= "gender"><abbr title="Any specific gender you want to share your fare with?">Gender specific: </abbr>
-</font><br>
-<input type="radio" name="gender" value="F">F(for females only)<br>
-<input type="radio" name="gender" value="M">M(for males only)<br>
-<input type="radio" name="gender" value="B">B(for both)<br><br>
+<select class="form-control" name="gender" required>
+<option value="">--Gender Specificness--</option>
+<option value="B">Both</option>
+<option value="M">Only Males</option>
+<option value="F">Only Females</option>
+</select>
 <select class="form-control" name="vehicle">
   <option value="">--select vehicle type--</option>
 <option value="AUTO">AUTO-RICKSHAW</option>
 <option value="VIKRAM">VIKRAM TEMPO</option>
 <option value="ANY">ANY</option>
 </select>
-<input type="number" name="number" min="1" class="form-control" placeholder="No. of people you are booking for ">
+<input type="number" name="number" min="1" class="form-control" placeholder="No. of people you are booking for " required>
 <input type="number" name="limit" min="1" max="7" class="form-control" placeholder="Limit group to "><br><br>
 
 <button class="btn btn-lg btn-primary btn-block" type="submit"><span class="glyphicon glyphicon-plus"></span> &#160;Create Group
 </button>
-</form>
+</form></div>
 <?php
   if($_SERVER["REQUEST_METHOD"]=="POST"){
   $con = @mysqli_connect('localhost','root','pcp10','iitk');
@@ -173,8 +184,24 @@ VALUES('$source','$destination','$date','$time','$gender','$vehicle','$number','
     echo '<META HTTP-EQUIV="Refresh" Content="0; URL=welcome.php">';
      }
       ?>
+<script type="text/javascript">
+function CheckInput(val){
+ var element=document.getElementById('source');
+ if(val=='others')
+   element.style.display='block';
+ else  
+   element.style.display='none';
+}
+function CheckInput1(val){
+ var element=document.getElementById('destination');
+ if(val=='others')
+   element.style.display='block';
+ else  
+   element.style.display='none';
+}
+
+</script> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-
 </body>
 </html>

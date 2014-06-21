@@ -36,7 +36,9 @@ font-family: "Lucida Handwriting";
 }
 }
 hr{color:blue;}
-body {background-image:url("b1.jpg");}
+body {background-image:url("b1.jpg");
+background-repeat: no-repeat;
+background-size: cover; }
 .pic{
   margin-left: 200px;
 float: left;
@@ -62,30 +64,17 @@ width: 400px;
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Welcome <?php echo $_SESSION['userlogin']?> !</a>
+          <a class="navbar-brand" href="welcome.php">Welcome <?php echo $_SESSION['userlogin']?> !</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
              <li><a href="welcome.php"><span class="glyphicon glyphicon-home"></span>  Home</a></li>
             <li><a href="create_group.php"><span class="glyphicon glyphicon-list-alt"></span> Create Group</a></li>
            <li ><a href="yourgroup.php"><span class="glyphicon glyphicon-tasks"></span>  Your Group</a></li>
-            
             <li class="active"><a href="profile.php"><span class="glyphicon glyphicon-user"></span>  Profile</a></li>
-
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-th-list"></span> <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                
-                <li><a href="#">Notifications</a></li>
-                
-                
-                <li class="divider"></li>
-                <li class="dropdown-header">Account</li>
-                <li><a href="#">Help</a></li>
-                
-              </ul>
-            </li>
-          </ul>
+            <li ><a href="chat.php"><span class="glyphicon glyphicon-comment"></span> Group Chat</a></li>
+           
+            </ul>
           <ul class="nav navbar-nav navbar-right">
             
             <li><a href="aboutus.php">About Us</a></li>
@@ -109,7 +98,7 @@ $userid=@mysql_real_escape_string($_SESSION['loggedin']);
       $run=mysql_query($query) or die(mysql_error());
       $row=mysql_fetch_assoc($run);
       $nam=$row["name"];
-      
+      $gender=$row["gender"];
       $ph=$row["phone"];
       $pic=$row["Photo"];
       $Add=$row["Address"];
@@ -161,12 +150,8 @@ function test($data) {
    $data = stripslashes($data);
    $data = htmlspecialchars($data);
    return $data;}
-  
-
-
-   ?>
-
-<div class="pic">
+  ?>
+  <div class="pic">
   
   <h2>Profile Picture</h2>
   <image src="upload/<?= $pic?>" height=200px width=190px />
@@ -177,7 +162,12 @@ enctype="multipart/form-data">
 
 <input type="submit" name="submit" value="Submit">
 
+</form><br>
+<form action="remove_file.php" method="post"
+enctype="multipart/form-data">
+<input type="submit" name="submit" value="Remove Photo">
 </form>
+<p id="demo"></p>
 </div>
 
 <div class="forms">
@@ -204,13 +194,8 @@ enctype="multipart/form-data">
 </button></form><br>
 </div>
 </span>
-
 </div>
-
-
 <?php
-
-
 if(empty($PhoneErr) && empty($nameErr) && $check==1)
   {
     
@@ -224,11 +209,7 @@ if(empty($PhoneErr) && empty($nameErr) && $check==1)
     $Phone=@mysqli_real_escape_string($con,$_POST["Phone"]);
     
     $addr=@mysqli_real_escape_string($con,$_POST["addr"]);
-    
-
-
-
-    if($name=="")
+        if($name=="")
       $name=$nam;
     
     if($Phone=="")$Phone=$ph;
@@ -238,16 +219,13 @@ if(empty($PhoneErr) && empty($nameErr) && $check==1)
   
      if(!mysqli_query($con,$sql))
      {die('Error: '.mysqli_error($con));}
-$message = "Updated sucessfully";
-echo "<script type='text/javascript'>alert('$message');</script>";
-     echo '<META HTTP-EQUIV="Refresh" Content="0; URL=profile.php">';
+ echo '<META HTTP-EQUIV="Refresh" Content="0; URL=profile.php">';
     exit;
       @mysqli_close($con);
       $nameErr="*";
       $PhoneErr='*';
     }
     ?>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+
 </body>
 </html>

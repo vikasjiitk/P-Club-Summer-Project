@@ -1,4 +1,3 @@
-
 <html> 
 <head>
   <title>Create Group</title>
@@ -113,7 +112,7 @@ background-size: cover;
 <option value="Z Square">Z Square</option>
 </datalist>
 <input list="destination" name="destination" select class="form-control" placeholder="Destination" name="destination">
-<datalist id="source">
+<datalist id="destination">
 <option>Enter Source</option>
 <option value="Allen Zoo">Allen Zoo</option>
 <option value="Gumti">Gumti</option>

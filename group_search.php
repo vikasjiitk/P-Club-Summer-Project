@@ -268,7 +268,7 @@ if($_SERVER["REQUEST_METHOD"]=='POST')
              echo "<form action='join_group.php' method='post'>" ."<input type='hidden' name='group' value='$key'>".
     "<input type='hidden' name='number' value='$number'>"."<input type='hidden' name='limit' value='$limit'>".
     "<input type='hidden' name='gender' value='$gender'>"."<input type='hidden' name='book_no' value='$book_no'>";
-    if($row["limit"]!=$row["number"])echo "<button type='button submit' class='btn btn-lg btn-success' name='join_group' value='Join Group'>Join Group</button>"."</form>"."</td>".
+    if($row["limit"]>=$number)echo "<button type='button submit' class='btn btn-lg btn-success' name='join_group' value='Join Group'>Join Group</button>"."</form>"."</td>".
                 "</tr>";
               else echo "<button type='button submit' class='btn btn-lg btn-danger' name='join_group' value='Join Group' disabled>Join Group</button>"."</form>"."</td>".
                 "</tr>";

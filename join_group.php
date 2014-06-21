@@ -49,6 +49,42 @@ font-size: 20px;
 }
 hr{color:blue;}
 body {background-image:url("b1.jpg");}
+.thumbnail img{
+border: 2px ridge gray;
+margin: 0 5px 5px 0;
+
+}
+
+.thumbnail:hover{
+background-color: transparent;
+}
+
+.thumbnail:hover img{
+
+}
+
+.thumbnail span{ /*CSS for enlarged image*/
+position: absolute;
+background-color: #F0F0F0 ;
+padding: 5px;
+left: -1000px;
+border: 5px ridge gray;
+visibility: hidden;
+color: black;
+text-decoration: none;
+}
+
+.thumbnail span img{ /*CSS for enlarged image*/
+border-width: 0;
+padding: 2px;
+}
+
+.thumbnail:hover span{ /*CSS for enlarged image*/
+visibility: visible;
+top: 300px;
+left: 800px; /*position where enlarged image should offset horizontally */
+z-index: 50;
+}
 
 </style>
 </head>
@@ -146,9 +182,9 @@ echo "<script type='text/javascript'>alert('$message');</script>";
 }
 }
 while($row_users=mysql_fetch_assoc($res_users))
-{
-echo $i.") ".$row_users['name']."(Gender: ".$row_users['gender']." , Seats Booked: ".$row_users['book_no']." )<br><br>";
-  $i++;
+{$pic=$row_users["Photo"];
+echo "<a class='thumbnail'>".$i.") ".$row_users['name']."(Gender: ".$row_users['gender']." , Seats Booked: ".$row_users['book_no'].")".'<span><img src="upload/'.$pic.'" width=190 height=220/>'.'</span></a> <br><br>';
+ $i++;
 }
 echo "</span>";
 echo "<form action='confirm_group.php' method='post'>" ."<input type='hidden' name='username' value='$session'>".

@@ -1,3 +1,4 @@
+
 <html> 
 <head>
   <title>Create Group</title>
@@ -7,6 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="assets/ico/favicon.ico">
+
 
     
 
@@ -35,7 +37,7 @@ echo "<script type='text/javascript'>alert('$message');</script>";
      echo '<META HTTP-EQUIV="Refresh" Content="0; URL=welcome.php">';
      exit;
    }
-   } 
+   }
 ?>
   <style type="text/css">
   body {background-image: url("b1.jpg");
@@ -95,9 +97,8 @@ background-size: cover;
 
 <div class="create"><span><h3 class="col">&#160;&#160;&#160;&#160;&#160;&#160;Create ur group</h3></span>
 <form class="form-signin" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" role="form" method ="POST">
-
-
-<select class="form-control" placeholder="Source" name="source" onchange='CheckInput(this.value);' required>
+<input list="source" name="source" select class="form-control" placeholder="Source" name="source">
+<datalist id="source">
 <option>Enter Source</option>
 <option value="Allen Zoo">Allen Zoo</option>
 <option value="Gumti">Gumti</option>
@@ -110,25 +111,22 @@ background-size: cover;
 <option value="Rave 3">Rave 3</option>
 <option value="Rave Moti">Rave Moti</option>
 <option value="Z Square">Z Square</option>
-<option value="others">Others</option>
-</select>
-<input type="text" name="source" id="source" class="form-control" placeholder="Enter Source" style='display:none;'/ required>
-<select class="form-control" placeholder="Destination" name="destination" onchange='CheckInput1(this.value);'required>
-              <option value="">Enter Destination</option>
-              <option value="Allen Zoo">Allen Zoo</option>
-              <option value="Gumti">Gumti</option>
-              <option value="IITK">IITK</option>
-              <option value="JK Temple">JK Temple</option>
-              <option value="Kanpur Central">Kanpur Central</option>
-              <option value="Kalyanpur">Kalyanpur</option>
-              <option value="Moti Jheel">Moti Jheel</option>
-              <option value="Rawatpur">Rawatpur</option>
-              <option value="Rave 3">Rave 3</option>
-              <option value="Rave Moti">Rave Moti</option>
-              <option value="Z Square">Z Square</option>
-            <option value="others">Others</option>
-            </select>
-<input type="text" name="destination" id="destination" class="form-control" placeholder="Enter destination" style='display:none;'/ required>
+</datalist>
+<input list="destination" name="destination" select class="form-control" placeholder="Destination" name="destination">
+<datalist id="source">
+<option>Enter Source</option>
+<option value="Allen Zoo">Allen Zoo</option>
+<option value="Gumti">Gumti</option>
+<option value="IITK">IITK</option>
+<option value="JK Temple">JK Temple</option>
+<option value="Kanpur Central">Kanpur Central</option>
+<option value="Kalyanpur">Kalyanpur</option>
+<option value="Moti Jheel">Moti Jheel</option>
+<option value="Rawatpur">Rawatpur</option>
+<option value="Rave 3">Rave 3</option>
+<option value="Rave Moti">Rave Moti</option>
+<option value="Z Square">Z Square</option>
+</datalist>
 <input type="date"  onblur="(this.type='text')" onfocus="(this.type='date')" min="2014-06-20" class="form-control" placeholder="Date Of Journey" name="date" required>
 <input type="time"  onfocus="(this.type='time')" onblur="(this.type='text')" class="form-control" placeholder="Time" name="time" required>
 <select class="form-control" name="gender" required>
@@ -151,6 +149,7 @@ background-size: cover;
 </form></div>
 <?php
   if($_SERVER["REQUEST_METHOD"]=="POST"){
+ echo "fuck";
   $con = @mysqli_connect('localhost','root','pcp10','iitk');
     if(mysqli_connect_errno()){
       echo"Failed to connect to MYSQL: ".mysqli_connect_error;
@@ -184,24 +183,5 @@ VALUES('$source','$destination','$date','$time','$gender','$vehicle','$number','
     echo '<META HTTP-EQUIV="Refresh" Content="0; URL=welcome.php">';
      }
       ?>
-<script type="text/javascript">
-function CheckInput(val){
- var element=document.getElementById('source');
- if(val=='others')
-   element.style.display='block';
- else  
-   element.style.display='none';
-}
-function CheckInput1(val){
- var element=document.getElementById('destination');
- if(val=='others')
-   element.style.display='block';
- else  
-   element.style.display='none';
-}
-
-</script> 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
 </body>
 </html>

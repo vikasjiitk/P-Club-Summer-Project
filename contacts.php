@@ -212,15 +212,3 @@ if(!mysqli_query($con,$sql))
 ?>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-</body>
-</html>

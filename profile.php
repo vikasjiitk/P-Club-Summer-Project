@@ -185,9 +185,11 @@ enctype="multipart/form-data">
 
 </datalist>
 <input type="text" class="form-control" placeholder="<?= $Add?>" name="addr">
-
-<input type="text" class="form-control" placeholder="<?= $ph?>" name="Phone" >
-
+<?php if($ph=="")
+echo'<input type="text" class="form-control" placeholder="Phone Number(Recommended)" name="Phone" >';
+else
+echo '<input type="text" class="form-control" placeholder="'.$ph.'" name="Phone" >';
+?>
 <br>
 
 <button class="btn btn-lg btn-primary btn-block" type="submit"></span>UPDATE

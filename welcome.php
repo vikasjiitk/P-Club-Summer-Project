@@ -26,20 +26,12 @@ if(!$_SESSION['loggedin'])
 header("Location:login.php");
 exit;
 }
-require 'connect.inc.php';
-$userid=@mysql_real_escape_string($_SESSION['loggedin']);
-$sql1="SELECT `notify`,`key` from users WHERE `username`='$userid'";
- if($run=mysql_query($sql1))
- {
-  $row=mysql_fetch_assoc($run);
-  $noti=$row['notify'];
-  $group_id=$row['key'];
- }
+
 ?>
 <style type="text/css">
 .forms{
 float: left;
-width: 30%;
+width: 400px;
 
 margin-left: 40px;
 
@@ -48,10 +40,17 @@ margin-left: 40px;
 background-color: transparent;
 }
 
-
+.bg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -5000;
+}
 .newsfeed{
 float: left;
-width: 50%;
+width: 800px;
 color: #006666;
 background-color:transparent;
 border: 0px solid;
@@ -76,8 +75,7 @@ font-family: "Copperplate Gothic Bold";color=purple;
 }
 body {background-image: url("b1.jpg");
 background-repeat: no-repeat;
-background-size: cover;
-}
+background-size: cover;}
 .thumbnail:hover img{
 border: 1px solid blue;
 }
@@ -124,71 +122,6 @@ z-index: 50;
 <li class="active"><a href="welcome.php"><span class="glyphicon glyphicon-home"></span> Home</a></li>
 <li><a href="create_group.php"><span class="glyphicon glyphicon-list-alt"></span> Create Group</a></li>
 <li><a href="yourgroup.php"><span class="glyphicon glyphicon-tasks"></span> Your Group</a></li>
-<li><a href="yourgroup.php" ><span class='thumbnail'> New Notifications: <span>
-<?php
-$notii=$noti;
-echo '<div id="noti" style="float:left;"><br>';
-            if($group_id){
-            $query4="SELECT * FROM notification WHERE `key`='$group_id' ORDER BY `time` desc";
-            $query5="UPDATE users SET `notify`=0 WHERE `username`='$userid'";
-            if($run4=mysql_query($query4))
-            {
-              if(!mysql_query($query5))
-              {
-                die();
-              }
-              
-              $i=1;
-              //echo 'hi';
-              while($row4=mysql_fetch_assoc($run4))
-              {
-                if($i%2!=0)
-                  echo '<div style="color:#0033CC; background-color:#6699FF;font-size:20px; font:bold;">';
-                else 
-                  echo '<div style="color:#0033CC;font-size:20px; font:bold;">';
-                if($row4['code']==0)
-                {
-                  if($noti>0){
-                  if($row4['username']!=$userid)
-                    echo $i.') '.$row4['username'].' left this group at '.$row4['time'].'.<font color="red"><i> (new)!</i></font><br><br>';
-                  else
-                    echo $i.') You'.' left this group at '.$row4['time'].'.<br><br>';
-                    $noti--;}
-                    else{
-                    if($row4['username']!=$userid)
-                    echo $i.') '.$row4['username'].' left this group at '.$row4['time'].'.<br><br>';
-                  else
-                    echo $i.') You'.' left this group at '.$row4['time'].'.<br><br>';
-                    }  
-                    
-
-                }
-                else 
-                {
-                  if($noti>0){
-                  if($row4['username']!=$userid)
-                    echo $i.') '.$row4['username'].' joined this group at '.$row4['time'].'<font color="red"><i> (new)!</i></font>.<br><br>';
-                  else
-                    echo $i.') You'.' joined this group at '.$row4['time'].'.<br><br>';
-                  $noti--;
-                  }
-                  else{
-                  if($row4['username']!=$userid)
-                    echo $i.') '.$row4['username'].' joined this group at '.$row4['time'].'.<br><br>';
-                  else
-                    echo $i.') You'.' joined this group at '.$row4['time'].'.<br><br>';  
-                  }
-                }
-                $i++;
-                echo '</div>';
-              }
-            }}
-            else echo 'No Group';
-            echo '</div>';
-?>
-
-
-</span><?php if($notii!=0){echo '<font color="red" size="5"><i><b>('.$notii.')</b></i></font>';} else echo '(0)';?></span></a></li>
 <li><a href="profile.php"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
 <li><a href="chat.php"><span class="glyphicon glyphicon-comment"></span> Group Chat</a></li>
 
@@ -374,8 +307,7 @@ require 'connect.inc.php';
 </div><!--/span-->
 </div><!--/row-->
 </div><!--/span-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+
 
 </body>
 </html>

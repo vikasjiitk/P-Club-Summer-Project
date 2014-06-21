@@ -28,91 +28,191 @@ exit;
 }
 require 'connect.inc.php';
 $userid=@mysql_real_escape_string($_SESSION['loggedin']);
-$sql1="SELECT `notify` from users WHERE `username`='$userid'";
+$sql1="SELECT `notify`,`key` from users WHERE `username`='$userid'";
  if($run=mysql_query($sql1))
  {
   $row=mysql_fetch_assoc($run);
   $noti=$row['notify'];
+  $group_id=$row['key'];
  }
 ?>
 <style type="text/css">
 .forms{
 float: left;
 width: 400px;
-  border: 2px solid;
-    border-radius: 25px;
+
 margin-left: 40px;
-    
-background-color:#CCFFFF;
+
+}
+.thumbnail:hover{
+background-color: transparent;
+}
+
+.bg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -5000;
 }
 .newsfeed{
 float: left;
 width: 800px;
 color: #006666;
-background-color:white;
-  border: 2px solid;
-    border-radius: 25px;
+background-color:transparent;
+border: 0px solid;
+
 margin-left: 70px;
-    box-shadow: 10px 10px 5px #888888;
+
 }
 h1.Mag{ font-family: Magneto;
-color:teal;}
+color:#99FF33;}
 b.red{
 color:red;
 }
 .col{
 color: #6600FF;
-font-family: "Lucida Handwriting";
+font-family: "Berlin Sans FB Demi";
 }
 .a{ font-family: "Adobe Gothic Std B";}
 }
 hr{color:blue;}
 .new{
-  font-family: "Copperplate Gothic Bold";color=purple;
+font-family: "Copperplate Gothic Bold";color=purple;
 }
-body {background-image:url("b1.jpg");}
+body {background-image: url("bb3.jpg");
+background-repeat: no-repeat;}
+.thumbnail:hover img{
+border: 1px solid blue;
+}
 
+.thumbnail span{ /*CSS for enlarged image*/
+position: absolute;
+background-color: #F0F0F0 ;
+padding: 5px;
+left: -1000px;
+border: 5px ridge gray;
+visibility: hidden;
+color: black;
+text-decoration: none;
+}
+
+.thumbnail span img{ /*CSS for enlarged image*/
+border-width: 0;
+padding: 2px;
+}
+
+.thumbnail:hover span{ /*CSS for enlarged image*/
+visibility: visible;
+top: 50px;
+width:550px;
+left: 0px; /*position where enlarged image should offset horizontally */
+z-index: 50;
+}
 </style>
 </head>
 <body>
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="welcome.php">Welcome <?php echo $_SESSION['userlogin']?> !</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-             <li class="active"><a href="welcome.php"><span class="glyphicon glyphicon-home"></span>  Home</a></li>
-            <li><a href="create_group.php"><span class="glyphicon glyphicon-list-alt"></span> Create Group</a></li>
-           <li><a href="yourgroup.php"><span class="glyphicon glyphicon-tasks"></span>  Your Group</a></li>
-            <li><a href="yourgroup.php"><span class="glyphicon glyphicon-pushpin"></span> New Notifications: <?php if($noti!=0){echo '<span style="color: #FF0000;font-size:25px;"><b>('.$noti.')</b></span>';} else echo '(0)';?></a></li>
-            <li><a href="profile.php"><span class="glyphicon glyphicon-user"></span>  Profile</a></li>
-            <li><a href="chat.php"><span class="glyphicon glyphicon-comment"></span> Group Chat</a></li>
+<div class="container">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="welcome.php">Welcome <?php echo $_SESSION['userlogin']?> !</a>
+</div>
+<div class="navbar-collapse collapse">
+<ul class="nav navbar-nav">
+<li class="active"><a href="welcome.php"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+<li><a href="create_group.php"><span class="glyphicon glyphicon-list-alt"></span> Create Group</a></li>
+<li><a href="yourgroup.php"><span class="glyphicon glyphicon-tasks"></span> Your Group</a></li>
+<li><a href="yourgroup.php" ><span class='thumbnail'> New Notifications: <span>
+<?php
+$notii=$noti;
+echo '<div id="noti" style="float:left;"><br>';
+            if($group_id){
+            $query4="SELECT * FROM notification WHERE `key`='$group_id' ORDER BY `time` desc";
+            $query5="UPDATE users SET `notify`=0 WHERE `username`='$userid'";
+            if($run4=mysql_query($query4))
+            {
+              if(!mysql_query($query5))
+              {
+                die();
+              }
+              
+              $i=1;
+              //echo 'hi';
+              while($row4=mysql_fetch_assoc($run4))
+              {
+                if($i%2!=0)
+                  echo '<div style="color:#0033CC; background-color:#6699FF;font-size:20px; font:bold;">';
+                else 
+                  echo '<div style="color:#0033CC;font-size:20px; font:bold;">';
+                if($row4['code']==0)
+                {
+                  if($noti>0){
+                  if($row4['username']!=$userid)
+                    echo $i.') '.$row4['username'].' left this group at '.$row4['time'].'.<font color="red"><i> (new)!</i></font><br><br>';
+                  else
+                    echo $i.') You'.' left this group at '.$row4['time'].'.<br><br>';
+                    $noti--;}
+                    else{
+                    if($row4['username']!=$userid)
+                    echo $i.') '.$row4['username'].' left this group at '.$row4['time'].'.<br><br>';
+                  else
+                    echo $i.') You'.' left this group at '.$row4['time'].'.<br><br>';
+                    }  
+                    
 
-            
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            
-            <li><a href="aboutus.php">About Us</a></li>
-            <li><a href="signout.php"><span class="glyphicon glyphicon-log-out"></span>Sign-out</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </div>
+                }
+                else 
+                {
+                  if($noti>0){
+                  if($row4['username']!=$userid)
+                    echo $i.') '.$row4['username'].' joined this group at '.$row4['time'].'<font color="red"><i> (new)!</i></font>.<br><br>';
+                  else
+                    echo $i.') You'.' joined this group at '.$row4['time'].'.<br><br>';
+                  $noti--;
+                  }
+                  else{
+                  if($row4['username']!=$userid)
+                    echo $i.') '.$row4['username'].' joined this group at '.$row4['time'].'.<br><br>';
+                  else
+                    echo $i.') You'.' joined this group at '.$row4['time'].'.<br><br>';  
+                  }
+                }
+                $i++;
+                echo '</div>';
+              }
+            }}
+            else echo 'No Group';
+            echo '</div>';
+?>
 
 
-<h1 class="Mag" style="text-align:Center;"><b><ins>Share Ur Fare</ins></b></h1>
+</span><?php if($notii!=0){echo '<font color="red" size="5"><i><b>('.$notii.')</b></i></font>';} else echo '(0)';?></span></a></li>
+<li><a href="profile.php"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+<li><a href="chat.php"><span class="glyphicon glyphicon-comment"></span> Group Chat</a></li>
+
+</ul>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="aboutus.php">About Us</a></li>
+<li><a href="signout.php"><span class="glyphicon glyphicon-log-out"></span>Sign-out</a></li>
+</ul>
+</div><!--/.nav-collapse -->
+</div>
+</div>
+
+
+<h1 class="Mag" style="text-align:Center;"><b>Share Ur Fare</b></h1>
 <marquee><b class=red>Disclaimer:</b><i>If any person in your group fails to come for the journey,then the site would not be responsible. Hence, user discretion is adviced.</i></marquee>
 
 <div class="forms">
 
-<h3 class="form-signin-heading col"> &#160;&#160;&#160;&#160;&#160;&#160;&#160;SEARCH FOR A GROUP</h3>
+<h3 class="form-signin-heading col">  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;SEARCH FOR A GROUP</h3>
 <form class="form-signin" action="group_search.php" role="form" method ="POST">
 
 <select class="form-control" placeholder="Source" name="source" >
@@ -159,12 +259,12 @@ body {background-image:url("b1.jpg");}
 <div class="table-responsive">
 <table class="table table-striped a">
 <thead>
-  <col width="25">
-  <col width="90">
-  <col width="130">
-  <col width="120">
-  <col width="100">
-  <col width="80">
+<col width="25">
+<col width="90">
+<col width="130">
+<col width="120">
+<col width="100">
+<col width="80">
 <tr>
 <th>#</th>
 <th>Source</th>
@@ -175,26 +275,26 @@ body {background-image:url("b1.jpg");}
 </tr>
 </thead>
 </table>
-  </div>
-<marquee behavior="scroll" direction="up" scrollamount="9" height="375"  onmouseover="this.stop();" onmouseout="this.start();">
+</div>
+<marquee behavior="scroll" direction="up" scrollamount="9" height="375" onmouseover="this.stop();" onmouseout="this.start();">
 
 <p>
 <div class="table-responsive">
 <table class="table table-striped a">
 <tbody>
-  <col width="25">
-  <col width="90">
-  <col width="130">
-  <col width="120">
-  <col width="100">
-  <col width="80">
+<col width="25">
+<col width="90">
+<col width="130">
+<col width="120">
+<col width="100">
+<col width="80">
 <?php
 require 'connect.inc.php';
  $sql="SELECT * FROM groups";
   if(mysql_query($sql))
   {
       $query_run=mysql_query($sql);
-       $del=time(); 
+       $del=time();
       while($row=mysql_fetch_assoc($query_run))
        {
                   
@@ -227,7 +327,7 @@ require 'connect.inc.php';
  if(mysql_query($sql4))
   ;
   else
-  echo "invalid"; 
+  echo "invalid";
  $sql3="SELECT * FROM groups ORDER BY time_diff LIMIT 20";
  if(mysql_query($sql3))
       {
@@ -258,10 +358,10 @@ require 'connect.inc.php';
              echo "<form action='group_search.php' method='post'>" ."<input type='hidden' name='check' value='0'>".
              "<input type='hidden' name='limit' value='$limit'>".
     "<input type='hidden' name='key' value='$key'>";
-     if($limit!=($number-1))echo "<button type='button submit' class='btn btn-lg btn-success' name='join_group' value='Join Group'>Join</button>"."</form>"."</td>".
+     if($limit>=($number)echo "<button type='button submit' class='btn btn-lg btn-success' name='join_group' value='Join Group'>Join</button>"."</form>"."</td>".
                 "</tr>";
               else echo "<button type='button submit' class='btn btn-lg btn-danger' name='join_group' value='Join Group'>Join</button>"."</form>"."</td>".
-                "</tr>";            
+                "</tr>";
               $i++;
           }
   
@@ -281,6 +381,6 @@ require 'connect.inc.php';
 </div><!--/span-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-
+<img src="new12.jpg" opacity="10" class="bg">
 </body>
 </html>

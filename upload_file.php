@@ -1,3 +1,11 @@
+<html>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="signin.css" rel="stylesheet">
+
+
 <?php
 session_start();
 if(!$_SESSION['loggedin'])
@@ -66,12 +74,12 @@ else
       $query="UPDATE users SET `Photo`='$picc' WHERE `username`='$usr'";
       if(!mysql_query($query))
       {
-      	echo 'could not connect';
+        echo 'could not connect';
       }
      header("Location:profile.php"); 
       
    
 } else {
-  echo "Invalid file";
-}
+  header('Location: profile.php');}
 ?>
+</html>

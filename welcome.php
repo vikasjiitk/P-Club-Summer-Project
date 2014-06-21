@@ -48,14 +48,7 @@ margin-left: 40px;
 background-color: transparent;
 }
 
-.bg {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -5000;
-}
+
 .newsfeed{
 float: left;
 width: 800px;
@@ -81,8 +74,10 @@ hr{color:blue;}
 .new{
 font-family: "Copperplate Gothic Bold";color=purple;
 }
-body {background-image: url("bb3.jpg");
-background-repeat: no-repeat;}
+body {background-image: url("b1.jpg");
+background-repeat: no-repeat;
+background-size: cover;
+}
 .thumbnail:hover img{
 border: 1px solid blue;
 }
@@ -381,6 +376,6 @@ require 'connect.inc.php';
 </div><!--/span-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<img src="new12.jpg" opacity="10" class="bg">
+
 </body>
 </html>

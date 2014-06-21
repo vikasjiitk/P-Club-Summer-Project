@@ -16,7 +16,27 @@
     <!-- Custom styles for this template -->
     <link href="navbar-fixed-top.css" rel="stylesheet">
     <link href="welcome.css" rel="stylesheet">
- 
+         <link href="offcanvas.css" rel="stylesheet">
+<?php session_start();
+if(!$_SESSION['loggedin'])
+{
+header("Location:login.php");
+exit;
+}
+require 'connect.inc.php';
+$userid=@mysql_real_escape_string($_SESSION['loggedin']);
+$sql2="SELECT `key` from users WHERE `username`='$userid'";
+ if($run=mysql_query($sql2))
+ {
+  $row=mysql_fetch_assoc($run);
+  if($row['key']!=0)
+   {$message = "Sorry!.You are already in a group.";
+echo "<script type='text/javascript'>alert('$message');</script>";
+     echo '<META HTTP-EQUIV="Refresh" Content="0; URL=welcome.php">';
+     exit;
+   }
+   } 
+?>
   <style type="text/css">
    .col{
     color: #6600FF;
@@ -29,17 +49,9 @@
   .cen {text-align: center;}
   body {background-image:url("b1.jpg");}
   </style>
-  <?php session_start();
-if(!$_SESSION['loggedin'])
-{
-header("Location:login.php");
-exit;
-}
-//echo "<br><br>".$_SESSION['loggedin'];
-?>
-</head>
+  </head>
 <body style="background-color:lavender;">
-  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+ <div class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -48,38 +60,27 @@ exit;
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Welcome <?php echo $_SESSION['loggedin']?> !</a>
+          <a class="navbar-brand" href="welcome.php">Welcome <?php echo $_SESSION['userlogin']?> !</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
              <li class="active"><a href="welcome.php"><span class="glyphicon glyphicon-home"></span>  Home</a></li>
             <li><a href="create_group.php"><span class="glyphicon glyphicon-list-alt"></span> Create Group</a></li>
            <li><a href="yourgroup.php"><span class="glyphicon glyphicon-tasks"></span>  Your Group</a></li>
-            
             <li><a href="profile.php"><span class="glyphicon glyphicon-user"></span>  Profile</a></li>
+            <li><a href="chat.php"><span class="glyphicon glyphicon-comment"></span> Group Chat</a></li>
 
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-th-list"></span> <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="profile.php">Profile</a></li>
-                <li><a href="#">Notifications</a></li>
-                <li><a href="http://www.facebook.com">Help</a></li>
-                
-                <li class="divider"></li>
-                <li class="dropdown-header">Account</li>
-                <li><a href="#">About Us</a></li>
-                
-              </ul>
-            </li>
+            
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Help</a></li>
-            <li><a href="navbar-static-top/">About Us</a></li>
-            <li class="active"><a href="signout.php"><span class="glyphicon glyphicon-log-out"></span>  Sign-out</a></li>
+            
+            <li><a href="aboutus.php">About Us</a></li>
+            <li><a href="signout.php"><span class="glyphicon glyphicon-log-out"></span>Sign-out</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </div>
+
 <h1 style="text-align:Center;"><b><font class="id2"><ins>Share Ur Fare</ins></font></b></h1>
 
 <marquee><b class=red>Disclaimer:</b><i>If any person in your group fails to come for the journey,then the site would not be responsible. Hence, user discretion is adviced.</i></marquee>
@@ -117,24 +118,22 @@ exit;
               <option value="Rave Moti">Rave Moti</option>
               <option value="Z Square">Z Square</option>
             </select>
-<input type="date"  onblur="(this.type='text')" onfocus="(this.type='date')" class="form-control" placeholder="Date Of Journey" name="date" required>
+<input type="date"  onblur="(this.type='text')" onfocus="(this.type='date')" min="2014-06-20" class="form-control" placeholder="Date Of Journey" name="date" required>
 <input type="time"  onfocus="(this.type='time')" onblur="(this.type='text')" class="form-control" placeholder="Time" name="time" required>
 <br>
 <font class= "gender"><abbr title="Any specific gender you want to share your fare with?">Gender specific: </abbr>
 </font><br>
-<input type="radio" name="gender" value="F">Only Female(for females only)<br>
-<input type="radio" name="gender" value="M">Only Male(for males only)<br>
-<input type="radio" name="gender" value="B">both<br><br>
+<input type="radio" name="gender" value="F">F(for females only)<br>
+<input type="radio" name="gender" value="M">M(for males only)<br>
+<input type="radio" name="gender" value="B">B(for both)<br><br>
 <select class="form-control" name="vehicle">
   <option value="">--select vehicle type--</option>
 <option value="AUTO">AUTO-RICKSHAW</option>
 <option value="VIKRAM">VIKRAM TEMPO</option>
 <option value="ANY">ANY</option>
 </select>
-
-
 <input type="number" name="number" min="1" class="form-control" placeholder="No. of people you are booking for ">
-<input type="number" name="limit" min="1" class="form-control" placeholder="Limit group to "><br><br>
+<input type="number" name="limit" min="1" max="7" class="form-control" placeholder="Limit group to "><br><br>
 
 <button class="btn btn-lg btn-primary btn-block" type="submit"><span class="glyphicon glyphicon-plus"></span> &#160;Create Group
 </button>
@@ -153,21 +152,19 @@ exit;
     $vehicle=@mysqli_real_escape_string($con,$_POST["vehicle"]);
     $number=@mysqli_real_escape_string($con,$_POST["number"]);
     $limit=$_POST["limit"];
-    if(empty($limit))
-    {
+      if(empty($limit)){
       if($vehicle=='AUTO')
-        $limit=3;
-        else
-        $limit=7;
+         $limit=3;
+      else if($vehicle=="VIKRAM")
+         $limit=7;   
     }
-     $limit_no=@mysqli_real_escape_string($con,$limit);
+    $limit_no=@mysqli_real_escape_string($con,$limit);
     $sql="INSERT INTO groups (`source`, `destination`, `date`, `time`, `gender`, `vehicle`,`number`,`limit`)
 VALUES('$source','$destination','$date','$time','$gender','$vehicle','$number','$limit_no')";
      if(!mysqli_query($con,$sql))
      {die('Error: '.mysqli_error($con));}
       $username=@mysqli_real_escape_string($con,$_SESSION['loggedin']);
      $key=mysqli_insert_id($con);
-    // echo $key;
     $sql1="UPDATE users SET `key`= '$key',`book_no`='$number' WHERE `username`='$username' ";
       if(!mysqli_query($con,$sql1))
      {die('Error: '.mysqli_error($con));}
@@ -175,9 +172,7 @@ VALUES('$source','$destination','$date','$time','$gender','$vehicle','$number','
      @mysqli_close($con);
     echo '<META HTTP-EQUIV="Refresh" Content="0; URL=welcome.php">';
      }
-      
       ?>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 

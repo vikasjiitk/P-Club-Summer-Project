@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <meta name="description" content="Enhance Required Form Fields with CSS3" />
+        <meta name="keywords" content="form, html5, css3, animated, transition, required, filter" />
+        <meta name="author" content="Codrops" />
     <link rel="shortcut icon" href="assets/ico/favicon.ico">
 
 
@@ -16,8 +20,12 @@
 
     <!-- Custom styles for this template -->
     <link href="navbar-fixed-top.css" rel="stylesheet">
-    <link href="welcome.css" rel="stylesheet">
-         <link href="offcanvas.css" rel="stylesheet">
+    
+     <link rel="stylesheet" type="text/css" href="demo1.css" />
+        <link rel="stylesheet" type="text/css" href="style3.css" />
+<script type="text/javascript" src="modernizr.custom.04022.js"></script>
+
+
 <?php session_start();
 if(!$_SESSION['loggedin'])
 {
@@ -39,10 +47,12 @@ echo "<script type='text/javascript'>alert('$message');</script>";
    }
 ?>
   <style type="text/css">
-  body {background-image: url("b1.jpg");
+  body {background-image: url("a1.jpg");
 background-repeat: no-repeat;
 background-size: cover;
+padding-top: 35px;
 }
+.red{ color: red;}
   .create{
     margin-left: 20%;
   }  
@@ -55,10 +65,10 @@ background-size: cover;
   color:teal;}
   .align {text-align: center; color: blue;}
   .cen {text-align: center;}
-  body {background-image:url("b1.jpg");}
+  
   </style>
   </head>
-<body style="background-color:lavender;">
+<body>
  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -89,15 +99,26 @@ background-size: cover;
       </div>
     </div>
 
-<h1 style="text-align:Center;"><b><font class="id2"><ins>Share Ur Fare</ins></font></b></h1>
+<h1 style="text-align:center; color:#D6AD33;"><b>Share Ur Fare</b></h1>
 
 <marquee><b class=red>Disclaimer:</b><i>If any person in your group fails to come for the journey,then the site would not be responsible. Hence, user discretion is adviced.</i></marquee>
 
 
-<div class="create"><span><h3 class="col">&#160;&#160;&#160;&#160;&#160;&#160;Create ur group</h3></span>
-<form class="form-signin" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" role="form" method ="POST">
-<input list="source" name="source" select class="form-control" placeholder="Source" name="source">
-<datalist id="source">
+
+<div class="container">
+<section class="af-wrapper">
+              <h3>Create Group</h3>
+            
+        <input id="af-showreq" class="af-show-input" type="checkbox" name="showreq" />
+        <label for="af-showreq" class="af-show">Show only required fields</label>
+        
+        <form class="af-form" id="af-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" role="form" method ="POST" novalidate>
+        
+          <div class="af-outer af-required">
+            <div class="af-inner">
+              <label for="input-title">Source</label>
+              <input type="text" list="source" name="source" select  placeholder="Source" name="source" required>
+             <datalist id="source">
 <option>Enter Source</option>
 <option value="Allen Zoo">Allen Zoo</option>
 <option value="Gumti">Gumti</option>
@@ -111,7 +132,14 @@ background-size: cover;
 <option value="Rave Moti">Rave Moti</option>
 <option value="Z Square">Z Square</option>
 </datalist>
-<input list="destination" name="destination" select class="form-control" placeholder="Destination" name="destination">
+
+</div>
+          </div>
+        
+          <div class="af-outer af-required">
+            <div class="af-inner">
+              <label for="input-name">Destination</label>
+              <input type="text" list="destination" name="destination" select  placeholder="Destination" name="destination" required>
 <datalist id="destination">
 <option>Enter Source</option>
 <option value="Allen Zoo">Allen Zoo</option>
@@ -126,26 +154,69 @@ background-size: cover;
 <option value="Rave Moti">Rave Moti</option>
 <option value="Z Square">Z Square</option>
 </datalist>
-<input type="date"  onblur="(this.type='text')" onfocus="(this.type='date')" min="2014-06-20" class="form-control" placeholder="Date Of Journey" name="date" required>
-<input type="time"  onfocus="(this.type='time')" onblur="(this.type='text')" class="form-control" placeholder="Time" name="time" required>
-<select class="form-control" name="gender" required>
-<option value="">--Gender Specificness--</option>
-<option value="B">Both</option>
-<option value="M">Only Males</option>
-<option value="F">Only Females</option>
-</select>
-<select class="form-control" name="vehicle">
-  <option value="">--select vehicle type--</option>
-<option value="AUTO">AUTO-RICKSHAW</option>
-<option value="VIKRAM">VIKRAM TEMPO</option>
-<option value="ANY">ANY</option>
-</select>
-<input type="number" name="number" min="1" class="form-control" placeholder="No. of people you are booking for " required>
-<input type="number" name="limit" min="1" max="7" class="form-control" placeholder="Limit group to "><br><br>
 
-<button class="btn btn-lg btn-primary btn-block" type="submit"><span class="glyphicon glyphicon-plus"></span> &#160;Create Group
-</button>
-</form></div>
+            </div>
+          </div>
+          
+          <div class="af-outer af-required">
+            <div class="af-inner">
+              <label for="date-of-journey">Date</label>
+              <input type="date"  onblur="(this.type='text')" onfocus="(this.type='date')" min="2014-06-20"  placeholder="Date Of Journey" name="date" required>
+            </div>
+          </div>
+          
+          <div class="af-outer af-required">
+            <div class="af-inner">
+              <label for="input-time">Time</label>
+              <input type="time"  onfocus="(this.type='time')" onblur="(this.type='text')"  placeholder="Time" name="time" required>
+
+            </div>
+          </div>
+          
+          <div class="af-outer">
+            <div class="af-inner">
+              <label for="input-country">Gender Specificness</label>
+              <select  name="gender">
+
+                <option value="B">Both</option>
+                <option value="M">Only Males</option>
+                <option value="F">Only Females</option>
+</select>
+            </div>
+          </div>
+          
+          <div class="af-outer">
+            <div class="af-inner">
+              <label for="type-vehicle">Vehicle</label>
+              <select  name="vehicle">
+                 
+                <option value="AUTO">AUTO-RICKSHAW</option>
+                <option value="VIKRAM">VIKRAM TEMPO</option>
+                <option value="ANY">ANY</option>
+               </select>
+
+            </div>
+          </div>
+          
+          <div class="af-outer">
+            <div class="af-inner">
+              <label for="People-with-u">People</label>
+              <input type="number" name="number" min="1"  placeholder="No. of People you are Booking for " >
+            </div>
+          </div>
+          
+          <div class="af-outer">
+            <div class="af-inner">
+              <label for="limit">Limit</label>
+              <input type="text" name="limit" min="1" max="7" placeholder="Limit group to ">
+            </div>
+          </div>
+          
+          <input type="submit" value="Create It!" /> 
+          
+        </form>
+      </section>
+    </div>
 <?php
   if($_SERVER["REQUEST_METHOD"]=="POST"){
  echo "fuck";

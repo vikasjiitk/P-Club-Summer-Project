@@ -91,7 +91,7 @@ padding: 2px;
 
 .thumbnail:hover span{ /*CSS for enlarged image*/
 visibility: visible;
-top: 550px;
+top: 520px;
 width: 50px;
 left: 0px; /*position where enlarged image should offset horizontally */
 z-index: 50;
@@ -164,7 +164,7 @@ color:#FFCC66;
 <li><a href="create_group.php"><span class="glyphicon glyphicon-list-alt"></span> Create Group</a></li>
 <li class="active"><a href="yourgroup.php"><span class="glyphicon glyphicon-tasks"></span> Your Group</a></li>
 
-<li><a href="yourgroup.php" ><span class='thumbnail1' > New Notifications: <span>
+<li><a href="yourgroup.php" ><span class='thumbnail1' >  Notifications: <span>
 <?php
 
 $notii=$noti;

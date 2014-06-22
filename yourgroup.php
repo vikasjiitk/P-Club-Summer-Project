@@ -19,6 +19,7 @@
     <!-- Custom styles for this template -->
     <link href="navbar-fixed-top.css" rel="stylesheet">
     <link href="welcome.css" rel="stylesheet">
+    
 
  <?php session_start();
 if(!$_SESSION['loggedin'])
@@ -38,51 +39,46 @@ $sql1="SELECT `notify`,`key` from users WHERE `username`='$userid'";
  else die();
 ?>
 <style type="text/css">
+@import url("style1.css");
 .col{
 color: #6600FF;
 font-family: "Lucida Handwriting";
 }
 h1{ font-family: Magneto;
 color:teal;}
-.new{color: #0000FF;}
+
 .bau{font-family: "Bradley Hand ITC"-+--+9;color: #330099;}
 .align {text-align: center; color: blue;}
 .cen {text-align: center;}
 .aa{font-family: "Adobe Gothic Std B";color: #0033CC;font-size: 20px;}
-body {background-image:url("b1.jpg");
+body {background-image: url("ooo.jpg");
 background-repeat: no-repeat;
-background-size: cover; }
-table,th,td
-{
-border:1px solid black;
-border-collapse:collapse;
-}
+background-size: cover;}
 
 .gallerycontainer{
 position: relative;
 /*Add a height attribute and set to largest image's height to prevent overlaying*/
 }
-
+h2.in{
+  text-align: center;
+}
 .thumbnail img{
 border: 2px ridge gray;
 margin: 0 5px 5px 0;
 
 }
-
-.thumbnail:hover{
-background-color: transparent;
-}
-
-.thumbnail:hover img{
-border: 1px ridge black;
+.red{
+  color: red;
 }
 
 .thumbnail span{ /*CSS for enlarged image*/
 position: absolute;
-background-color: #F0F0F0 ;
+background-color: transparent; ;
 padding: 5px;
 left: -1000px;
-border: 5px ridge gray;
+font-family:"Berlin Sans FB";
+text-align: center;
+font-size: 20px;
 visibility: hidden;
 color: black;
 text-decoration: none;
@@ -95,22 +91,62 @@ padding: 2px;
 
 .thumbnail:hover span{ /*CSS for enlarged image*/
 visibility: visible;
-top: 50px;
-width: 500px;
+top: 550px;
+width: 50px;
 left: 0px; /*position where enlarged image should offset horizontally */
 z-index: 50;
 }
-th,td
-{
-padding:5px;
+.thumbnail1 img{
+border: 2px ridge gray;
+margin: 0 5px 5px 0;
+
+}
+
+.thumbnail1:hover{
+background-color: transparent;
+}
+
+
+
+.thumbnail1 span{ /*CSS for enlarged image*/
+position: absolute;
+background-color: white  ;
+padding: 5px;
+left: -1000px;
+
+border: 2px solid gray;
+visibility: hidden;
+color: black;
+text-decoration: none;
+}
+
+.thumbnail1 span img{ /*CSS for enlarged image*/
+border-width: 0;
+padding: 2px;
+}
+
+.thumbnail1:hover span{ /*CSS for enlarged image*/
+visibility: visible;
+top: 50px;
+width: 400px;
+left: 0px; /*position where enlarged image should offset horizontally */
+z-index: 50;
+}
+
+#noti{
+  font-family: "Adobe Gothic Std B";
 }
 h1{color:teal;}
 .forms{
 float: center;
 }
+.new{
+  font-family: "Gungsuh";
+color:#FFCC66;
+}
 </style>
 </head>
-<body style="background-color:lavender;">
+<body>
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
 <div class="container">
 <div class="navbar-header">
@@ -120,7 +156,7 @@ float: center;
 <span class="icon-bar"></span>
 <span class="icon-bar"></span>
 </button>
-<a class="navbar-brand" href="#">Welcome <?php echo $_SESSION['loggedin']?> !</a>
+<a class="navbar-brand" href="welcome.php">Welcome <?php echo $_SESSION['loggedin']?> !</a>
 </div>
 <div class="navbar-collapse collapse">
 <ul class="nav navbar-nav">
@@ -128,7 +164,7 @@ float: center;
 <li><a href="create_group.php"><span class="glyphicon glyphicon-list-alt"></span> Create Group</a></li>
 <li class="active"><a href="yourgroup.php"><span class="glyphicon glyphicon-tasks"></span> Your Group</a></li>
 
-<li><a href="yourgroup.php" ><span class='thumbnail'> New Notifications: <span>
+<li><a href="yourgroup.php" ><span class='thumbnail1' > New Notifications: <span>
 <?php
 
 $notii=$noti;
@@ -148,9 +184,9 @@ echo '<div id="noti" style="float:left;"><br>';
               while($row4=mysql_fetch_assoc($run4))
               {
                 if($i%2!=0)
-                  echo '<div style="color:#0033CC; background-color:#6699FF;font-size:20px; font:bold;">';
+                  echo '<div style="color:black; background-color:#FF9999;font-size:15px;" >';
                 else 
-                  echo '<div style="color:#0033CC;font-size:20px; font:bold;">';
+                  echo '<div style="color:black;font-size:15px;">';
                 if($row4['code']==0)
                 {
                   if($noti>0){
@@ -201,15 +237,16 @@ echo '<div id="noti" style="float:left;"><br>';
 
 </ul>
 <ul class="nav navbar-nav navbar-right">
+<li><a href="contacts.php"><span class="glyphicon glyphicon-phone-alt"></span>Contacts</a></li>
 <li><a href="#">Help</a></li>
-<li><a href="navbar-static-top/">About Us</a></li>
-<li class="active"><a href="signout.php"><span class="glyphicon glyphicon-log-out"></span> Sign-out</a></li>
+<li><a href="aboutus.php">About Us</a></li>
+<li><a href="signout.php"><span class="glyphicon glyphicon-log-out"></span> Sign-out</a></li>
 </ul>
 </div><!--/.nav-collapse -->
 </div>
 </div>
-<br><br>
-<h1 style="text-align:Center;"><b><font class="id2"><ins>Share Ur Fare</ins></font></b></h1>
+
+<h1 style="text-align:Center; color:#FFCC00;" ><b>Share Ur Fare</b></h1>
 
 <marquee><b class=red>Disclaimer:</b><i>If any person in your group fails to come for the journey,then the site would not be responsible. Hence, user discretion is adviced.</i></marquee>
 
@@ -254,8 +291,6 @@ if(empty($PhoneErr) && $check==1)
   
      if(!mysql_query($sql))
      {die('Error: '.mysqli_error());}
-$message = "Updated sucessfully";
-echo "<script type='text/javascript'>alert('$message');</script>";
      echo '<META HTTP-EQUIV="Refresh" Content="0; URL=yourgroup.php">';
     exit;
       @mysql_close();
@@ -267,11 +302,11 @@ echo "<script type='text/javascript'>alert('$message');</script>";
 
 
 
-          echo '<a href="notification.php"><span style="float:right;color:red;font-size:20px;"><u>See all Notifications</u></span></a>';
-          echo '<div id="table gallerycontainer" style="float:center;">';
+          echo '<a href="notification.php"><span style="float:right;color:#FFFFCC;font-size:20px;"><u>See all Notifications</u></span></a>';
+          
             $query2="SELECT * FROM groups WHERE `key`='$group_id'";
             $query3="SELECT * FROM users WHERE `key`='$group_id'";
-            echo '<br><h2 style=text-align:center class=bau><b>Travel Plan</b></h2>'; 
+            echo '<br><br><h2 class="new" style="text-align:center;"><b>Travel Plan</b></h2>'; 
             if(mysql_query($query2))
             {
               $run2=mysql_query($query2) or die(mysql_error());
@@ -281,21 +316,19 @@ echo "<script type='text/javascript'>alert('$message');</script>";
               if(empty($ph))
                 $status='Unbooked';
               else $status='Booked';
-              echo '<table style="width:600px; text-align:center;" align="center" class="aa">
+              echo '<center><table style="width:600px;text-align:center;" id="gradient-style">
 <tr style="background-color:#6699FF">
-<th>Source</th> <th>Destination</th> <th>Date of Travel</th> <th>Time of Travel</th><th>Status</th>
+<th scope=col>Source</th> <th scope=col>Destination</th> <th scope=col>Date of Travel</th> <th scope=col>Time of Travel</th><th scope=col>Status</th>
 </tr>
 <tr>
 <td>'.$row2["source"].'</td> <td>'.$row2["destination"].'</td> <td>'.$row2["date"].'</td> <td>'.$row2["time"].'</td><td>'.$status.
               '</td></tr>
-</table>';
+</table></center>';
               $number=$row2['number'];
             }
 
+
 ?>
-<div class="forms">
-
-
 
 <center>
 <div class="container">
@@ -304,29 +337,28 @@ echo "<script type='text/javascript'>alert('$message');</script>";
 
 <input type="hidden" class="form-control"  name="check" value="1">
 
-</datalist>
-<?php if(empty($ph))echo "<input type='text' class='form-control' placeholder='Update Driver`s number' name='Phone' >";
+
+ <?php if(empty($ph))echo '<input type="text" class="form-control" placeholder="Update Driver`s number" name="Phone" >';
 else echo "<input type='text' class='form-control' placeholder='$ph(Driver`s number)' name='Phone' >";
 
-echo $PhoneErr;
-?>
+echo $PhoneErr;?>
 
-<button class="btn btn-lg btn-primary btn-block" type="submit"></span>UPDATE
+
+<button class="btn btn-lg btn-danger btn-block" type="submit"></span>UPDATE
 </button></form>
 </div>
 </center>
 
-</div>
 <?php
 
 
-            echo '<h2 style=text-align:center class=bau><b>Group Members</b></h2>';
+            echo '<center><h2 class="new"><b>Group Members</b></h2>';
             if(mysql_query($query3))
             {
               $run3=mysql_query($query3) or die(mysql_error());
-              echo '<table style="width:600px; text-align:center;" align="center" class="aa">
+              echo '<table style="width:600px; text-align:center;" align="center" class="aa" id="gradient-style">
 <tr style="background-color:#6699FF">
-<th>S.no</th> <th>Name</th> <th>Email</th> <th>Phone no.</th> <th>Seats Booked</th>
+<th  scope=col>S.no</th> <th scope=col>Name</th> <th scope=col>Email</th> <th scope=col>Phone no.</th> <th scope=col>Seats Booked</th>
 </tr>';
               $count=1;
               while($row3=mysql_fetch_assoc($run3))
@@ -343,7 +375,7 @@ echo $PhoneErr;
                   $noti=$row3['notify'];
               }
            
-              echo '</table>';
+              echo '</table></center>';
               echo "<span class=align><form action='leave_group.php' method='post'>" ."<input type='hidden' name='username' value='$userid'>".
               "<input type='hidden' name='group' value='$group'>"."<input type='hidden' name='number' value='$number'>".
               "<input type='hidden' name='book_no' value='$book_no'>"."<br>".
@@ -356,5 +388,12 @@ echo $PhoneErr;
         }
         else echo '<span class=bau> <br><br><h2 style="text-align:center; color:red; font-size:40px;"><b>NO GROUP CREATED OR JOINED</b></h2</span> ';
     
+
+echo '<div class="forms">
+
+
+
+</div>';
 ?>
 </body>
+</html>

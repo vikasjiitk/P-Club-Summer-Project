@@ -29,18 +29,20 @@ exit;
 
 ?>
   <style type="text/css"> 
-   .col{
-    color: #6600FF;
-    font-family: "Lucida Handwriting";
-  }
+  #noti{
+  font-family: "Adobe Gothic Std B";
+}
+  .red{color:red;}
   h1{ font-family: Magneto;
   color:teal;}
   .new{color: #0000FF;}
-  .bau{font-family: "Bradley Hand ITC"-+--+9;color: #330099;}
+  .bau{font-family: "Gungsuh";color: #FFCC66;}
   .align {text-align: center; color: blue;}
   .cen {text-align: center;}
-  .aa{font-family: "Adobe Gothic Std B";color: #0033CC;font-size: 20px;}
-  body {background-image:url("b1.jpg");}
+  .aa{font-family: "Adobe Gothic Std B";color:black;font-size: 20px;}
+  body {background-image:url("ooo.jpg");
+background-repeat: no-repeat;
+background-size: cover;}
   table,th,td
   {
   border:1px solid black;
@@ -96,7 +98,7 @@ exit;
         </div><!--/.nav-collapse -->
       </div>
     </div>
-<h1 style="text-align:Center;"><b><font class="id2"><ins>Share Ur Fare</ins></font></b></h1>
+<h1 style="text-align:Center;color:#FFCC00;" ><b>Share Ur Fare</b></h1>
 
 <marquee><b class=red>Disclaimer:</b><i>If any person in your group fails to come for the journey,then the site would not be responsible. Hence, user discretion is adviced.</i></marquee>
 
@@ -117,7 +119,7 @@ exit;
         if($group_id != 0)
         {
 
-          echo '<div id="table" style="background-color:;width:60%;float:left;">';
+          echo '<div id="table" style="width:60%;float:left;">';
             $query2="SELECT * FROM groups WHERE `key`='$group_id'";
             $query3="SELECT * FROM users WHERE `key`='$group_id'";
             echo '<br><h2 style=text-align:center class=bau><b>Travel Plan</b></h2>';
@@ -126,10 +128,10 @@ exit;
               $run2=mysql_query($query2) or die(mysql_error());
               $row2=mysql_fetch_assoc($run2);
               echo '<table style="width:600px; text-align:center;" align="center" class="aa"> 
-              <tr style="background-color:#6699FF">
+              <tr style="background-color:#DE5C5C">
               <th>Source</th> <th>Destination</th> <th>Date of Travel</th> <th>Time of Travel</th>
               </tr>
-              <tr>
+              <tr style="background-color:#F3C2C2;">
               <td>'.$row2["source"].'</td> <td>'.$row2["destination"].'</td> <td>'.$row2["date"].'</td> <td>'.$row2["time"].
               '</td></tr>
               </table>';
@@ -141,13 +143,14 @@ exit;
             {
               $run3=mysql_query($query3) or die(mysql_error());
               echo '<table style="width:600px; text-align:center;" align="center" class="aa"> 
-              <tr style="background-color:#6699FF">
+              <tr style="background-color:#DE5C5C;">
+              
               <th>S.no</th> <th>Name</th> <th>Email</th> <th>Phone no.</th> <th>Seats Booked</th>
               </tr>';
               $count=1;
               while($row3=mysql_fetch_assoc($run3))
               {
-                echo '<tr>
+                echo '<tr style="background-color:#F3C2C2;">
                 <td>'.$count.'</td><td>'.$row3["name"].'</td><td>'.$row3["username"].'@iitk.ac.in</td><td>'.$row3["phone"].'</td><td>'.$row3['book_no'].'</td></tr>';
                 $count++;
                 if($row3['username']==$userid)
@@ -169,7 +172,7 @@ exit;
             }
 
             echo '<div id="noti" style="width:39%;float:left;"></br> <br><h2 style=text-align:center class=bau><b> GROUP NOTIFICATIONS</b></h2><br>';
-            echo '<a href="yourgroup.php"><span style="float:right;color:red;font-size:20px;"><u>Hide Notifications</u></span></a>';
+            echo '<a href="yourgroup.php"><span style="float:right;color:#995C1F;font-size:20px;"><u>Hide Notifications</u></span></a>';
             $query4="SELECT * FROM notification WHERE `key`='$group_id' ORDER BY `time` desc";
             $query5="UPDATE users SET `notify`=0 WHERE `username`='$userid'";
             if($run4=mysql_query($query4))
@@ -184,9 +187,9 @@ exit;
               while($row4=mysql_fetch_assoc($run4))
               {
                 if($i%2!=0)
-                  echo '<div style="color:#0033CC; background-color:#6699FF;float:left;width:100%;height:60px;font-size:20px; font:bold;">';
+                  echo '<div style="color:black; background-color:#FF9999;float:left;width:100%;height:60px;font-size:20px; font:bold;">';
                 else 
-                  echo '<div style="color:#0033CC;float:left;width:100%;height:60px;font-size:20px; font:bold;">';
+                  echo '<div style="color:black;float:left;width:100%;height:60px;font-size:20px; font:bold;">';
                 if($row4['code']==0)
                 {
                   if($noti>0){

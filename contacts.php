@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>
-  SHARE Ur FARE
+  Contacts
  </title>
  <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -46,12 +46,12 @@ margin-left: 200px;
 }
 
 h1.Mag{ font-family: Magneto;
-color:#99FF33;}
+color:#FFE88D;}
 b.red{
 color:red;
 }
 .col{
-color: #6600FF;
+color: #FFEB99;
 font-family: "Berlin Sans FB Demi";
 }
 .a{ font-family: "Adobe Gothic Std B";
@@ -62,7 +62,7 @@ hr{color:blue;}
 .new{
 font-family: "Copperplate Gothic Bold";color=purple;
 }
-body {background-image: url("b1.jpg");
+body {background-image: url("b.jpg");
 background-repeat: no-repeat;
 background-size: cover;
 }
@@ -188,7 +188,7 @@ require 'connect.inc.php';
          <input type="number" class="form-control" placeholder="Phone Number" name="pho" >
          
 <br>
-         <button class="btn btn-lg btn-primary btn-block" type="submit"><span class="glyphicon glyphicon-plus"></span> &#160;SUBMIT
+         <button class="btn btn-lg btn-danger btn-block" type="submit"><span class="glyphicon glyphicon-plus"></span> &#160;SUBMIT
          </button>
    </form>
 </div>
@@ -212,3 +212,13 @@ if(!mysqli_query($con,$sql))
 ?>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+

@@ -242,10 +242,7 @@ require 'connect.inc.php';
         $i=0;
          if(mysql_num_rows($query_run2)==0)
           {
-            echo '</marquee>';
-           echo '<span>';
-           echo "NO GROUPS AVAILABLE!";
-           echo '</span>';
+            echo '<span class="a" style="font-size:20px;">NO GROUPS AVAILABLE</span>';
           }
           while($row=mysql_fetch_assoc($query_run2))
           {
@@ -275,6 +272,7 @@ require 'connect.inc.php';
 
       }
 
+
       else
   {echo'invalid query';}
        ?>
@@ -283,6 +281,9 @@ require 'connect.inc.php';
 </div>
 </p>
 </marquee>
+
+
+
 </div><!--/span-->
 </div><!--/row-->
 </div><!--/span-->

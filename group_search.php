@@ -32,11 +32,13 @@ h1{ font-family: Magneto;
 color:teal;}
 .my{color: red; font-size: 15pt;}
 .align{text-align: center; }
-body {background-image:url("b1.jpg");}
+body {background-image:url("ooo.jpg");
+background-repeat: no-repeat;
+background-size: cover;}
 
-.bau{font-family: "Bradley Hand ITC";color: #330099;
+.bau{font-family: "Gungsuh";color:#FFCC66;
 }
-.aa{font-family: "Adobe Gothic Std B";color: #0033CC;}
+.aa{font-family: "Adobe Gothic Std B";color: black;}
 .red {color: red;}
 </style>
 </head>
@@ -59,23 +61,11 @@ body {background-image:url("b1.jpg");}
            <li><a href="yourgroup.php"><span class="glyphicon glyphicon-tasks"></span>  Your Group</a></li>
             
             <li><a href="profile.php"><span class="glyphicon glyphicon-user"></span>  Profile</a></li>
-
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-th-list"></span> <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                
-                <li><a href="#">Notifications</a></li>
-                
-                
-                <li class="divider"></li>
-                <li class="dropdown-header">Account</li>
-                <li><a href="#">Help</a></li>
-                
-              </ul>
-            </li>
+            <li><a href="chat.php"><span class="glyphicon glyphicon-comment"></span>  Group Chat</a></li>
+            
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            
+            <li><a href="contacts.php"><span class="glyphicon glyphicon-phone-alt"></span>Contacts</a></li>
             <li><a href="aboutus.php">About Us</a></li>
             <li><a href="signout.php"><span class="glyphicon glyphicon-log-out"></span>Sign-out</a></li>
           </ul>
@@ -83,14 +73,14 @@ body {background-image:url("b1.jpg");}
       </div>
     </div>
 
-<h1 style="text-align:Center;"><b><font class="id2"><ins>Share Ur Fare</ins></font></b></h1>
+<h1 style="text-align:Center; color:#FFCC00;" ><b>Share Ur Fare</b></h1>
 
 <marquee><b class=red>Disclaimer:</b><i>If any person in your group fails to come for the journey,then the site would not be responsible. Hence, user discretion is adviced.</i></marquee>
 
 
 
 
-<center> <h2 class="sub-header bau"><b>Available Groups</b></h2></center>
+<center> <h2 class="sub-header bau" ><b>Available Groups</b></h2></center>
 <div class="table-responsive">
 <table class="table table-striped aa">
 <thead>
@@ -268,7 +258,7 @@ if($_SERVER["REQUEST_METHOD"]=='POST')
              echo "<form action='join_group.php' method='post'>" ."<input type='hidden' name='group' value='$key'>".
     "<input type='hidden' name='number' value='$number'>"."<input type='hidden' name='limit' value='$limit'>".
     "<input type='hidden' name='gender' value='$gender'>"."<input type='hidden' name='book_no' value='$book_no'>";
-    if($row["limit"]>=$number)echo "<button type='button submit' class='btn btn-lg btn-success' name='join_group' value='Join Group'>Join Group</button>"."</form>"."</td>".
+    if($row["limit"]!=$row["number"])echo "<button type='button submit' class='btn btn-lg btn-success' name='join_group' value='Join Group'>Join Group</button>"."</form>"."</td>".
                 "</tr>";
               else echo "<button type='button submit' class='btn btn-lg btn-danger' name='join_group' value='Join Group' disabled>Join Group</button>"."</form>"."</td>".
                 "</tr>";
@@ -286,8 +276,6 @@ if($_SERVER["REQUEST_METHOD"]=='POST')
 </tbody>
 </table>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/docs.min.js"></script>
+
 </body>
 </html>

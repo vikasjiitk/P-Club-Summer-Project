@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>
-  SHARE Ur FARE
+  Join Group
  </title>
  <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -39,17 +39,19 @@ color:red;
 color: #6600FF;
 font-family: "Lucida Handwriting";
 }
-.bau{font-family: "Bradley Hand ITC";color: #330099;}
+.bau{font-family: "Gungsuh";color: #FFCC66;}
 .aa{
-font-family: "Comic Sans MS";
+font-family: "Adobe Gothic Std B";
 color: black;
 font-size: 20px;
 }
 }
 }
 hr{color:blue;}
-body {background-image:url("b1.jpg");}
-.thumbnail img{
+body {background-image:url("ooo.jpg");
+background-repeat: no-repeat;
+background-size: cover; }
+.thumbnail1 img{
 border: 2px ridge gray;
 margin: 0 5px 5px 0;
 
@@ -65,10 +67,10 @@ background-color: transparent;
 
 .thumbnail span{ /*CSS for enlarged image*/
 position: absolute;
-background-color: #F0F0F0 ;
+background-color: transparent; ;
 padding: 5px;
 left: -1000px;
-border: 5px ridge gray;
+
 visibility: hidden;
 color: black;
 text-decoration: none;
@@ -88,7 +90,7 @@ z-index: 50;
 
 </style>
 </head>
-<body style="background-color:lavender;">
+<body>
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -133,7 +135,7 @@ z-index: 50;
 <h1 style="text-align:Center;"><b><font class="id2"><ins>Share Ur Fare</ins></font></b></h1>
 
 <marquee><b class=red>Disclaimer:</b><i>If any person in your group fails to come for the journey,then the site would not be responsible. Hence, user discretion is adviced.</i></marquee>
-<h1 class="bau"><b>Group Members</b></h1>
+<h2 class="bau"><b>Group Members</b></h2>
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $number=$_POST['number'];
@@ -190,7 +192,7 @@ echo "</span>";
 echo "<form action='confirm_group.php' method='post'>" ."<input type='hidden' name='username' value='$session'>".
   "<input type='hidden' name='group' value='$key'>"."<input type='hidden' name='number' value='$number'>".
   "<input type='hidden' name='book_no' value='$book_no'>".
-  "<button type='button submit' class='btn btn-lg btn-info' name='confirm_group'>Confirm Group</button>"
+  "<button type='button submit' class='btn btn-lg btn-warning' name='confirm_group'>Confirm Group</button>"
 ."</form>";
 }
  ?>

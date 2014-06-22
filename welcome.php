@@ -31,7 +31,7 @@ exit;
 <style type="text/css">
 .forms{
 float: left;
-width: 400px;
+width: 30%;
 
 margin-left: 40px;
 
@@ -47,7 +47,7 @@ margin-left: 40px;
 }
 .newsfeed{
 float: left;
-width: 800px;
+width: 60%;
 
 background-color:transparent;
 border: 0px solid;

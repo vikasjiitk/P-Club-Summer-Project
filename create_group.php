@@ -232,10 +232,12 @@ padding-top: 35px;
     $vehicle=@mysqli_real_escape_string($con,$_POST["vehicle"]);
     $number=@mysqli_real_escape_string($con,$_POST["number"]);
     $limit=$_POST["limit"];
+      if($vehicle=="")
+        $vehicle="ANY";
       if(empty($limit)){
       if($vehicle=='AUTO')
          $limit=3;
-      else if($vehicle=="VIKRAM")
+      else
          $limit=7;   
     }
     $limit_no=@mysqli_real_escape_string($con,$limit);

@@ -16,16 +16,15 @@
 
     <!-- Custom styles for this template -->
     <link href="signin.css" rel="stylesheet">
-
+    <link rel="stylesheet" type="text/css" href="style2.css" />
+    <script src="modernizr.custom.63321.js"></script>
     
     
 <style>
 body {background-image:url("b5.jpg");}
 background-repeat:repeat-x;
 {h1:color:blue;}
-input{
-   text-align:center;
-}
+
 .bg {
     width: 100%;
     height: 100%;
@@ -36,7 +35,7 @@ input{
 }
 </style>
 <style>
-h1
+h1.ab
 {
 font-family: Magneto;
 font-size: 50px;
@@ -45,7 +44,32 @@ font-size: 50px;
 </style>
 <style>
 .error {color: #FF0000;}
+body {
+        background: #7f9b4e url(a1.jpg) no-repeat center top;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+      }
+      .container > header h1,
+      .container > header h2 {
+        color: #fff;
+        text-shadow: 0 1px 1px rgba(0,0,0,0.7);
+      }
 </style>
+<script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7243260-2']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+
 <title>
 SHARE ur FARE_login
 </title>
@@ -88,44 +112,29 @@ function test_input($data) {
    return $data;
 }
 ?>
-<center><h1>Share Ur Fare</h1>
+<center><h1 class="ab" style="color:#D6AD33;">Share Ur Fare</h1></center>
 <br>
 <br>
-<div class="container">
+<section class="main">
+        <form class="form-4" role="form" method="post">
+            <h1 style="color:#ADAD85;">Login or Register</h1>
+            <p>
+                <label for="login">Username or email</label>
+                <input type="text" name="username" placeholder="CC Username" required>
+            </p>
+            <p>
+                <label for="password">Password</label>
+                <input type="password" name='password' placeholder="CC Password" required> 
+            </p>
 
-        
-
-<form class="form-signin" role="form" method="post" >
-<h2 class="form-signin-heading">Please sign in</h2>
-<img src="captcha.php"><br>
-
-
-<br>
-<input type="text"  placeholder="captcha" name="vercode" size="15" required autofocus>
-<br><br>
-
-<input type="text" class="form-control" placeholder="Username" name="username" required autofocus>
-        <input type="password" class="form-control" placeholder="Password" name="password" required>
-        
-          <input type="checkbox" value="remember-me"> Remember me
-        
-
-<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in
-</button></form><br>
-</div>
-
-</center>
+            <p>
+                <input type="submit" name="submit" value="Sign-in">
+            </p>       
+        </form>​
+      </section>
 
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-if ($_POST["vercode"] != $_SESSION["vercode"] OR $_SESSION["vercode"]=='') {
-echo "<div class='container'>"."<form class='form-signin' role='form'>"."<center>".
-"<button class='btn btn-lg btn-warning' disabled>Authentication Error !
-</button>"."</center>"."</form>".
-
-"</div>";
-}
- else {
 
 $ftp_server = "webhome.cc.iitk.ac.in";
   $ftp_user = $_POST['username'];
@@ -157,11 +166,11 @@ $ftp_server = "webhome.cc.iitk.ac.in";
 "</div>";
     ftp_close($conn_id);  
   }
-}}
+}
 ?>
-<br><br><br><br>
+<br><br><br><br><br><br><br>
 <p align="right"><img src="http://hitwebcounter.com/counter/counter.php?page=5664784&style=0005&nbdigits=8&type=page&initCount=0" title="" Alt="" border="0" >
 </a><br/></p>
-<div align="center"><img src="b5.jpg" class="bg"></div>
+
 </body>
 </html>

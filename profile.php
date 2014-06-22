@@ -36,7 +36,7 @@ font-family: "Lucida Handwriting";
 }
 }
 hr{color:blue;}
-body {background-image:url("b1.jpg");
+body {background-image:url("ooo.jpg");
 background-repeat: no-repeat;
 background-size: cover; }
 .pic{
@@ -49,7 +49,12 @@ color: #006666;
 float: left;
 width: 400px;
 }
+.new{
+font-family: "Gungsuh";
+}
 .bau{font-family: "Bradley Hand ITC";color: #330099;}
+h1.Mag{ font-family: Magneto;
+color:#FFCC00;}
 </style>
 
 </head>
@@ -84,7 +89,7 @@ width: 400px;
       </div>
     </div>
     
-<h1 style="text-align:Center;"><b><font class="id2"><ins>Share Ur Fare</ins></font></b></h1>
+<h1 style="text-align:Center;" class="Mag"><b>Share Ur Fare</b></h1>
 
 <marquee><b class=red>Disclaimer:</b><i>If any person in your group fails to come for the journey,then the site would not be responsible. Hence, user discretion is adviced.</i></marquee>
 <?php
@@ -152,8 +157,8 @@ function test($data) {
    return $data;}
   ?>
   <div class="pic">
-  
-  <h2>Profile Picture</h2>
+  <br>
+  <h3 class="new" style="color:#FFCC66;">Profile Picture</h3>
   <image src="upload/<?= $pic?>" height=200px width=190px />
 <form action="upload_file.php" method="post"
 enctype="multipart/form-data">
@@ -177,7 +182,7 @@ enctype="multipart/form-data">
 
 <div class="container">
 <form class="form-signin" role="form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-<h2 class="form-signin-heading bau"><b>Profile</b></h2>
+<h2 class="form-signin-heading new" style="color:#FFCC66;"><b>Profile</b></h2>
 <input type="text" class="form-control" placeholder="<?= $nam?>" name="name">
 <input type="hidden" class="form-control"  name="check" value="1">
 

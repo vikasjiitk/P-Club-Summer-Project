@@ -25,15 +25,11 @@ exit;
 <link href="welcome.css" rel="stylesheet">
 
 <style type="text/css">
-h1{ font-family: Magneto;
-color:teal;}
+
 b.red{
 color:red;
 }
-.col{
-color: #6600FF;
-font-family: "Lucida Handwriting";
-}
+
 }
 hr{color:blue;}
 body {background-image:url("ooo.jpg");
@@ -52,7 +48,7 @@ width: 400px;
 .new{
 font-family: "Gungsuh";
 }
-.bau{font-family: "Bradley Hand ITC";color: #330099;}
+
 h1.Mag{ font-family: Magneto;
 color:#FFCC00;}
 </style>

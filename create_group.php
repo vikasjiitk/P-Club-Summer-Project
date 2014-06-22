@@ -99,7 +99,7 @@ padding-top: 35px;
       </div>
     </div>
 
-<h1 style="text-align:center; color:#D6AD33;"><b>Share Ur Fare</b></h1>
+<h1 style="text-align:center; color:#FFCC00;"><b>Share Ur Fare</b></h1>
 
 <marquee><b class=red>Disclaimer:</b><i>If any person in your group fails to come for the journey,then the site would not be responsible. Hence, user discretion is adviced.</i></marquee>
 
@@ -112,7 +112,7 @@ padding-top: 35px;
         <input id="af-showreq" class="af-show-input" type="checkbox" name="showreq" />
         <label for="af-showreq" class="af-show">Show only required fields</label>
         
-        <form class="af-form" id="af-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" role="form" method ="POST" novalidate>
+        <form class="af-form" id="af-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" role="form" method ="POST" >
         
           <div class="af-outer af-required">
             <div class="af-inner">
@@ -189,10 +189,10 @@ padding-top: 35px;
             <div class="af-inner">
               <label for="type-vehicle">Vehicle</label>
               <select  name="vehicle">
-                 
+                <option value="ANY">ANY</option> 
                 <option value="AUTO">AUTO-RICKSHAW</option>
                 <option value="VIKRAM">VIKRAM TEMPO</option>
-                <option value="ANY">ANY</option>
+                
                </select>
 
             </div>
@@ -201,7 +201,7 @@ padding-top: 35px;
           <div class="af-outer">
             <div class="af-inner">
               <label for="People-with-u">People</label>
-              <input type="number" name="number" min="1"  placeholder="No. of People you are Booking for " >
+              <input type="number" name="number" min="1" max="7"  placeholder="No. of People you are Booking for " >
             </div>
           </div>
           
@@ -232,14 +232,15 @@ padding-top: 35px;
     $vehicle=@mysqli_real_escape_string($con,$_POST["vehicle"]);
     $number=@mysqli_real_escape_string($con,$_POST["number"]);
     $limit=$_POST["limit"];
-      if($vehicle=="")
-        $vehicle="ANY";
+     
       if(empty($limit)){
-      if($vehicle=='AUTO')
+      if($vehicle=="AUTO")
          $limit=3;
-      else
+      else 
          $limit=7;   
+
     }
+    if($number=="")$number=1;
     $limit_no=@mysqli_real_escape_string($con,$limit);
     $sql="INSERT INTO groups (`source`, `destination`, `date`, `time`, `gender`, `vehicle`,`number`,`limit`)
 VALUES('$source','$destination','$date','$time','$gender','$vehicle','$number','$limit_no')";

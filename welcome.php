@@ -36,9 +36,6 @@ width: 400px;
 margin-left: 40px;
 
 }
-.thumbnail:hover{
-background-color: transparent;
-}
 
 .bg {
     width: 100%;
@@ -73,35 +70,16 @@ hr{color:blue;}
 .new{
 font-family: "Gungsuh";
 }
-body {background-image: url("b.jpg");
+body {background-image: url("ooo.jpg");
 background-repeat: no-repeat;
 background-size: cover;}
-.thumbnail:hover img{
-border: 1px solid blue;
-}
 
-.thumbnail span{ /*CSS for enlarged image*/
-position: absolute;
-background-color: #F0F0F0 ;
-padding: 5px;
-left: -1000px;
-border: 5px ridge gray;
-visibility: hidden;
-color: black;
-text-decoration: none;
-}
 h2.new{color:#FFCC00;}
 .thumbnail span img{ /*CSS for enlarged image*/
 border-width: 0;
 padding: 2px;
 }
 
-.thumbnail:hover span{ /*CSS for enlarged image*/
-visibility: visible;
-top: 50px;
-width:550px;
-left: 0px; /*position where enlarged image should offset horizontally */
-z-index: 50;
 }
 </style>
 </head>
@@ -141,7 +119,7 @@ z-index: 50;
 
 <div class="forms">
 
-<h2 class="new" style="color:#FFFFCC;">  &#160; &#160;&#160;&#160;&#160;&#160;Search Groups</h2>
+<h2 class="new" style="color:#FFCC66;">  &#160; &#160;&#160;&#160;&#160;&#160;Search Groups</h2>
 <form class="form-signin" action="group_search.php" role="form" method ="POST">
 
 <select class="form-control" placeholder="Source" name="source" >
@@ -179,11 +157,11 @@ z-index: 50;
 <br><input type="number" step="0.5" min="0" onfocus="(this.type='number')" onblur="(this.type='number')" class="form-control" placeholder="Time Variation (in hrs)" name="variation" >
 <br><input type="number" min="1" class="form-control" placeholder="Number Of People" name="number" >
 <br><input type="hidden" name="check" value="1">
-<button class="btn btn-lg btn-warning btn-block" type="submit">Find Group
+<button class="btn btn-lg btn-danger btn-block" type="submit">Find Group
 </button></form>
 </div>
 <div class="newsfeed">
-<h2 class="new" style="color:#FFFFCC;">Newsfeed</h2>
+<h2 class="new" style="color:#FFCC66;">Newsfeed</h2>
 <br>
 <div class="table-responsive" style="color:black;">
 <table class="table table-striped a">

@@ -55,8 +55,8 @@
               <ul class="nav masthead-nav">
                 <li class="active"><a href="login.php">Sign-In</a></li>
                 <li><a href="#">Help</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="#">About Us</a></li>
+                <li><a href="contacts.php">Contacts</a></li>
+                <li><a href="aboutus.php">About Us</a></li>
               </ul>
             </div>
           </div>
@@ -65,7 +65,7 @@
             <h1>Share Ur Fare</h1>
             <p class="lead we">Carpooling is a great way to save money, make new friends,<br> and reduce air pollution. And thats what <br><b>Share Ur Fare</b><br> precisely does !</p>
             <p class="lead">
-              <a href="signup.php" class="btn btn-lg btn-default">Sign Up</a>
+              <a href="login.php" class="btn btn-lg btn-default">Register</a>
             </p>
           </div>
  
@@ -77,7 +77,7 @@
     </div>
     
 
-<div align="center"><img src="b2.jpg" class="bg"></div>
+<div align="center"><img src="aa.jpg" class="bg"></div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/docs.min.js"></script>

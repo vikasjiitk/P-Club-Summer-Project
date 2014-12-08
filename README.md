@@ -1,3 +1,3 @@
 P-Club-Summer-Project
 =====================
-Hi guys! this is the code for a website meant for forming groups to share public transport vehicles.
+Hi guys! This project addresses the development of a website which caters to the needs of campus residents. The website can be used for reducing your travel expenses by sharing the expenditure on transportation. All the users will have their personal login and can enter the source point, destination point and time of journey and based on the data enter suitable results will be shown to the user according to his/her plan which shows the users that are having similar kind of journey. If the user is unable to find the group of his need he/she can make group of his own which others will join.
